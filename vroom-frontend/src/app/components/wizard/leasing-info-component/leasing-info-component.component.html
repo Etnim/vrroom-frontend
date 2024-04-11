@@ -1,0 +1,78 @@
+<form [formGroup]="formGroup" id="leasingInfo-form">
+  <mat-form-field>
+    <mat-label>Amount</mat-label>
+    <input
+      matInput
+      type="number"
+      formControlName="amount"
+      placeholder="Enter amount"
+      required
+      (input)="onAmountChange()"
+    />
+
+    @if (formGroup.get('amount')?.invalid) {
+    <mat-error> Amount must be between 8,000 and 120,000. </mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Down Payment</mat-label>
+    <mat-select formControlName="downPayment" required (selectionChange)="calculateDownPayment()">
+      @for (option of downPaymentOptions; track option) {
+      <mat-option [value]="option">{{ option }}%</mat-option>
+      }
+    </mat-select>
+    <input matInput type="number" formControlName="calculatedDownPayment" readonly />
+
+    @if (formGroup.get('downPayment')?.invalid) {
+    <mat-error> Please select a down payment option. </mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Residual Value</mat-label>
+    <mat-select
+      formControlName="residualValue"
+      required
+      (selectionChange)="calculateResidualValue()"
+    >
+      @for (option of residualValueOptions; track option) {
+      <mat-option [value]="option">{{ option }}%</mat-option>
+      }
+    </mat-select>
+    <input matInput type="number" formControlName="calculatedResidualValue" readonly />
+
+    @if (formGroup.get('residualValue')?.invalid) {
+    <mat-error> Please select a residual value option. </mat-error>}
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Period</mat-label>
+    <mat-select formControlName="period" required>
+      @for (year of periodOptions; track year) {
+      <mat-option [value]="year">{{ year }} years</mat-option> }
+    </mat-select>
+
+    @if (formGroup.get('period')?.invalid) {
+    <mat-error> Please select a period option. </mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Interest Rate</mat-label>
+    <input
+      matInput
+      type="number"
+      formControlName="interestRate"
+      placeholder="Euribor 3 or 6 months"
+      required
+    />
+    <!-- <mat-error *ngIf="formGroup('interestRate')?.invalid">
+      Please enter the interest rate.
+    </mat-error> -->
+  </mat-form-field>
+
+  <div>
+    <button mat-button matStepperNext>Next</button>
+  </div>
+</form>
