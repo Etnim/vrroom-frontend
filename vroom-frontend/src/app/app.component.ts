@@ -1,13 +1,13 @@
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { environment } from '../environment/environment';
-import { HttpClient } from '@angular/common/http';
-import { tap } from 'rxjs';
+import { WizardComponent } from './components/wizard/wizard.component';
+
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, WizardComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
