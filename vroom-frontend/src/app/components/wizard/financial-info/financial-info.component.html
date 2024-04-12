@@ -1,0 +1,99 @@
+<form [formGroup]="formGroup" id="financial-info-form">
+  <mat-form-field>
+    <mat-label>Employment Status</mat-label>
+    <mat-select formControlName="employmentStatus" required>
+      @for (option of employmentStatusOptions; track option) {
+      <mat-option [value]="option">{{ option }}</mat-option>
+      }
+    </mat-select>
+
+    @if (formGroup.get('employmentStatus')?.invalid) {
+    <mat-error> Please select an employment status. </mat-error>
+    }
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Employment Term</mat-label>
+    <mat-select formControlName="employmentTerm" required>
+      @for (option of employmentTermOptions; track option) {
+      <mat-option [value]="option">{{ option }}</mat-option>
+      }
+    </mat-select>
+
+    @if (formGroup.get('employmentTerm')?.invalid) {
+    <mat-error> Please select an employment term. </mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Monthly Income</mat-label>
+    <input
+      matInput
+      type="number"
+      formControlName="monthlyIncome"
+      placeholder="Enter monthly income"
+      required
+    />
+    @if (formGroup.get('monthlyIncome')?.invalid) {
+    <mat-error> Monthly income must be greater than 0. </mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Marital Status</mat-label>
+    <mat-select formControlName="maritalStatus" required>
+      @for (option of maritalStatusOptions; track option) {
+      <mat-option [value]="option">{{ option }} </mat-option>
+      }
+    </mat-select>
+    @if (formGroup.get('maritalStatus')?.invalid) {
+    <mat-error> Please select a marital status. </mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Number of dependents</mat-label>
+    <input
+      matInput
+      type="number"
+      formControlName="numberOfDependents"
+      placeholder="Enter number of dependents"
+      required
+    />
+    @if (formGroup.get('numberOfDependents')?.invalid) {
+    <mat-error> Number of dependents must be between 0 and 10. </mat-error>
+    }
+  </mat-form-field>
+
+  <!-- This suppose to be a radio label with options yes and no -->
+  <mat-label>Monthly Obligations</mat-label>
+  <mat-radio-group aria-label="Select an option" formControlName="hasMonthlyObligations" required>
+    <mat-radio-button value="true">Yes</mat-radio-button>
+    <mat-radio-button value="false">No</mat-radio-button>
+  </mat-radio-group>
+
+  @if (formGroup.get('hasMonthlyObligations')?.value !== null && formGroup.get('hasMonthlyObligations')?.value!.toString() === "true") {
+  <mat-form-field>
+    <mat-label>Monthly Obligations</mat-label>
+    <input
+      matInput
+      type="number"
+      formControlName="monthlyObligations"
+      placeholder="Enter monthly obligations"
+      required
+    />
+    @if (formGroup.get('monthlyObligations')?.invalid ) {
+    <mat-error> Monthly obligations must be between 1 and 100000. </mat-error>
+    }
+  </mat-form-field>
+  }
+ 
+    
+  
+
+
+
+  <div>
+    <button mat-button matStepperPrevious>Back</button>
+    <button mat-button matStepperNext>Next</button>
+  </div>
+</form>
