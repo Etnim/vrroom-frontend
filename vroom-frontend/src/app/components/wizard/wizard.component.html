@@ -1,18 +1,16 @@
 <div class="wizard-container">
-  <header>
-    <h2>{{ wizardTitle }}</h2>
-  </header>
+  <header></header>
   <div class="progress-indicator"></div>
   <div class="wizard-content">
-    <mat-stepper linear #stepper>
-      <mat-step [stepControl]="firstFormGroup" [editable]="isEditable">
-        <form [formGroup]="firstFormGroup">
-          <div>
-            <button mat-button matStepperNext>Next</button>
-          </div>
-        </form>
+    <div class="wizard-title">
+      <h2>{{ wizardTitle }}</h2>
+    </div>
+    <mat-stepper class="example-stepper" [orientation]="(stepperOrientation | async)!">
+      <mat-step [stepControl]="firstFormGroup" label="Leasing Information">
+        <app-leasing-info-component [formGroup]="firstFormGroup"></app-leasing-info-component>
       </mat-step>
-      <mat-step [stepControl]="secondFormGroup" [editable]="isEditable">
+
+      <mat-step [stepControl]="secondFormGroup" label="Fill out your address">
         <form [formGroup]="secondFormGroup">
           <div>
             <button mat-button matStepperPrevious>Back</button>
@@ -20,29 +18,22 @@
           </div>
         </form>
       </mat-step>
-      <mat-step [stepControl]="thirdFormGroup" [editable]="isEditable">
+      <mat-step [stepControl]="thirdFormGroup" label="Fill out your phone number">
         <form [formGroup]="thirdFormGroup">
           <div>
+            <button mat-button matStepperPrevious>Back</button>
             <button mat-button matStepperNext>Next</button>
           </div>
         </form>
       </mat-step>
-      <mat-step [stepControl]="forthFormGroup" [editable]="isEditable">
-        <form [formGroup]="forthFormGroup">
-          <div>
-            <button mat-button matStepperNext>Next</button>
-          </div>
-        </form>
+      <mat-step>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+        </div>
       </mat-step>
-      <mat-step [stepControl]="fifthFormGroup" [editable]="isEditable">
-        <form [formGroup]="fifthFormGroup">
-          <div>
-            <button mat-button matStepperNext>Next</button>
-          </div>
-        </form>
-      </mat-step>
-    </mat-stepper>    
+    </mat-stepper>
   </div>
+
   <div class="navigation-controls"></div>
   <div class="footer"></div>
 </div>

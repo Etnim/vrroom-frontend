@@ -1,8 +1,47 @@
-.mat-stepper-horizontal {
-    margin-top: 8px;
+.example-stepper {
+  margin-top: 8px;
+}
+
+.mat-mdc-form-field {
+  margin-top: 16px;
+}
+
+.wizard-container {
+  width: 100%;
+  height: 100%;
+}
+
+.wizard-content {
+  width: 66%;
+  margin: 0 auto;
+  margin-top: 2em;
+}
+
+.wizard-content form {
+  display: flex;
+  justify-content: space-around;
+  gap: 2em;
+  flex-wrap: wrap;
+}
+
+.wizard-title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-weight: bold;
+  font-size: xx-large;
+  background-color: #1e364d;
+  padding: 1em 2em;
+  border-radius: 0.5em;
+}
+
+@media screen and (max-width: 800px) {
+  .wizard-content {
+    width: 80%;
   }
-  
-  .mat-mdc-form-field {
-    margin-top: 16px;
+  .wizard-title {
+    font-size: x-large;
+    padding: 0.8em 1.5em;
   }
-  
+}
