@@ -10,13 +10,8 @@
         <app-leasing-info-component [formGroup]="firstFormGroup"></app-leasing-info-component>
       </mat-step>
 
-      <mat-step [stepControl]="secondFormGroup" label="Fill out your address">
-        <form [formGroup]="secondFormGroup">
-          <div>
-            <button mat-button matStepperPrevious>Back</button>
-            <button mat-button matStepperNext>Next</button>
-          </div>
-        </form>
+      <mat-step [stepControl]="secondFormGroup" label="Financial Information">
+        <app-financial-info [formGroup]="secondFormGroup"></app-financial-info>
       </mat-step>
       <mat-step [stepControl]="thirdFormGroup" label="Fill out your phone number">
         <form [formGroup]="thirdFormGroup">
