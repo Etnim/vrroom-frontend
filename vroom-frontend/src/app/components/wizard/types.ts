@@ -26,5 +26,4 @@ export interface VehicleInfoFormGroup {
   year: FormControl<number | null>;
   fuelType: FormControl<string | null>;
   emissions: FormControl<number | null>;
-
 }

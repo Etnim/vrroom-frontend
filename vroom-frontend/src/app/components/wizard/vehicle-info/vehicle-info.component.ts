@@ -87,6 +87,7 @@ export class VehicleInfoComponent {
 
   makeSearch = new FormControl('');
   modelSearch = new FormControl('');
+  currentYear = new Date().getFullYear();
 
   trackByMakeId(index: number, item: Make): number {
     return item.id; 
