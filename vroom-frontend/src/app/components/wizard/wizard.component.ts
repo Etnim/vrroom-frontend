@@ -17,7 +17,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { AsyncPipe } from '@angular/common';
 import { LeasingInfoComponentComponent } from './leasing-info-component/leasing-info-component.component';
-import type { LeasingInfoFormGroup } from './types';
+import { type FinancialInfoFormGroup, type LeasingInfoFormGroup } from './types';
+import { FinancialInfoComponent } from './financial-info/financial-info.component';
 /**
  * @title Stepper responsive
  */
@@ -35,11 +36,12 @@ import type { LeasingInfoFormGroup } from './types';
     MatInputModule,
     MatButtonModule,
     AsyncPipe,
-    LeasingInfoComponentComponent
+    LeasingInfoComponentComponent,
+    FinancialInfoComponent,
   ]
 })
 export class WizardComponent {
-  wizardTitle = 'SOME TITLE, AND INFO';
+  wizardTitle = 'vRroom vRroom';
 
   firstFormGroup = this._formBuilder.group<LeasingInfoFormGroup>({
     amount: new FormControl<number | null>(null, [
@@ -55,9 +57,16 @@ export class WizardComponent {
     interestRate: new FormControl<number | null>({ value: null, disabled: true })
   });
 
-  secondFormGroup = this._formBuilder.group({
-    secondCtrl: ['', Validators.required]
+  secondFormGroup = this._formBuilder.group<FinancialInfoFormGroup>({
+    employmentStatus: new FormControl<string | null>(null, Validators.required),
+    employmentTerm: new FormControl<string | null>(null, Validators.required),
+    monthlyIncome: new FormControl<number | null>(null, Validators.required),
+    maritalStatus: new FormControl<string | null>(null, Validators.required),
+    numberOfDependents: new FormControl<number | null>(null, [Validators.required, Validators.min(0), Validators.max(10)]),
+    hasMonthlyObligations: new FormControl<boolean | null>(null, Validators.required),
+    monthlyObligations: new FormControl<number | null>(null, [Validators.required, Validators.min(1), Validators.max(100000)])
   });
+
   thirdFormGroup = this._formBuilder.group({
     thirdCtrl: ['', Validators.required]
   });
