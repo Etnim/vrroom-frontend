@@ -17,8 +17,10 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { AsyncPipe } from '@angular/common';
 import { LeasingInfoComponentComponent } from './leasing-info-component/leasing-info-component.component';
-import { type FinancialInfoFormGroup, type LeasingInfoFormGroup } from './types';
+import { type FinancialInfoFormGroup, type LeasingInfoFormGroup, type VehicleInfoFormGroup } from './types';
 import { FinancialInfoComponent } from './financial-info/financial-info.component';
+import { VehicleInfoComponent } from './vehicle-info/vehicle-info.component';
+
 /**
  * @title Stepper responsive
  */
@@ -38,6 +40,7 @@ import { FinancialInfoComponent } from './financial-info/financial-info.componen
     AsyncPipe,
     LeasingInfoComponentComponent,
     FinancialInfoComponent,
+    VehicleInfoComponent
   ]
 })
 export class WizardComponent {
@@ -68,7 +71,11 @@ export class WizardComponent {
   });
 
   thirdFormGroup = this._formBuilder.group({
-    thirdCtrl: ['', Validators.required]
+    make: new FormControl<string | null>(null, Validators.required),
+    model: new FormControl<string | null>(null, Validators.required),
+    year: new FormControl<number | null>(null, [Validators.required, Validators.min(2000), Validators.max(2024)]),
+    fuelType: new FormControl<string | null>(null, Validators.required),
+    emissions: new FormControl<number | null>(null, Validators.required)
   });
   stepperOrientation: Observable<StepperOrientation>;
 

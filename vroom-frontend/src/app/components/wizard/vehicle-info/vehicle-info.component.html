@@ -1,0 +1,52 @@
+<form [formGroup]="formGroup" id="vehicleInfo-form">
+    <mat-form-field>
+        <mat-label>Make</mat-label>
+        <mat-select formControlName="make" (selectionChange)="onMakeSelectionChange($event.value)" required>
+            <!-- <input matInput type="text" formControlName="makeSearch" (keyup)="onMakeSearch($event.target.value)" placeholder="Search"/> -->
+            @for (make of makes; track trackByMakeId) {
+            <mat-option [value]="make.id">{{ make.name }}</mat-option>
+            }
+        </mat-select>
+    </mat-form-field>
+
+    
+    <mat-form-field>
+        <mat-label>Model</mat-label>
+        <mat-select formControlName="model"  required>
+            <!-- <input matInput type="text" formControlName="modelSearch"  placeholder="Search"/> -->
+            @for (model of filteredModels; track trackByModelId) {
+            <mat-option [value]="model.id">{{ model.name }}</mat-option>
+            }
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field >
+        <mat-label>Year</mat-label>
+        <input matInput type="number" formControlName="year" required />
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Fuel type</mat-label>
+        <mat-select formControlName="fuelType" required>
+            <mat-option value="petrol">Petrol</mat-option>
+            <mat-option value="diesel">Diesel</mat-option>
+            <mat-option value="electric">Electric</mat-option>
+            <mat-option value="hybrid">Hybrid</mat-option>
+        </mat-select>
+    </mat-form-field>
+    
+    
+    <!-- CO2 Emissions in g/kg -->
+    <div class="slider-container"> 
+    <mat-label>CO2 emissions, g/km</mat-label>
+    <mat-slider min="0" max="130" showTickMarks step="5" discrete >
+        <input value="0" matSliderStartThumb>
+        <input value="20" matSliderEndThumb>
+    </mat-slider>
+    </div>
+
+    <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+    </div>
+</form>
