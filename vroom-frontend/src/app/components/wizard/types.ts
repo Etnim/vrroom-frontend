@@ -38,6 +38,7 @@ export interface PersonalAndContactInfoFormGroup {
   address: FormControl<string | null>;
   city: FormControl<string | null>;
   postalCode: FormControl<string | null>;
+
 }
 
 export interface ReviewAndSubmitFormGroup {
