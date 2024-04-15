@@ -31,6 +31,7 @@ export interface VehicleInfoFormGroup {
 export interface PersonalAndContactInfoFormGroup {
   name: FormControl<string | null>;
   surname: FormControl<string | null>;
+<<<<<<< HEAD
   dateOfBirth: FormControl<string | null>;
   identificationNumber: FormControl<string | null>;
   email: FormControl<string | null>;
@@ -38,6 +39,16 @@ export interface PersonalAndContactInfoFormGroup {
   address: FormControl<string | null>;
   city: FormControl<string | null>;
   postalCode: FormControl<string | null>;
+=======
+  dob: FormControl<string | null>;
+  identificationNumber: FormControl<string | null>;
+  email: FormControl<string | null>;
+  phone: FormControl<string | null>;
+  address: FormControl<string | null>;
+  city: FormControl<string | null>;
+  postalCode: FormControl<string | null>;
+  country: FormControl<string | null>;
+>>>>>>> a259e64 (merge dev)
 }
 
 export interface ReviewAndSubmitFormGroup {
