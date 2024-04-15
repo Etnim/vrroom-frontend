@@ -35,13 +35,37 @@ import { MatSelectModule } from '@angular/material/select';
 export class PersonalContactInfoComponent {
   @Input() formGroup!: FormGroup<PersonalAndContactInfoFormGroup>;
   
+<<<<<<< HEAD
   minDate: Date;
   maxDate: Date;
+
+=======
+  maxDate: Date;
+
+  countries: string[] = ['Estonia', 'Latvia', 'Lithuania', 'Sweden'];
+
+>>>>>>> a259e64 (merge dev)
   constructor(private fb: FormBuilder) {
     const currentYear = new Date().getFullYear();
     const currentMonth = new Date().getMonth();
     const currentDate = new Date().getDate();
     this.maxDate = new Date(currentYear - 18, currentMonth, currentDate);
+<<<<<<< HEAD
     this.minDate = new Date(currentYear - 120, currentMonth, currentDate);
+=======
+
+    this.formGroup = this.fb.group({
+      name: ['', Validators.required],
+      surname: ['', Validators.required],
+      dob: ['', [Validators.required, Validators.pattern(/^\d{4}-\d{2}-\d{2}$/)]],
+      identificationNumber: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
+      email: ['', [Validators.required, Validators.email]],
+      phone: ['', [Validators.required, Validators.pattern(/^\+?\d{10,}$/)]],
+      address: ['', Validators.required],
+      city: ['', Validators.required],
+      postalCode: ['', Validators.required],
+      country: ['', Validators.required]
+    });
+>>>>>>> a259e64 (merge dev)
   }
 }

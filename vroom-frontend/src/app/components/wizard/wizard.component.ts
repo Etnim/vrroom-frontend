@@ -102,6 +102,7 @@ export class WizardComponent {
     fuelType: new FormControl<string | null>(null, Validators.required),
     emissions: new FormControl<number | null>(null, Validators.required)
   });
+<<<<<<< HEAD
 
   fourthFormGroup = this._formBuilder.group<PersonalAndContactInfoFormGroup>({
     name: new FormControl<string | null>(null, [Validators.required, Validators.minLength(2)]),
