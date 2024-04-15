@@ -106,6 +106,7 @@ export class WizardComponent {
     emissions: new FormControl<number | null>(null, Validators.required)
   });
 
+
   fourthFormGroup = this._formBuilder.group<PersonalAndContactInfoFormGroup>({
     name: new FormControl<string | null>(null, [Validators.required, Validators.minLength(2)]),
     surname: new FormControl<string | null>(null, [Validators.required, Validators.minLength(2)]),
@@ -113,10 +114,10 @@ export class WizardComponent {
     identificationNumber: new FormControl<string | null>(null, [Validators.required, Validators.pattern('[1-6]{1}[0-9]{10}')]),
     email: new FormControl<string | null>(null, [Validators.required, Validators.email]),
     phoneNumber: new FormControl<string | null>(null, [Validators.required, Validators.pattern('[+0-9]{9,13}$')]),
-    phoneNumber: new FormControl<string | null>(null, [Validators.required, Validators.pattern('[+0-9]{9,13}$')]),
     address: new FormControl<string | null>(null, Validators.required),
     city: new FormControl<string | null>(null, Validators.required),
     postalCode: new FormControl<string | null>(null, [Validators.required, Validators.pattern('^(LT)?[0-9]{5}$')]),
+
   });
   fifthFormGroup = this._formBuilder.group<ReviewAndSubmitFormGroup>({
     reviewConfirm: new FormControl<boolean | null>(null, Validators.required),
