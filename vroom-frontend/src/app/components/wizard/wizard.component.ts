@@ -73,7 +73,7 @@ export class WizardComponent {
   thirdFormGroup = this._formBuilder.group({
     make: new FormControl<string | null>(null, Validators.required),
     model: new FormControl<string | null>(null, Validators.required),
-    year: new FormControl<number | null>(null, [Validators.required, Validators.min(2000), Validators.max(2024)]),
+    year: new FormControl<number | null>(null, [Validators.required, Validators.min(2010), Validators.max(2024)]),
     fuelType: new FormControl<string | null>(null, Validators.required),
     emissions: new FormControl<number | null>(null, Validators.required)
   });

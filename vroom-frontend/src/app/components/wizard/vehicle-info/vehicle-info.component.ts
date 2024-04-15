@@ -80,51 +80,47 @@ const makes: Make[] = [
   styleUrl: './vehicle-info.component.scss'
 })
 export class VehicleInfoComponent {
-  @Input() formGroup!: FormGroup<VehicleInfoFormGroup>;
+  @Input() formGroup!: FormGroup;
 
-  
-
-  makes: Make[] = makes;
+  originalMakes: Make[] = makes;  // Keep the original list intact
+  displayedMakes: Make[] = makes; // This is what you'll bind in your template
+  selectedMake: Make | null = null; // Track the selected make
   filteredModels: Model[] = [];
 
+  currentYear = new Date().getFullYear();
   makeFilter = new FormControl('');
   modelSearch = new FormControl('');
-  currentYear = new Date().getFullYear();
 
-  trackByMakeId(index: number, item: Make): number {
-    return item.id; 
+  constructor() {}
+
+  trackByMakeId(index: number, make: Make) {
+    return make.id;
   }
 
-  trackByModelId(index: number, item: Model): number {
-    return item.id; 
+  trackByModelId(index: number, model: Model) {
+    return model.id;
   }
-
   onMakeSelectionChange(makeId: number) {
-    this.filteredModels = []; // Reset the filtered models
-    if (makeId) {
-      this.filteredModels = this.makes.find(make => make.id === makeId)?.models || [];
+    this.selectedMake = this.originalMakes.find(make => make.id === makeId) || null;
+    if (this.selectedMake) {
+      this.filteredModels = this.selectedMake.models || [];
     }
-    
   }
 
   onMakeSearch(value: string | null) {
     if (!value) {
-      this.makes = makes;
+      this.displayedMakes = this.originalMakes;
+    } else {
+      this.displayedMakes = this.originalMakes.filter(make => make.name.toLowerCase().includes(value.toLowerCase()));
     }
-    else{
-      this.makes = makes.filter(make => make.name.toLowerCase().includes(value.toLowerCase()));}
+
   }
-  
-  // should include only models with the filtered makes
+
   onModelSearch(value: string | null) {
     if (!value) {
-      return;
+      this.filteredModels = this.selectedMake?.models || [];
+    } else {
+      this.filteredModels = this.selectedMake?.models?.filter(model => model.name.toLowerCase().includes(value.toLowerCase())) || [];
     }
-    else{
-      const lowercaseValue = value.toLowerCase();
-      this.filteredModels = this.filteredModels.filter(model =>
-      model.name.toLowerCase().includes(lowercaseValue)
-    );
-  }
   }
 }
