@@ -104,6 +104,7 @@ export class WizardComponent {
     fuelType: new FormControl<string | null>(null, Validators.required),
     emissions: new FormControl<number | null>(null, Validators.required)
   });
+<<<<<<< HEAD
 
   fourthFormGroup = this._formBuilder.group<PersonalAndContactInfoFormGroup>({
     name: new FormControl<string | null>(null, [Validators.required, Validators.minLength(2)]),
@@ -116,6 +117,19 @@ export class WizardComponent {
     address: new FormControl<string | null>(null, Validators.required),
     city: new FormControl<string | null>(null, Validators.required),
     postalCode: new FormControl<string | null>(null, [Validators.required, Validators.pattern('^(LT)?[0-9]{5}$')]),
+=======
+  fourthFormGroup = this._formBuilder.group<PersonalAndContactInfoFormGroup>({
+    name: new FormControl<string | null>(null, Validators.required),
+    surname: new FormControl<string | null>(null, Validators.required),
+    dob: new FormControl<string | null>(null, Validators.required),
+    identificationNumber: new FormControl<string | null>(null, Validators.required),
+    email: new FormControl<string | null>(null, Validators.required),
+    phone: new FormControl<string | null>(null, Validators.required),
+    address: new FormControl<string | null>(null, Validators.required),
+    city: new FormControl<string | null>(null, Validators.required),
+    postalCode: new FormControl<string | null>(null, Validators.required),
+    country: new FormControl<string | null>(null, Validators.required)
+>>>>>>> a259e64 (merge dev)
   });
   fifthFormGroup = this._formBuilder.group<ReviewAndSubmitFormGroup>({
     reviewConfirm: new FormControl<boolean | null>(null, Validators.required),
