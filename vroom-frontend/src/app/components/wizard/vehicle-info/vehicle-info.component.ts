@@ -82,10 +82,12 @@ const makes: Make[] = [
 export class VehicleInfoComponent {
   @Input() formGroup!: FormGroup<VehicleInfoFormGroup>;
 
+  
+
   makes: Make[] = makes;
   filteredModels: Model[] = [];
 
-  makeSearch = new FormControl('');
+  makeFilter = new FormControl('');
   modelSearch = new FormControl('');
   currentYear = new Date().getFullYear();
 
@@ -102,25 +104,27 @@ export class VehicleInfoComponent {
     if (makeId) {
       this.filteredModels = this.makes.find(make => make.id === makeId)?.models || [];
     }
+    
   }
 
-  // onMakeSearch(value: string | null) {
-  //   if (!value) {
-  //     return;
-  //   }
-  //   else{
-  //     this.makes = makes.filter(make => make.name.toLowerCase().includes(value.toLowerCase()));}
-    
-  // }
-  // onModelSearch(value: string | null) {
-  //   if (!value) {
-  //     return;
-  //   }
-  //   else{
-  //     this.filteredModels = this.makes
-  //       .flatMap(make => make.models || [])
-  //       .filter(model => model.name.toLowerCase().includes(value.toLowerCase()));
-  //   }
-  // }
-
+  onMakeSearch(value: string | null) {
+    if (!value) {
+      this.makes = makes;
+    }
+    else{
+      this.makes = makes.filter(make => make.name.toLowerCase().includes(value.toLowerCase()));}
+  }
+  
+  // should include only models with the filtered makes
+  onModelSearch(value: string | null) {
+    if (!value) {
+      return;
+    }
+    else{
+      const lowercaseValue = value.toLowerCase();
+      this.filteredModels = this.filteredModels.filter(model =>
+      model.name.toLowerCase().includes(lowercaseValue)
+    );
+  }
+  }
 }
