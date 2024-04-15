@@ -1,6 +1,6 @@
 import { AsyncPipe } from '@angular/common';
 import { Component, Input } from '@angular/core';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -9,62 +9,71 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatSliderModule } from '@angular/material/slider';
 import { VehicleInfoFormGroup } from '../types';
+import { MakesDataService } from '../../../services/vehicle-info.service';
+import { Make } from '../../../models/makes.model';
+import { HttpClientModule } from '@angular/common/http';
+import { debounceTime, map, startWith } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 
-export interface Make {
-  id: number;
-  name: string;
-  models?: Model[]; // Optional property for pre-populated models
-}
+// export interface Make {
+//   id: number;
+//   name: string;
+//   models?: Model[]; // Optional property for pre-populated models
+// }
 
-export interface Model {
-  id: number;
-  name: string;
-  makeId: number; // Foreign key to reference the Make
-}
+// export interface Model {
+//   id: number;
+//   name: string;
+//   makeId: number; // Foreign key to reference the Make
+// }
 
 // Mocked data for pre-population.
-const makes: Make[] = [
-  {
-    id: 1,
-    name: 'BMW',
-    models: [
-      { id: 11, name: '3 Series', makeId: 1 },
-      { id: 12, name: '5 Series', makeId: 1 },
-      { id: 13, name: 'X3', makeId: 1 },
-    ]
-  },
-  {
-    id: 2,
-    name: 'Toyota',
-    models: [
-      { id: 21, name: 'Corolla', makeId: 2 },
-      { id: 22, name: 'Camry', makeId: 2 },
-      { id: 23, name: 'RAV4', makeId: 2 },
-    ]
-  },
-  {
-    id: 3,
-    name: 'Citroen',
-    models: [
-      { id: 31, name: 'C3', makeId: 3 },
-      { id: 32, name: 'C4', makeId: 3 },
-    ]
-  },
-  {
-    id: 4,
-    name: 'Volkswagen',
-    models: [
-      { id: 41, name: 'Golf', makeId: 4 },
-      { id: 42, name: 'Tiguan', makeId: 4 },
-    ]
-  },
-];
+// const makes: Make[] = [
+//   {
+//     id: 1,
+//     name: 'BMW',
+//     models: [
+//       { id: 11, name: '3 Series', makeId: 1 },
+//       { id: 12, name: '5 Series', makeId: 1 },
+//       { id: 13, name: 'X3', makeId: 1 },
+//     ]
+//   },
+//   {
+//     id: 2,
+//     name: 'Toyota',
+//     models: [
+//       { id: 21, name: 'Corolla', makeId: 2 },
+//       { id: 22, name: 'Camry', makeId: 2 },
+//       { id: 23, name: 'RAV4', makeId: 2 },
+//     ]
+//   },
+//   {
+//     id: 3,
+//     name: 'Citroen',
+//     models: [
+//       { id: 31, name: 'C3', makeId: 3 },
+//       { id: 32, name: 'C4', makeId: 3 },
+//     ]
+//   },
+//   {
+//     id: 4,
+//     name: 'Volkswagen',
+//     models: [
+//       { id: 41, name: 'Golf', makeId: 4 },
+//       { id: 42, name: 'Tiguan', makeId: 4 },
+//     ]
+//   },
+// ];
+
+// I want to fetch makes from the api /cars/makes
+
 
 @Component({
   selector: 'app-vehicle-info',
   standalone: true,
-  imports: [VehicleInfoComponent,
+  imports: [
+    VehicleInfoComponent,
     MatStepperModule,
     FormsModule,
     ReactiveFormsModule,
@@ -75,6 +84,7 @@ const makes: Make[] = [
     MatSliderModule,
     MatInputModule,
     MatAutocompleteModule,
+    HttpClientModule,
     AsyncPipe],
   templateUrl: './vehicle-info.component.html',
   styleUrl: './vehicle-info.component.scss'
@@ -82,45 +92,103 @@ const makes: Make[] = [
 export class VehicleInfoComponent {
   @Input() formGroup!: FormGroup;
 
-  originalMakes: Make[] = makes;  // Keep the original list intact
-  displayedMakes: Make[] = makes; // This is what you'll bind in your template
-  selectedMake: Make | null = null; // Track the selected make
-  filteredModels: Model[] = [];
-
+  makes: Make[] = [];
+  filteredMakes: Observable<Make[]>;
+  makeControl = new FormControl('', Validators.required);
   currentYear = new Date().getFullYear();
-  makeFilter = new FormControl('');
-  modelSearch = new FormControl('');
+  
+  constructor(private makesDataService: MakesDataService) {
+    this.makesDataService.getMakes().subscribe({
+      next: (response) => {
+        this.makes = response.Results;
+      },
+      error: (error) => {console.error('Failed to fetch makes:', error)
+      }
+    });
+    
+    this.filteredMakes = this.makeControl.valueChanges
+      .pipe(
+        startWith(''),  // Initializes with an empty string
+        map(value => value || ''), // Use empty string if value is null or undefined
+        map(name => this._filter(name))
+      );
 
-  constructor() {}
+    // Setup the search control value changes subscriptions
+    // this.makeControl.valueChanges.pipe(
+    //   debounceTime(300),
+    //   startWith('')
+    // ).subscribe(value => this.filterMakes(value));
+  }
+
+  displayFn(make: Make): string {
+    return make && make.MakeName ? make.MakeName : '';
+  }
+
+  private _filter(name: string): Make[] {
+    const filterValue = name.toLowerCase();
+    return this.makes.filter(option => option.MakeName.toLowerCase().includes(filterValue));
+  }
 
   trackByMakeId(index: number, make: Make) {
-    return make.id;
+    return make.MakeId;
   }
+  // private filterMakes(searchTerm: string) {
+  //   if (!searchTerm) {
+  //     this.filteredMakes = this.makes;
+  //   } else {
+  //     this.filteredMakes = this.makes.filter(make =>
+  //       make.MakeName.toLowerCase().includes(searchTerm.toLowerCase())
+  //     );
+  //   }
+  // }
+  
 
-  trackByModelId(index: number, model: Model) {
-    return model.id;
-  }
-  onMakeSelectionChange(makeId: number) {
-    this.selectedMake = this.originalMakes.find(make => make.id === makeId) || null;
-    if (this.selectedMake) {
-      this.filteredModels = this.selectedMake.models || [];
-    }
-  }
+  // originalMakes: Make[] = makes;  // Keep the original list intact
+  // displayedMakes: Make[] = makes; // This is what you'll bind in your template
+  // selectedMake: Make | null = null; // Track the selected make
+  // filteredModels: Model[] = [];
 
-  onMakeSearch(value: string | null) {
-    if (!value) {
-      this.displayedMakes = this.originalMakes;
-    } else {
-      this.displayedMakes = this.originalMakes.filter(make => make.name.toLowerCase().includes(value.toLowerCase()));
-    }
+  // @Input() set makes(makes: Make[]) {
+  //   if (makes) {
+  //     this.originalMakes = makes;
+  //     this.displayedMakes = makes;
+  //   }
+  // }
 
-  }
+  // currentYear = new Date().getFullYear();
+  // makeFilter = new FormControl('');
+  // modelSearch = new FormControl('');
 
-  onModelSearch(value: string | null) {
-    if (!value) {
-      this.filteredModels = this.selectedMake?.models || [];
-    } else {
-      this.filteredModels = this.selectedMake?.models?.filter(model => model.name.toLowerCase().includes(value.toLowerCase())) || [];
-    }
-  }
+  // constructor() {}
+
+  // trackByMakeId(index: number, make: Make) {
+  //   return make.id;
+  // }
+
+  // trackByModelId(index: number, model: Model) {
+  //   return model.id;
+  // }
+  // onMakeSelectionChange(makeId: number) {
+  //   this.selectedMake = this.originalMakes.find(make => make.id === makeId) || null;
+  //   if (this.selectedMake) {
+  //     this.filteredModels = this.selectedMake.models || [];
+  //   }
+  // }
+
+  // onMakeSearch(value: string | null) {
+  //   if (!value) {
+  //     this.displayedMakes = this.originalMakes;
+  //   } else {
+  //     this.displayedMakes = this.originalMakes.filter(make => make.name.toLowerCase().includes(value.toLowerCase()));
+  //   }
+
+  // }
+
+  // onModelSearch(value: string | null) {
+  //   if (!value) {
+  //     this.filteredModels = this.selectedMake?.models || [];
+  //   } else {
+  //     this.filteredModels = this.selectedMake?.models?.filter(model => model.name.toLowerCase().includes(value.toLowerCase())) || [];
+  //   }
+  // }
 }

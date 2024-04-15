@@ -1,5 +1,5 @@
 <form [formGroup]="formGroup" id="vehicleInfo-form">
-  <mat-form-field>
+  <!-- <mat-form-field>
     <mat-label>Make</mat-label>
     <mat-select
       formControlName="make"
@@ -23,6 +23,7 @@
   <mat-form-field>
     <mat-label>Model</mat-label>
     <mat-select formControlName="model" required>
+      <mat-autocomplete #auto="matAutocomplete">
       <input
     matInput
     [formControl]="modelSearch"
@@ -32,7 +33,24 @@
       @for (model of filteredModels; track trackByModelId) {
       <mat-option [value]="model.id">{{ model.name }}</mat-option>
       }
+      </mat-autocomplete>
     </mat-select>
+  </mat-form-field> -->
+
+  <mat-form-field appearance="fill">
+    <mat-label>Make</mat-label>
+      <input type="text"
+         placeholder="Select make"
+         matInput
+         [formControl]="makeControl"
+         [matAutocomplete]="auto"
+         required>
+     <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+      @for (make of filteredMakes | async; track trackByMakeId) {
+      <mat-option [value]="make">{{ make.MakeName }}</mat-option>
+      }
+    </mat-autocomplete>
+    
   </mat-form-field>
 
   <mat-form-field>

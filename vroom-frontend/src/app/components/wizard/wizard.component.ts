@@ -20,6 +20,7 @@ import { LeasingInfoComponentComponent } from './leasing-info-component/leasing-
 import { type FinancialInfoFormGroup, type LeasingInfoFormGroup, type VehicleInfoFormGroup } from './types';
 import { FinancialInfoComponent } from './financial-info/financial-info.component';
 import { VehicleInfoComponent } from './vehicle-info/vehicle-info.component';
+import { HttpClientModule } from '@angular/common/http';
 
 /**
  * @title Stepper responsive
@@ -40,7 +41,8 @@ import { VehicleInfoComponent } from './vehicle-info/vehicle-info.component';
     AsyncPipe,
     LeasingInfoComponentComponent,
     FinancialInfoComponent,
-    VehicleInfoComponent
+    VehicleInfoComponent,
+    HttpClientModule
   ]
 })
 export class WizardComponent {
