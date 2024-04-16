@@ -19,3 +19,17 @@ export interface FinancialInfoFormGroup {
   hasMonthlyObligations: FormControl<boolean | null>;
   monthlyObligations: FormControl<number | null>;  
 }
+
+export interface PersonalAndContactInfoFormGroup {
+  name: FormControl<string | null>;
+  surname: FormControl<string | null>;
+  dateOfBirth: FormControl<string | null>;
+  identificationNumber: FormControl<string | null>;
+  email: FormControl<string | null>;
+  phoneNumber: FormControl<string | null>;
+  address: FormControl<string | null>;
+  city: FormControl<string | null>;
+  postalCode: FormControl<string | null>;
+}
+
+
