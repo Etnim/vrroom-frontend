@@ -17,10 +17,12 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { AsyncPipe } from '@angular/common';
 import { LeasingInfoComponentComponent } from './leasing-info-component/leasing-info-component.component';
-import { type FinancialInfoFormGroup, type LeasingInfoFormGroup, type VehicleInfoFormGroup } from './types';
+import { type FinancialInfoFormGroup, type LeasingInfoFormGroup, type VehicleInfoFormGroup, type PersonalAndContactInfoFormGroup } from './types';
 import { FinancialInfoComponent } from './financial-info/financial-info.component';
 import { VehicleInfoComponent } from './vehicle-info/vehicle-info.component';
 import { HttpClientModule } from '@angular/common/http';
+import { PersonalContactInfoComponent } from './personal-contact-info/personal-contact-info.component';
+
 
 /**
  * @title Stepper responsive
@@ -42,7 +44,8 @@ import { HttpClientModule } from '@angular/common/http';
     LeasingInfoComponentComponent,
     FinancialInfoComponent,
     VehicleInfoComponent,
-    HttpClientModule
+    HttpClientModule,
+    PersonalContactInfoComponent,
   ]
 })
 export class WizardComponent {
@@ -78,6 +81,21 @@ export class WizardComponent {
     year: new FormControl<number | null>(null, [Validators.required, Validators.min(2010), Validators.max(2024)]),
     fuelType: new FormControl<string | null>(null, Validators.required),
     emissions: new FormControl<number | null>(null, Validators.required)
+  });
+
+  fourthFormGroup = this._formBuilder.group<PersonalAndContactInfoFormGroup>({
+    name: new FormControl<string | null>(null, [Validators.required, Validators.minLength(2)]),
+    surname: new FormControl<string | null>(null, [Validators.required, Validators.minLength(2)]),
+    dateOfBirth: new FormControl<string | null>(null, [Validators.required]), // @TODO: Date format?
+    identificationNumber: new FormControl<string | null>(null, [Validators.required, Validators.pattern('[1-6]{1}[0-9]{10}')]),
+    email: new FormControl<string | null>(null, [Validators.required, Validators.email]),
+    phoneNumber: new FormControl<string | null>(null, [Validators.required, Validators.pattern('[+0-9]{9,13}')]),
+    address: new FormControl<string | null>(null, Validators.required),
+    city: new FormControl<string | null>(null, Validators.required),
+    postalCode: new FormControl<string | null>(null, [Validators.required, Validators.pattern('^(LT)?[0-9]{5}$')]),
+  });
+  fifthFormGroup = this._formBuilder.group({
+    thirdCtrl: ['', Validators.required]
   });
   stepperOrientation: Observable<StepperOrientation>;
 
