@@ -21,13 +21,9 @@
         <app-personal-contact-info [formGroup]="fourthFormGroup"></app-personal-contact-info>
          
       </mat-step>
-      <mat-step [stepControl]="fifthFormGroup" label="Offer">
-        <form [formGroup]="fifthFormGroup">
-          <div>
-            <button mat-button matStepperPrevious>Back</button>
-            <button mat-button matStepperNext>Next</button>
-          </div>
-        </form>
+      <mat-step [stepControl]="fifthFormGroup" label="Review and Submit">
+        <app-review-and-submit [formGroup]="fifthFormGroup"></app-review-and-submit>
+      
       </mat-step>
     </mat-stepper>
   </div>
