@@ -35,16 +35,13 @@ import { MatSelectModule } from '@angular/material/select';
 export class PersonalContactInfoComponent {
   @Input() formGroup!: FormGroup<PersonalAndContactInfoFormGroup>;
   
-
   minDate: Date;
   maxDate: Date;
-
   constructor(private fb: FormBuilder) {
     const currentYear = new Date().getFullYear();
     const currentMonth = new Date().getMonth();
     const currentDate = new Date().getDate();
     this.maxDate = new Date(currentYear - 18, currentMonth, currentDate);
     this.minDate = new Date(currentYear - 120, currentMonth, currentDate);
-
   }
 }

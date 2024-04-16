@@ -28,19 +28,19 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { AsyncPipe } from '@angular/common';
 import { LeasingInfoComponentComponent } from './leasing-info-component/leasing-info-component.component';
-
-import { 
-  type FinancialInfoFormGroup, 
-  type LeasingInfoFormGroup, 
-  type VehicleInfoFormGroup, 
-  type PersonalAndContactInfoFormGroup, 
-  type ReviewAndSubmitFormGroup, 
-  type CompleteFormData } from './types';
-
+<<<<<<< HEAD
+import { type FinancialInfoFormGroup, type LeasingInfoFormGroup, type VehicleInfoFormGroup, type PersonalAndContactInfoFormGroup } from './types';
+=======
+import { type ReviewAndSubmitFormGroup, type FinancialInfoFormGroup, type LeasingInfoFormGroup, type PersonalAndContactInfoFormGroup } from './types';
+>>>>>>> 2f2e938 (add review component)
 import { FinancialInfoComponent } from './financial-info/financial-info.component';
 import { VehicleInfoComponent } from './vehicle-info/vehicle-info.component';
 import { HttpClientModule } from '@angular/common/http';
 import { PersonalContactInfoComponent } from './personal-contact-info/personal-contact-info.component';
+<<<<<<< HEAD
+
+
+=======
 import { ReviewAndSubmitComponent } from './review-and-submit/review-and-submit.component';
 
 
@@ -66,7 +66,6 @@ import { ReviewAndSubmitComponent } from './review-and-submit/review-and-submit.
     VehicleInfoComponent,
     HttpClientModule,
     PersonalContactInfoComponent,
-    ReviewAndSubmitComponent,
     ReviewAndSubmitComponent,
   ]
 })
@@ -106,7 +105,6 @@ export class WizardComponent {
     emissions: new FormControl<number | null>(null, Validators.required)
   });
 
-
   fourthFormGroup = this._formBuilder.group<PersonalAndContactInfoFormGroup>({
     name: new FormControl<string | null>(null, [Validators.required, Validators.minLength(2)]),
     surname: new FormControl<string | null>(null, [Validators.required, Validators.minLength(2)]),
@@ -114,16 +112,14 @@ export class WizardComponent {
     identificationNumber: new FormControl<string | null>(null, [Validators.required, Validators.pattern('[1-6]{1}[0-9]{10}')]),
     email: new FormControl<string | null>(null, [Validators.required, Validators.email]),
     phoneNumber: new FormControl<string | null>(null, [Validators.required, Validators.pattern('[+0-9]{9,13}$')]),
+    phoneNumber: new FormControl<string | null>(null, [Validators.required, Validators.pattern('[+0-9]{9,13}$')]),
     address: new FormControl<string | null>(null, Validators.required),
     city: new FormControl<string | null>(null, Validators.required),
     postalCode: new FormControl<string | null>(null, [Validators.required, Validators.pattern('^(LT)?[0-9]{5}$')]),
-
   });
   fifthFormGroup = this._formBuilder.group<ReviewAndSubmitFormGroup>({
     reviewConfirm: new FormControl<boolean | null>(null, Validators.required),
   });
-  
-  
   stepperOrientation: Observable<StepperOrientation>;
 
   constructor(private _formBuilder: FormBuilder, breakpointObserver: BreakpointObserver) {
