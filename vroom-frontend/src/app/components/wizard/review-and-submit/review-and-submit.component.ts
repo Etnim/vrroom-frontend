@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import type { ReviewAndSubmitFormGroup, CompleteFormData, LeasingInfoFormGroup } from '../types';
+import type { ReviewAndSubmitFormGroup, CompleteFormData, LeasingInfoFormGroup } from '../types';
 import { FormBuilder, FormControl, Validators, FormGroup, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AsyncPipe } from '@angular/common';
 import { MatStepperModule } from '@angular/material/stepper';
@@ -34,7 +35,7 @@ export class ReviewAndSubmitComponent {
   @Input() data!: CompleteFormData;
 
   ngOnInit() {
-    console.log('data for review',this.data);
+    console.log(this.data);
     
   }
   get formData() {
