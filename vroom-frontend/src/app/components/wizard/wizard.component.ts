@@ -17,21 +17,21 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { AsyncPipe } from '@angular/common';
 import { LeasingInfoComponentComponent } from './leasing-info-component/leasing-info-component.component';
-<<<<<<< HEAD
-import { type FinancialInfoFormGroup, type LeasingInfoFormGroup, type VehicleInfoFormGroup, type PersonalAndContactInfoFormGroup } from './types';
-=======
-import { type ReviewAndSubmitFormGroup, type FinancialInfoFormGroup, type LeasingInfoFormGroup, type PersonalAndContactInfoFormGroup } from './types';
->>>>>>> 2f2e938 (add review component)
+
+import { 
+  type FinancialInfoFormGroup, 
+  type LeasingInfoFormGroup, 
+  type VehicleInfoFormGroup, 
+  type PersonalAndContactInfoFormGroup, 
+  type ReviewAndSubmitFormGroup, 
+  type CompleteFormData } from './types';
+
 import { FinancialInfoComponent } from './financial-info/financial-info.component';
 import { VehicleInfoComponent } from './vehicle-info/vehicle-info.component';
 import { HttpClientModule } from '@angular/common/http';
 import { PersonalContactInfoComponent } from './personal-contact-info/personal-contact-info.component';
-<<<<<<< HEAD
-
-
-=======
 import { ReviewAndSubmitComponent } from './review-and-submit/review-and-submit.component';
->>>>>>> 2f2e938 (add review component)
+
 /**
  * @title Stepper responsive
  */
@@ -87,7 +87,6 @@ export class WizardComponent {
   });
 
   thirdFormGroup = this._formBuilder.group<VehicleInfoFormGroup>({
-  thirdFormGroup = this._formBuilder.group<VehicleInfoFormGroup>({
     make: new FormControl<string | null>(null, Validators.required),
     model: new FormControl<string | null>(null, Validators.required),
     year: new FormControl<number | null>(null, [Validators.required, Validators.min(2010), Validators.max(2024)]),
@@ -110,6 +109,7 @@ export class WizardComponent {
   fifthFormGroup = this._formBuilder.group<ReviewAndSubmitFormGroup>({
     reviewConfirm: new FormControl<boolean | null>(null, Validators.required),
   });
+  
   
   stepperOrientation: Observable<StepperOrientation>;
 
