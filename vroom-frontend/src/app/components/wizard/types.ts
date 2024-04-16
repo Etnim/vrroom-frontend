@@ -38,16 +38,17 @@ export interface PersonalAndContactInfoFormGroup {
   address: FormControl<string | null>;
   city: FormControl<string | null>;
   postalCode: FormControl<string | null>;
-
 }
 
+<<<<<<< HEAD
+=======
 export interface ReviewAndSubmitFormGroup {
   reviewConfirm: FormControl<boolean | null>;
 }
 export interface CompleteFormData {
   leasingInfo: LeasingInfoFormGroup;
   financialInfo: FinancialInfoFormGroup;
-  vehicleInfo: VehicleInfoFormGroup;
   personalInfo: PersonalAndContactInfoFormGroup;
-  reviewConfirm: ReviewAndSubmitFormGroup;
+  // You can add additional fields if there are other sections/forms
 }
+>>>>>>> 2f2e938 (add review component)
