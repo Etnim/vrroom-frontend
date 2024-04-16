@@ -11,17 +11,32 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {AsyncPipe} from '@angular/common';
 import {LeasingInfoComponentComponent} from './leasing-info-component/leasing-info-component.component';
 import {
-  type FinancialInfoFormGroup,
-  LeasingInfo,
-  type LeasingInfoFormGroup,
-  type PersonalAndContactInfoFormGroup
-} from './types';
-import {FinancialInfoComponent} from './financial-info/financial-info.component';
-import {VehicleInfoComponent} from './vehicle-info/vehicle-info.component';
-import {HttpClientModule} from '@angular/common/http';
-import {PersonalContactInfoComponent} from './personal-contact-info/personal-contact-info.component';
-import {CalculatorComponent} from "./calculator/calculator.component";
+  FormBuilder,
+  Validators,
+  FormsModule,
+  ReactiveFormsModule,
+  FormGroup,
+  FormControl
+} from '@angular/forms';
+import { BreakpointObserver } from '@angular/cdk/layout';
+import { StepperOrientation, MatStepperModule } from '@angular/material/stepper';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { AsyncPipe } from '@angular/common';
+import { LeasingInfoComponentComponent } from './leasing-info-component/leasing-info-component.component';
 
+import { type FinancialInfoFormGroup, type LeasingInfoFormGroup, type VehicleInfoFormGroup, type PersonalAndContactInfoFormGroup } from './types';
+
+import { FinancialInfoComponent } from './financial-info/financial-info.component';
+import { VehicleInfoComponent } from './vehicle-info/vehicle-info.component';
+import { HttpClientModule } from '@angular/common/http';
+import { PersonalContactInfoComponent } from './personal-contact-info/personal-contact-info.component';
+
+import { ReviewAndSubmitComponent } from './review-and-submit/review-and-submit.component';
 
 /**
  * @title Stepper responsive
@@ -45,7 +60,7 @@ import {CalculatorComponent} from "./calculator/calculator.component";
     VehicleInfoComponent,
     HttpClientModule,
     PersonalContactInfoComponent,
-    CalculatorComponent,
+    ReviewAndSubmitComponent,
   ]
 })
 export class WizardComponent {
@@ -83,7 +98,6 @@ export class WizardComponent {
     fuelType: new FormControl<string | null>(null, Validators.required),
     emissions: new FormControl<number | null>(null, Validators.required)
   });
-<<<<<<< HEAD
 
   fourthFormGroup = this._formBuilder.group<PersonalAndContactInfoFormGroup>({
     name: new FormControl<string | null>(null, [Validators.required, Validators.minLength(2)]),
@@ -91,26 +105,13 @@ export class WizardComponent {
     dateOfBirth: new FormControl<string | null>(null, [Validators.required]), // @TODO: Date format?
     identificationNumber: new FormControl<string | null>(null, [Validators.required, Validators.pattern('[1-6]{1}[0-9]{10}')]),
     email: new FormControl<string | null>(null, [Validators.required, Validators.email]),
-    phoneNumber: new FormControl<string | null>(null, [Validators.required, Validators.pattern('[+0-9]{9,13}')]),
+    phoneNumber: new FormControl<string | null>(null, [Validators.required, Validators.pattern('[+0-9]{9,13}$')]),
     address: new FormControl<string | null>(null, Validators.required),
     city: new FormControl<string | null>(null, Validators.required),
     postalCode: new FormControl<string | null>(null, [Validators.required, Validators.pattern('^(LT)?[0-9]{5}$')]),
-=======
-  fourthFormGroup = this._formBuilder.group<PersonalAndContactInfoFormGroup>({
-    name: new FormControl<string | null>(null, Validators.required),
-    surname: new FormControl<string | null>(null, Validators.required),
-    dob: new FormControl<string | null>(null, Validators.required),
-    identificationNumber: new FormControl<string | null>(null, Validators.required),
-    email: new FormControl<string | null>(null, Validators.required),
-    phone: new FormControl<string | null>(null, Validators.required),
-    address: new FormControl<string | null>(null, Validators.required),
-    city: new FormControl<string | null>(null, Validators.required),
-    postalCode: new FormControl<string | null>(null, Validators.required),
-    country: new FormControl<string | null>(null, Validators.required)
->>>>>>> a259e64 (merge dev)
   });
-  fifthFormGroup = this._formBuilder.group({
-    thirdCtrl: ['', Validators.required]
+  fifthFormGroup = this._formBuilder.group<ReviewAndSubmitFormGroup>({
+    reviewConfirm: new FormControl<boolean | null>(null, Validators.required),
   });
   stepperOrientation: Observable<StepperOrientation>;
 
