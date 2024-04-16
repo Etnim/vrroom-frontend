@@ -4,17 +4,15 @@
     <mat-card-header>
       <mat-card-title>Leasing Information</mat-card-title>
     </mat-card-header>
-    <mat-card-content>  
+    <mat-card-content>
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vehicula metus metus, at scelerisque ipsum
         tempor non. Pellentesque auctor lectus vel ex venenatis tincidunt. Interdum et malesuada fames ac ante ipsum
         primis in faucibus. Duis nec risus tempor, finibus quam vel, pellentesque neque. Sed vestibulum vestibulum odio,
         vel venenatis ligula euismod ut.</p>
-        @if (data) {
-          
-          <p><strong>Amount:</strong> {{ data.leasingInfo.amount }}</p>
-          <p><strong>Down Payment:</strong> {{ data.leasingInfo.downPayment }}%</p>
-          <p><strong>Residual Value:</strong> {{ data.leasingInfo.residualValue }}%</p> 
-        }
+      <!-- <p><strong>Amount:</strong> {{ data.leasingInfo.amount }}</p>
+      <p><strong>Down Payment:</strong> {{ data.leasingInfo.downPayment }}%</p>
+      <p><strong>Residual Value:</strong> {{ data.leasingInfo.residualValue }}%</p> -->
+      <!-- Add other fields as necessary -->
     </mat-card-content>
   </mat-card>
 
@@ -31,22 +29,6 @@
       <!-- <p><strong>Employment Status:</strong> {{ data.financialInfo.employmentStatus }}</p>
         <p><strong>Monthly Income:</strong> {{ data.financialInfo.monthlyIncome }}</p> -->
       <!-- Add other fields as necessary -->
-    </mat-card-content>
-  </mat-card>
-
-  <mat-card>
-    <mat-card-header>
-      <mat-card-title>Vehicle Information</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vehicula metus metus, at scelerisque ipsum
-        tempor non. Pellentesque auctor lectus vel ex venenatis tincidunt. Interdum et malesuada fames ac ante ipsum
-        primis in faucibus. </p>
-      
-      <!-- <p><strong>Make:</strong> {{ data.vehicleInfo.make }}</p>
-      <p><strong>Model:</strong> {{ data.vehicleInfo.model }}</p>
-      <p><strong>Year:</strong> {{ data.vehicleInfo.year }}</p> -->
-      
     </mat-card-content>
   </mat-card>
 
