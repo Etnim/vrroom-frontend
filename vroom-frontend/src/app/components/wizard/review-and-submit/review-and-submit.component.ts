@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import type { ReviewAndSubmitFormGroup, CompleteFormData, LeasingInfoFormGroup } from '../types';
+import type { ReviewAndSubmitFormGroup, CompleteFormData } from '../types';
 import { FormBuilder, FormControl, Validators, FormGroup, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AsyncPipe } from '@angular/common';
 import { MatStepperModule } from '@angular/material/stepper';
@@ -32,14 +32,6 @@ import {MatCardModule} from '@angular/material/card';
 export class ReviewAndSubmitComponent {
   @Input() formGroup!: FormGroup<ReviewAndSubmitFormGroup>;
   @Input() data!: CompleteFormData;
-
-  ngOnInit() {
-    console.log(this.data);
-    
-  }
-  get formData() {
-    return this.formGroup.value;
-  }
 
   submitReviewedForm() {
     console.log('Submitted:', this.formGroup.value);
