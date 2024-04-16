@@ -68,7 +68,6 @@ export class VehicleInfoComponent {
   onMakeSelectionChange(make : string) {
     console.log("Selected make:", make);
     this.models = this.makesDataService.getModels(make).pipe(
-      tap(response => console.log("Models:", response)),
       map(response => response.Results),  
     )
   }
