@@ -1,0 +1,62 @@
+<form [formGroup]="formGroup" id="vehicleInfo-form">
+  <mat-form-field appearance="fill">
+    <mat-label>Make</mat-label>
+    <input
+      type="text"
+      placeholder="Select make"
+      matInput
+      [formControl]="makeControl"
+      [matAutocomplete]="auto"
+      required
+    />
+    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+      @for (make of filteredMakes | async; track trackByMakeId) {
+      <mat-option [value]="make" (onSelectionChange)="onMakeSelectionChange(make.MakeName)">{{
+        make.MakeName
+      }}</mat-option>
+      }
+    </mat-autocomplete>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Model</mat-label>
+    
+    <mat-select [formControl]="modelControl" placeholder="Select model" required>
+      @for (model of models | async; track trackByModelId) {
+      <mat-option [value]="model">{{ model.Model_Name }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Year</mat-label>
+    <input matInput type="number" formControlName="year" placeholder="Enter year" required />
+    @if (formGroup.get('year')?.invalid) {
+    <mat-error> Year must be between 2010 and {{ currentYear }}. </mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Fuel type</mat-label>
+    <mat-select formControlName="fuelType" required>
+      <mat-option value="petrol">Petrol</mat-option>
+      <mat-option value="diesel">Diesel</mat-option>
+      <mat-option value="electric">Electric</mat-option>
+      <mat-option value="hybrid">Hybrid</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <!-- CO2 Emissions in g/kg -->
+  <div class="slider-container">
+    <mat-label>CO2 emissions, g/km</mat-label>
+    <mat-slider min="0" max="130" showTickMarks step="5" discrete>
+      <input value="0" matSliderStartThumb />
+      <input value="20" matSliderEndThumb />
+    </mat-slider>
+  </div>
+
+  <div>
+    <button mat-button matStepperPrevious>Back</button>
+    <button mat-button matStepperNext>Next</button>
+  </div>
+</form>

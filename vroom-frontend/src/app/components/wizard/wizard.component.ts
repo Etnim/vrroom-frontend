@@ -17,9 +17,12 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { AsyncPipe } from '@angular/common';
 import { LeasingInfoComponentComponent } from './leasing-info-component/leasing-info-component.component';
-import { type FinancialInfoFormGroup, type LeasingInfoFormGroup, type PersonalAndContactInfoFormGroup } from './types';
+import { type FinancialInfoFormGroup, type LeasingInfoFormGroup, type VehicleInfoFormGroup, type PersonalAndContactInfoFormGroup } from './types';
 import { FinancialInfoComponent } from './financial-info/financial-info.component';
+import { VehicleInfoComponent } from './vehicle-info/vehicle-info.component';
+import { HttpClientModule } from '@angular/common/http';
 import { PersonalContactInfoComponent } from './personal-contact-info/personal-contact-info.component';
+
 
 /**
  * @title Stepper responsive
@@ -40,6 +43,8 @@ import { PersonalContactInfoComponent } from './personal-contact-info/personal-c
     AsyncPipe,
     LeasingInfoComponentComponent,
     FinancialInfoComponent,
+    VehicleInfoComponent,
+    HttpClientModule,
     PersonalContactInfoComponent,
   ]
 })
@@ -71,7 +76,11 @@ export class WizardComponent {
   });
 
   thirdFormGroup = this._formBuilder.group({
-    thirdCtrl: ['', Validators.required]
+    make: new FormControl<string | null>(null, Validators.required),
+    model: new FormControl<string | null>(null, Validators.required),
+    year: new FormControl<number | null>(null, [Validators.required, Validators.min(2010), Validators.max(2024)]),
+    fuelType: new FormControl<string | null>(null, Validators.required),
+    emissions: new FormControl<number | null>(null, Validators.required)
   });
 
   fourthFormGroup = this._formBuilder.group<PersonalAndContactInfoFormGroup>({

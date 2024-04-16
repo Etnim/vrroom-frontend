@@ -1,0 +1,10 @@
+#vehicleInfo-form {
+    display: flex;
+    justify-content: space-around;
+    gap: 2em;
+    flex-wrap: wrap;
+  }
+  
+  mat-slider {
+    width: 300px;
+}

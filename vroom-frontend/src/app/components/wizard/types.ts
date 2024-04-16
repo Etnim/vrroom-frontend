@@ -20,6 +20,14 @@ export interface FinancialInfoFormGroup {
   monthlyObligations: FormControl<number | null>;  
 }
 
+export interface VehicleInfoFormGroup {
+  make: FormControl<string | null>;
+  model: FormControl<string | null>;
+  year: FormControl<number | null>;
+  fuelType: FormControl<string | null>;
+  emissions: FormControl<number | null>;
+}
+
 export interface PersonalAndContactInfoFormGroup {
   name: FormControl<string | null>;
   surname: FormControl<string | null>;
@@ -31,5 +39,4 @@ export interface PersonalAndContactInfoFormGroup {
   city: FormControl<string | null>;
   postalCode: FormControl<string | null>;
 }
-
 
