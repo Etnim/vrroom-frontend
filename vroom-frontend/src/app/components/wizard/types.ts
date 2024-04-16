@@ -9,6 +9,13 @@ export interface LeasingInfoFormGroup {
   period: FormControl<number | null>;
   interestRate: FormControl<number | null>;
 }
+export interface LeasingInfo {
+  amount: number;
+  calculatedDownPayment: number;
+  calculatedResidualValue:  number;
+  period: number;
+  interestRate: number;
+}
 
 export interface FinancialInfoFormGroup {
   employmentStatus: FormControl<string | null>;
@@ -17,5 +24,10 @@ export interface FinancialInfoFormGroup {
   maritalStatus: FormControl<string | null>;
   numberOfDependents: FormControl<number | null>;
   hasMonthlyObligations: FormControl<boolean | null>;
-  monthlyObligations: FormControl<number | null>;  
+  monthlyObligations: FormControl<number | null>;
+}
+
+export interface Calculator {
+  monthly: number,
+  fee: number
 }
