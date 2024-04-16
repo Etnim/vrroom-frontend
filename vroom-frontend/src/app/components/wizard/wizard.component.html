@@ -21,10 +21,17 @@
           </div>
         </form>
       </mat-step>
-      <mat-step>
-        <div>
-          <button mat-button matStepperPrevious>Back</button>
-        </div>
+      <mat-step [stepControl]="fourthFormGroup" label="Personal and contact information">
+        <app-personal-contact-info [formGroup]="fourthFormGroup"></app-personal-contact-info>
+         
+      </mat-step>
+      <mat-step [stepControl]="fifthFormGroup" label="Offer">
+        <form [formGroup]="fifthFormGroup">
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </form>
       </mat-step>
     </mat-stepper>
   </div>
