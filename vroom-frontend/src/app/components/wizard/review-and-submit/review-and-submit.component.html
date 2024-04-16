@@ -1,0 +1,65 @@
+<form [formGroup]="formGroup" id="review-form">
+  <h2>Review and Submit</h2>
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Leasing Information</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vehicula metus metus, at scelerisque ipsum
+        tempor non. Pellentesque auctor lectus vel ex venenatis tincidunt. Interdum et malesuada fames ac ante ipsum
+        primis in faucibus. Duis nec risus tempor, finibus quam vel, pellentesque neque. Sed vestibulum vestibulum odio,
+        vel venenatis ligula euismod ut.</p>
+      <!-- <p><strong>Amount:</strong> {{ data.leasingInfo.amount }}</p>
+      <p><strong>Down Payment:</strong> {{ data.leasingInfo.downPayment }}%</p>
+      <p><strong>Residual Value:</strong> {{ data.leasingInfo.residualValue }}%</p> -->
+      <!-- Add other fields as necessary -->
+    </mat-card-content>
+  </mat-card>
+
+  
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Financial Information</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vehicula metus metus, at scelerisque ipsum
+        tempor non. Pellentesque auctor lectus vel ex venenatis tincidunt. Interdum et malesuada fames ac ante ipsum
+        primis in faucibus. </p>
+        
+      <!-- <p><strong>Employment Status:</strong> {{ data.financialInfo.employmentStatus }}</p>
+        <p><strong>Monthly Income:</strong> {{ data.financialInfo.monthlyIncome }}</p> -->
+      <!-- Add other fields as necessary -->
+    </mat-card-content>
+  </mat-card>
+
+
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Personal and Contact Information</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vehicula metus metus, at scelerisque ipsum
+        tempor non. Pellentesque auctor lectus vel ex venenatis tincidunt. Interdum et malesuada fames ac ante ipsum
+        primis in faucibus. Duis nec risus tempor, finibus quam vel, pellentesque neque. Sed vestibulum vestibulum odio,
+        vel venenatis ligula euismod ut.</p>
+        
+      <!-- <p><strong>Name:</strong> {{ data.personalInfo.name }}</p>
+      <p><strong>Email:</strong> {{ data.personalInfo.email }}</p> -->
+      
+    </mat-card-content>
+  </mat-card>
+
+  <section>
+    <mat-checkbox formControlName="reviewConfirm">
+      I attest that all information is correct
+    </mat-checkbox>
+  </section>
+
+  <div class="actions">
+    <button mat-button matStepperPrevious>Back</button>
+    <button mat-raised-button color="primary" 
+      [disabled]="!formGroup.get('reviewConfirm')?.value" 
+      (click)="submitReviewedForm()">Submit</button>
+  </div>
+
+</form>
