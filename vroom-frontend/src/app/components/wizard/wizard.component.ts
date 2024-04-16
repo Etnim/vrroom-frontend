@@ -44,6 +44,9 @@ import { PersonalContactInfoComponent } from './personal-contact-info/personal-c
 import { ReviewAndSubmitComponent } from './review-and-submit/review-and-submit.component';
 
 
+=======
+import { ReviewAndSubmitComponent } from './review-and-submit/review-and-submit.component';
+>>>>>>> 2f2e938 (add review component)
 /**
  * @title Stepper responsive
  */
@@ -104,7 +107,6 @@ export class WizardComponent {
     fuelType: new FormControl<string | null>(null, Validators.required),
     emissions: new FormControl<number | null>(null, Validators.required)
   });
-<<<<<<< HEAD
 
   fourthFormGroup = this._formBuilder.group<PersonalAndContactInfoFormGroup>({
     name: new FormControl<string | null>(null, [Validators.required, Validators.minLength(2)]),

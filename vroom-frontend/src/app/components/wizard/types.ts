@@ -43,7 +43,6 @@ export interface VehicleInfoFormGroup {
 export interface PersonalAndContactInfoFormGroup {
   name: FormControl<string | null>;
   surname: FormControl<string | null>;
-<<<<<<< HEAD
   dateOfBirth: FormControl<string | null>;
   identificationNumber: FormControl<string | null>;
   email: FormControl<string | null>;
@@ -51,6 +50,9 @@ export interface PersonalAndContactInfoFormGroup {
   address: FormControl<string | null>;
   city: FormControl<string | null>;
   postalCode: FormControl<string | null>;
+}
+
+<<<<<<< HEAD
 =======
   dob: FormControl<string | null>;
   identificationNumber: FormControl<string | null>;
