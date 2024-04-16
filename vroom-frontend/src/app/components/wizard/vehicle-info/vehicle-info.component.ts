@@ -10,10 +10,10 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatSliderModule } from '@angular/material/slider';
 import { VehicleInfoFormGroup } from '../types';
 import { MakesDataService } from '../../../services/vehicle-info.service';
-import { Make } from '../../../models/makes.model';
+import { Make, Model } from '../../../models/makes.model';
 import { HttpClientModule } from '@angular/common/http';
-import { debounceTime, map, startWith } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { catchError, debounceTime, map, startWith, switchMap, tap } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
 
 
 // export interface Make {
@@ -93,8 +93,12 @@ export class VehicleInfoComponent {
   @Input() formGroup!: FormGroup;
 
   makes: Make[] = [];
+  models: Observable<Model[]> = of([]);
+
   filteredMakes: Observable<Make[]>;
+
   makeControl = new FormControl('', Validators.required);
+  modelControl = new FormControl('');
   currentYear = new Date().getFullYear();
   
   constructor(private makesDataService: MakesDataService) {
@@ -106,19 +110,39 @@ export class VehicleInfoComponent {
       }
     });
     
-    this.filteredMakes = this.makeControl.valueChanges
-      .pipe(
-        startWith(''),  // Initializes with an empty string
-        map(value => value || ''), // Use empty string if value is null or undefined
-        map(name => this._filter(name))
-      );
+    this.filteredMakes = this.makeControl.valueChanges.pipe(
+      startWith(''),  
+      map(value => typeof value === 'string' ? value : ''),
+      map(name => this._filter(name))
+    );
+    
 
-    // Setup the search control value changes subscriptions
-    // this.makeControl.valueChanges.pipe(
-    //   debounceTime(300),
-    //   startWith('')
-    // ).subscribe(value => this.filterMakes(value));
   }
+
+  onMakeSelectionChange(make : string) {
+    console.log("Selected make:", make);
+    this.models = this.makesDataService.getModels(make).pipe(
+      tap(response => console.log("Models:", response)),
+      map(response => response.Results),  
+    )
+  }
+
+  // initializeModelsObservable() {
+  //   this.models = this.makeControl.valueChanges.pipe(
+  //     startWith(''),
+  //     map(makeName => this.makes.find(make => make.MakeName === makeName)),
+  //     switchMap(make => {
+  //       return make ? this.makesDataService.getModels(make.MakeName).pipe(
+  //         map(response => response.Results),  // Extracting Model[] from the response
+  //         catchError(error => {
+  //           console.error('Failed to fetch models:', error);
+  //           return of([]);  // Return an empty array on error
+  //         })
+  //       ) : of([]);
+  //     })
+  //   );
+  // }
+
 
   displayFn(make: Make): string {
     return make && make.MakeName ? make.MakeName : '';
@@ -132,6 +156,12 @@ export class VehicleInfoComponent {
   trackByMakeId(index: number, make: Make) {
     return make.MakeId;
   }
+
+  trackByModelId(index: number, model: Model) {
+    return model.Model_ID;
+  }
+
+  
   // private filterMakes(searchTerm: string) {
   //   if (!searchTerm) {
   //     this.filteredMakes = this.makes;
