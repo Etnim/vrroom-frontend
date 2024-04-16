@@ -46,7 +46,7 @@ import { ReviewAndSubmitComponent } from './review-and-submit/review-and-submit.
 
 =======
 import { ReviewAndSubmitComponent } from './review-and-submit/review-and-submit.component';
->>>>>>> 2f2e938 (add review component)
+
 /**
  * @title Stepper responsive
  */
