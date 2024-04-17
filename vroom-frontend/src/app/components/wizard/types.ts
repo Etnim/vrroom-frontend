@@ -52,19 +52,6 @@ export interface PersonalAndContactInfoFormGroup {
   postalCode: FormControl<string | null>;
 }
 
-<<<<<<< HEAD
-=======
-  dob: FormControl<string | null>;
-  identificationNumber: FormControl<string | null>;
-  email: FormControl<string | null>;
-  phone: FormControl<string | null>;
-  address: FormControl<string | null>;
-  city: FormControl<string | null>;
-  postalCode: FormControl<string | null>;
-  country: FormControl<string | null>;
->>>>>>> a259e64 (merge dev)
-}
-
 export interface ReviewAndSubmitFormGroup {
   reviewConfirm: FormControl<boolean | null>;
 }
