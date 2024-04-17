@@ -39,6 +39,7 @@ export class WizardComponent {
   wizardTitle = 'vRroom vRroom';
   @Output() leasingInfo!: LeasingInfo;
 
+
   firstFormGroup = this._formBuilder.group<LeasingInfoFormGroup>({
     amount: new FormControl<number | null>(null, [
       Validators.required,
@@ -68,21 +69,29 @@ export class WizardComponent {
   });
   stepperOrientation: Observable<StepperOrientation>;
 
-  constructor(private _formBuilder: FormBuilder, breakpointObserver: BreakpointObserver) {
+  constructor(private _formBuilder: FormBuilder,
+              breakpointObserver: BreakpointObserver,
+              calculator: CalculatorComponent) {
     this.stepperOrientation = breakpointObserver
       .observe('(min-width: 800px)')
       .pipe(map(({matches}) => (matches ? 'horizontal' : 'vertical')));
 
-    this.firstFormGroup.valueChanges.subscribe((value) => {
+    // this.leasingInfo = {
+    //   amount: this.firstFormGroup.value.amount ?? 25000,
+    //   downPayment: this.firstFormGroup.value.downPayment ?? 10,
+    //   residualValue: this.firstFormGroup.value.residualValue ?? 0,
+    //   period: this.firstFormGroup.value.period ?? 5,
+    //   interestRate: this.firstFormGroup.value.interestRate ?? 0.5
+    // }
+
+    this.firstFormGroup.valueChanges.subscribe(value => {
       this.leasingInfo = {
-        amount: value.amount ?? 10000,
-        calculatedDownPayment: value.calculatedDownPayment ?? 1000,
-        calculatedResidualValue: value.calculatedResidualValue ?? 10,
-        period: value.period ?? 12,
+        amount: value.amount ?? 8000,
+        downPayment: value.downPayment ?? 10,
+        residualValue: value.residualValue ?? 0,
+        period: value.period ?? 5,
         interestRate: value.interestRate ?? 0.5
       }
     });
   }
-
-  protected readonly LeasingInfoComponentComponent = LeasingInfoComponentComponent;
 }

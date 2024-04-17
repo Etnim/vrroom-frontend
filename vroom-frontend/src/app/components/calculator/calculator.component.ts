@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Injectable, Input, OnChanges, OnInit} from '@angular/core';
 import {Calculator, LeasingInfo} from "../wizard/types";
 
 @Component({
@@ -8,32 +8,37 @@ import {Calculator, LeasingInfo} from "../wizard/types";
   styleUrl: './calculator.component.scss'
 })
 
-export class CalculatorComponent implements OnInit {
+@Injectable({
+  providedIn: 'root',
+})
+
+export class CalculatorComponent implements OnChanges {
   calculator: Calculator = {monthly: 0, fee: 0};
   @Input() inputValues!: LeasingInfo;
 
-  ngOnInit() {
-    this.calculator.monthly = this.getMonthly();
-    this.calculator.fee = this.getFee();
+  ngOnChanges(): void {
+    if (this.inputValues) {
+      this.calculator.monthly = this.getMonthly();
+      this.calculator.fee = this.getFee();
+    }
   }
 
-  getMonthly(): number {
-    let p: number;
-    let r: number;
-    let n: number;
-
-    p = this.inputValues.amount - this.inputValues.calculatedDownPayment - this.inputValues.calculatedResidualValue;
-    n = this.inputValues.period;
-    r = this.inputValues.interestRate / 100;
-
+  getMonthly() {
+    let r = this.inputValues.interestRate / 100;
+    let n = this.inputValues.period * 12;
+    let result: number;
+    let amount = this.inputValues.amount;;
+    let calculatedDownPayment = (this.inputValues.amount * this.inputValues.downPayment) / 100
+    let calculatedResidualPayment = (this.inputValues.amount * this.inputValues.residualValue) / 100;
+    let p = amount - calculatedDownPayment - calculatedResidualPayment;
     const up = (p * Math.pow((1 + r), n) * r);
     const down = Math.pow((1 + r), n) - 1;
-    const result = up / down;
+    result = up / down;
     return Math.round(result);
   }
 
-  getFee(): number {
-    let fee = this.calculator.monthly * 0.01;
+  getFee() {
+    let fee = this.inputValues.amount * 0.01;
     if (fee < 200) {
       return 200;
     } else return fee;

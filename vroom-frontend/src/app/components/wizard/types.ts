@@ -11,8 +11,8 @@ export interface LeasingInfoFormGroup {
 }
 export interface LeasingInfo {
   amount: number;
-  calculatedDownPayment: number;
-  calculatedResidualValue:  number;
+  downPayment: number;
+  residualValue: number;
   period: number;
   interestRate: number;
 }
