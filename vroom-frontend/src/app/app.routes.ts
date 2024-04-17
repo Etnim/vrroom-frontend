@@ -6,4 +6,5 @@ export const routes: Routes = [
   { path: '', component: WizardComponent},
   { path: 'admin', component: AdminDashboardComponent},
   { path: '**', redirectTo: '' }
+
 ];
