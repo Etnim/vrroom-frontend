@@ -119,6 +119,7 @@ export class WizardComponent {
   fifthFormGroup = this._formBuilder.group<ReviewAndSubmitFormGroup>({
     reviewConfirm: new FormControl<boolean | null>(null, Validators.required),
   });
+
   
   stepperOrientation: Observable<StepperOrientation>;
 
@@ -136,4 +137,5 @@ export class WizardComponent {
         interestRate: value.interestRate ?? 0.538
       })
   }
+  
 }
