@@ -34,7 +34,7 @@ export class ReviewAndSubmitComponent {
   @Input() data!: CompleteFormData;
 
   ngOnInit() {
-    console.log(this.data);
+    console.log('data for review',this.data);
     
   }
   get formData() {

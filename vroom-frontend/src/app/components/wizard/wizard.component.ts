@@ -59,6 +59,7 @@ import { ReviewAndSubmitComponent } from './review-and-submit/review-and-submit.
 })
 export class WizardComponent {
   wizardTitle = 'vRroom vRroom';
+  
 
   firstFormGroup = this._formBuilder.group<LeasingInfoFormGroup>({
     amount: new FormControl<number | null>(null, [
@@ -106,6 +107,7 @@ export class WizardComponent {
   fifthFormGroup = this._formBuilder.group<ReviewAndSubmitFormGroup>({
     reviewConfirm: new FormControl<boolean | null>(null, Validators.required),
   });
+
   
   stepperOrientation: Observable<StepperOrientation>;
 
@@ -114,4 +116,5 @@ export class WizardComponent {
       .observe('(min-width: 800px)')
       .pipe(map(({ matches }) => (matches ? 'horizontal' : 'vertical')));
   }
+  
 }
