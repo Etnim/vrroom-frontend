@@ -1,4 +1,4 @@
-import {Component, Injectable, Input, OnChanges, OnInit} from '@angular/core';
+import {Component, Injectable, Input, OnChanges} from '@angular/core';
 import {Calculator, LeasingInfo} from "../wizard/types";
 
 @Component({
@@ -27,7 +27,7 @@ export class CalculatorComponent implements OnChanges {
     let r = this.inputValues.interestRate / 100;
     let n = this.inputValues.period * 12;
     let result: number;
-    let amount = this.inputValues.amount;;
+    let amount = this.inputValues.amount;
     let calculatedDownPayment = (this.inputValues.amount * this.inputValues.downPayment) / 100
     let calculatedResidualPayment = (this.inputValues.amount * this.inputValues.residualValue) / 100;
     let p = amount - calculatedDownPayment - calculatedResidualPayment;
