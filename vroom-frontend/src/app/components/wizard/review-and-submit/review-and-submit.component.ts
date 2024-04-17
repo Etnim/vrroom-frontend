@@ -33,6 +33,7 @@ export class ReviewAndSubmitComponent {
   @Input() formGroup!: FormGroup<ReviewAndSubmitFormGroup>;
   @Input() data!: CompleteFormData;
 
+  
   ngOnInit() {
     console.log(this.data);
     

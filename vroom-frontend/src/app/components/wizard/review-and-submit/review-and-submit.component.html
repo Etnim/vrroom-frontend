@@ -9,12 +9,12 @@
           tempor non. Pellentesque auctor lectus vel ex venenatis tincidunt. Interdum et malesuada fames ac ante ipsum
           primis in faucibus. Duis nec risus tempor, finibus quam vel, pellentesque neque. Sed vestibulum vestibulum odio,
           vel venenatis ligula euismod ut.</p>
-          @if (data) {
+          <!-- @if (data) {
             
             <p><strong>Amount:</strong> {{ data.leasingInfo.amount }}</p>
             <p><strong>Down Payment:</strong> {{ data.leasingInfo.downPayment }}%</p>
             <p><strong>Residual Value:</strong> {{ data.leasingInfo.residualValue }}%</p> 
-          }
+          } -->
       </mat-card-content>
     </mat-card>
   
@@ -60,6 +60,7 @@
           tempor non. Pellentesque auctor lectus vel ex venenatis tincidunt. Interdum et malesuada fames ac ante ipsum
           primis in faucibus. Duis nec risus tempor, finibus quam vel, pellentesque neque. Sed vestibulum vestibulum odio,
           vel venenatis ligula euismod ut.</p>
+          <p><strong>Name:</strong> {{ data?.personalInfo?.name }}</p>
           
         <!-- <p><strong>Name:</strong> {{ data.personalInfo.name }}</p>
         <p><strong>Email:</strong> {{ data.personalInfo.email }}</p> -->

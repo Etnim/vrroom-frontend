@@ -66,6 +66,8 @@ export class WizardComponent {
   wizardTitle = 'vRroom vRroom';
   @Output() leasingInfo!: LeasingInfo;
 
+  
+
   firstFormGroup = this._formBuilder.group<LeasingInfoFormGroup>({
     amount: new FormControl<number | null>(null, [
       Validators.required,

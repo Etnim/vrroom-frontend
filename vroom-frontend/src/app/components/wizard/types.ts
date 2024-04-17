@@ -60,6 +60,6 @@ export interface CompleteFormData {
   financialInfo: FinancialInfoFormGroup;
   vehicleInfo: VehicleInfoFormGroup;
   personalInfo: PersonalAndContactInfoFormGroup;
-  reviewConfirm: ReviewAndSubmitFormGroup;
+  
 }
 
