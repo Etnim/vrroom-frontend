@@ -31,3 +31,24 @@ export interface Calculator {
   monthly: number,
   fee: number
 }
+
+export interface VehicleInfoFormGroup {
+  make: FormControl<string | null>;
+  model: FormControl<string | null>;
+  year: FormControl<number | null>;
+  fuelType: FormControl<string | null>;
+  emissions: FormControl<number | null>;
+}
+
+export interface PersonalAndContactInfoFormGroup {
+  name: FormControl<string | null>;
+  surname: FormControl<string | null>;
+  dateOfBirth: FormControl<string | null>;
+  identificationNumber: FormControl<string | null>;
+  email: FormControl<string | null>;
+  phoneNumber: FormControl<string | null>;
+  address: FormControl<string | null>;
+  city: FormControl<string | null>;
+  postalCode: FormControl<string | null>;
+}
+
