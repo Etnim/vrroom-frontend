@@ -31,6 +31,7 @@ import { VehicleInfoComponent } from './vehicle-info/vehicle-info.component';
 import { HttpClientModule } from '@angular/common/http';
 import { PersonalContactInfoComponent } from './personal-contact-info/personal-contact-info.component';
 import { ReviewAndSubmitComponent } from './review-and-submit/review-and-submit.component';
+import { ReviewAndSubmitComponent } from './review-and-submit/review-and-submit.component';
 
 /**
  * @title Stepper responsive
@@ -106,6 +107,8 @@ export class WizardComponent {
     city: new FormControl<string | null>(null, Validators.required),
     postalCode: new FormControl<string | null>(null, [Validators.required, Validators.pattern('^(LT)?[0-9]{5}$')]),
   });
+  fifthFormGroup = this._formBuilder.group<ReviewAndSubmitFormGroup>({
+    reviewConfirm: new FormControl<boolean | null>(null, Validators.required),
   fifthFormGroup = this._formBuilder.group<ReviewAndSubmitFormGroup>({
     reviewConfirm: new FormControl<boolean | null>(null, Validators.required),
   });
