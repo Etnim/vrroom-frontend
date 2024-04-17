@@ -1,0 +1,12 @@
+li {
+  display: flex;
+  flex-direction: row;
+}
+
+.calculator {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  place-content: center;
+}

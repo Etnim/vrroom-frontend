@@ -1,27 +1,26 @@
-import { Component } from '@angular/core';
+import {Component, Output} from '@angular/core';
+import {FormBuilder, FormControl, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
+import {BreakpointObserver} from '@angular/cdk/layout';
+import {MatStepperModule, StepperOrientation} from '@angular/material/stepper';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
+import {MatButtonModule} from '@angular/material/button';
+import {MatInputModule} from '@angular/material/input';
+import {MatSelectModule} from '@angular/material/select';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {AsyncPipe} from '@angular/common';
+import {LeasingInfoComponentComponent} from './leasing-info-component/leasing-info-component.component';
 import {
-  FormBuilder,
-  Validators,
-  FormsModule,
-  ReactiveFormsModule,
-  FormGroup,
-  FormControl
-} from '@angular/forms';
-import { BreakpointObserver } from '@angular/cdk/layout';
-import { StepperOrientation, MatStepperModule } from '@angular/material/stepper';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { MatButtonModule } from '@angular/material/button';
-import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { AsyncPipe } from '@angular/common';
-import { LeasingInfoComponentComponent } from './leasing-info-component/leasing-info-component.component';
-import { type FinancialInfoFormGroup, type LeasingInfoFormGroup, type VehicleInfoFormGroup, type PersonalAndContactInfoFormGroup } from './types';
-import { FinancialInfoComponent } from './financial-info/financial-info.component';
-import { VehicleInfoComponent } from './vehicle-info/vehicle-info.component';
-import { HttpClientModule } from '@angular/common/http';
-import { PersonalContactInfoComponent } from './personal-contact-info/personal-contact-info.component';
+  type FinancialInfoFormGroup,
+  LeasingInfo,
+  type LeasingInfoFormGroup,
+  type PersonalAndContactInfoFormGroup
+} from './types';
+import {FinancialInfoComponent} from './financial-info/financial-info.component';
+import {VehicleInfoComponent} from './vehicle-info/vehicle-info.component';
+import {HttpClientModule} from '@angular/common/http';
+import {PersonalContactInfoComponent} from './personal-contact-info/personal-contact-info.component';
+import {CalculatorComponent} from "./calculator/calculator.component";
 
 
 /**
@@ -46,10 +45,12 @@ import { PersonalContactInfoComponent } from './personal-contact-info/personal-c
     VehicleInfoComponent,
     HttpClientModule,
     PersonalContactInfoComponent,
+    CalculatorComponent,
   ]
 })
 export class WizardComponent {
   wizardTitle = 'vRroom vRroom';
+  @Output() leasingInfo!: LeasingInfo;
 
   firstFormGroup = this._formBuilder.group<LeasingInfoFormGroup>({
     amount: new FormControl<number | null>(null, [
@@ -58,11 +59,11 @@ export class WizardComponent {
       Validators.max(120000)
     ]),
     downPayment: new FormControl<number | null>(null, Validators.required),
-    calculatedDownPayment: new FormControl<number | null>({ value: null, disabled: true }),
+    calculatedDownPayment: new FormControl<number | null>({value: null, disabled: true}),
     residualValue: new FormControl<number | null>(null, Validators.required),
-    calculatedResidualValue: new FormControl<number | null>({ value: null, disabled: true }),
+    calculatedResidualValue: new FormControl<number | null>({value: null, disabled: true}),
     period: new FormControl<number | null>(null, Validators.required),
-    interestRate: new FormControl<number | null>({ value: null, disabled: true })
+    interestRate: new FormControl<number | null>({value: null, disabled: true})
   });
 
   secondFormGroup = this._formBuilder.group<FinancialInfoFormGroup>({
@@ -102,6 +103,15 @@ export class WizardComponent {
   constructor(private _formBuilder: FormBuilder, breakpointObserver: BreakpointObserver) {
     this.stepperOrientation = breakpointObserver
       .observe('(min-width: 800px)')
-      .pipe(map(({ matches }) => (matches ? 'horizontal' : 'vertical')));
+      .pipe(map(({matches}) => (matches ? 'horizontal' : 'vertical')));
+
+    this.firstFormGroup.valueChanges.subscribe(value =>
+      this.leasingInfo = {
+        amount: value.amount ?? 80000,
+        downPayment: value.downPayment ?? 10,
+        residualValue: value.residualValue ?? 0,
+        period: value.period ?? 1,
+        interestRate: value.interestRate ?? 0.538
+      })
   }
 }
