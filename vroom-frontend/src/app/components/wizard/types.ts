@@ -52,3 +52,14 @@ export interface PersonalAndContactInfoFormGroup {
   postalCode: FormControl<string | null>;
 }
 
+export interface ReviewAndSubmitFormGroup {
+  reviewConfirm: FormControl<boolean | null>;
+}
+export interface CompleteFormData {
+  leasingInfo: LeasingInfoFormGroup;
+  financialInfo: FinancialInfoFormGroup;
+  vehicleInfo: VehicleInfoFormGroup;
+  personalInfo: PersonalAndContactInfoFormGroup;
+  
+}
+
