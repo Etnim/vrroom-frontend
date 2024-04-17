@@ -5,4 +5,5 @@ import { AdminDashboardComponent } from './components/admin-dashboard/admin-dash
 export const routes: Routes = [
   { path: '', component: WizardComponent},
   { path: 'admin', component: AdminDashboardComponent},
+  { path: '**', redirectTo: '' }
 ];
