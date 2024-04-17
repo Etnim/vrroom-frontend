@@ -40,6 +40,7 @@ import { VehicleInfoComponent } from './vehicle-info/vehicle-info.component';
 import { HttpClientModule } from '@angular/common/http';
 import { PersonalContactInfoComponent } from './personal-contact-info/personal-contact-info.component';
 import { ReviewAndSubmitComponent } from './review-and-submit/review-and-submit.component';
+import { ReviewAndSubmitComponent } from './review-and-submit/review-and-submit.component';
 
 /**
  * @title Stepper responsive
@@ -63,6 +64,7 @@ import { ReviewAndSubmitComponent } from './review-and-submit/review-and-submit.
     VehicleInfoComponent,
     HttpClientModule,
     PersonalContactInfoComponent,
+    ReviewAndSubmitComponent,
     ReviewAndSubmitComponent,
   ]
 })
@@ -110,6 +112,7 @@ export class WizardComponent {
     identificationNumber: new FormControl<string | null>(null, [Validators.required, Validators.pattern('[1-6]{1}[0-9]{10}')]),
     email: new FormControl<string | null>(null, [Validators.required, Validators.email]),
     phoneNumber: new FormControl<string | null>(null, [Validators.required, Validators.pattern('[+0-9]{9,13}$')]),
+    phoneNumber: new FormControl<string | null>(null, [Validators.required, Validators.pattern('[+0-9]{9,13}$')]),
     address: new FormControl<string | null>(null, Validators.required),
     city: new FormControl<string | null>(null, Validators.required),
     postalCode: new FormControl<string | null>(null, [Validators.required, Validators.pattern('^(LT)?[0-9]{5}$')]),
@@ -127,6 +130,8 @@ export class WizardComponent {
     country: new FormControl<string | null>(null, Validators.required)
 >>>>>>> a259e64 (merge dev)
   });
+  fifthFormGroup = this._formBuilder.group<ReviewAndSubmitFormGroup>({
+    reviewConfirm: new FormControl<boolean | null>(null, Validators.required),
   fifthFormGroup = this._formBuilder.group<ReviewAndSubmitFormGroup>({
     reviewConfirm: new FormControl<boolean | null>(null, Validators.required),
   });
