@@ -20,7 +20,7 @@ import {FinancialInfoComponent} from './financial-info/financial-info.component'
 import {VehicleInfoComponent} from './vehicle-info/vehicle-info.component';
 import {HttpClientModule} from '@angular/common/http';
 import {PersonalContactInfoComponent} from './personal-contact-info/personal-contact-info.component';
-import {CalculatorComponent} from "../calculator/calculator.component";
+import {CalculatorComponent} from "./calculator/calculator.component";
 
 
 /**

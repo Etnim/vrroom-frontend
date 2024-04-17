@@ -1,5 +1,5 @@
 import {Component, Injectable, Input, OnChanges} from '@angular/core';
-import {Calculator, LeasingInfo} from "../wizard/types";
+import {Calculator, LeasingInfo} from "../types";
 
 @Component({
   selector: 'app-calculator',
@@ -24,17 +24,16 @@ export class CalculatorComponent implements OnChanges {
   }
 
   getMonthly() {
-    let r = this.inputValues.interestRate / 100;
-    let n = this.inputValues.period * 12;
-    let result: number;
+    let interestRate = this.inputValues.interestRate / 100;
+    let months = this.inputValues.period * 12;
     let amount = this.inputValues.amount;
     let calculatedDownPayment = (this.inputValues.amount * this.inputValues.downPayment) / 100
     let calculatedResidualPayment = (this.inputValues.amount * this.inputValues.residualValue) / 100;
-    let p = amount - calculatedDownPayment - calculatedResidualPayment;
-    const up = (p * Math.pow((1 + r), n) * r);
-    const down = Math.pow((1 + r), n) - 1;
-    result = up / down;
-    return Math.round(result);
+    let totalAmount = amount - calculatedDownPayment - calculatedResidualPayment;
+    const divisionUnit = (totalAmount * Math.pow((1 + interestRate), months) * interestRate);
+    const divider = Math.pow((1 + interestRate), months) - 1;
+    let monthlyPayment = divisionUnit / divider;
+    return Math.round(monthlyPayment);
   }
 
   getFee() {
