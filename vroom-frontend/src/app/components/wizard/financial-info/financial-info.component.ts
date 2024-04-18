@@ -35,7 +35,6 @@ import { MatRadioModule } from '@angular/material/radio';
   styleUrl: './financial-info.component.scss'
 })
 export class FinancialInfoComponent {
-  // @Input() formGroup!: FormGroup<FinancialInfoFormGroup>;
   constructor(private _formBuilder: FormBuilder) {}
 
   secondFormGroup = this._formBuilder.group<FinancialInfoFormGroup>({
@@ -49,11 +48,7 @@ export class FinancialInfoComponent {
       Validators.max(10)
     ]),
     hasMonthlyObligations: new FormControl<boolean | null>(null, Validators.required),
-    monthlyObligations: new FormControl<number | null>(null, [
-      Validators.required,
-      Validators.min(1),
-      Validators.max(100000)
-    ])
+    monthlyObligations: new FormControl<number>(0, [Validators.min(0), Validators.max(100000)])
   });
 
   employmentStatusOptions = ['Full-time', 'Part-time', 'Self-employed'];
@@ -67,5 +62,4 @@ export class FinancialInfoComponent {
     'More than 5 years'
   ];
   maritalStatusOptions = ['Single', 'Married', 'Divorced', 'Widowed'];
-  // hasMonthlyObligationsOptions = [true, false];
 }

@@ -1,12 +1,6 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, Input } from '@angular/core';
-import {
-  FormControl,
-  FormGroup,
-  FormsModule,
-  ReactiveFormsModule,
-  Validators
-} from '@angular/forms';
+import { Component } from '@angular/core';
+import { FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -17,9 +11,9 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MakesDataService } from '../../../services/vehicle-info.service';
 import { Make, Model } from '../../../models/makes.model';
 import { HttpClientModule } from '@angular/common/http';
-import { map, startWith, tap } from 'rxjs/operators';
+import { map, startWith } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
-import type { VehicleInfoFormGroup } from '../types';
+import type { VehicleInfoFormGroup, EmissionRangeFormGroup } from '../types';
 import { FormBuilder } from '@angular/forms';
 
 @Component({
@@ -52,8 +46,12 @@ export class VehicleInfoComponent {
       Validators.min(2010),
       Validators.max(2024)
     ]),
-    fuelType: new FormControl<string | null>(null, Validators.required),
-    emissions: new FormControl<number | null>(null, Validators.required)
+    fuelType: new FormControl<string | null>(null, Validators.required)
+  });
+
+  emissionRangeForm = this._formBuilder.group<EmissionRangeFormGroup>({
+    start: new FormControl<number>(0),
+    end: new FormControl<number>(20)
   });
 
   makes: Make[] = [];
@@ -84,6 +82,7 @@ export class VehicleInfoComponent {
 
   onMakeSelectionChange(make: string) {
     console.log('Selected make:', make);
+    this.thirdFormGroup.get('make')?.setValue(make);
     this.models = this.makesDataService.getModels(make).pipe(map((response) => response.Results));
   }
 

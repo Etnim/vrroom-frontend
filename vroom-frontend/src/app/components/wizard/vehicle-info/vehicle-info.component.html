@@ -25,7 +25,7 @@
 
     <mat-select formControlName="model" placeholder="Select model" required>
       @for (model of models | async; track trackByModelId) {
-      <mat-option [value]="model">{{ model.Model_Name }}</mat-option>
+      <mat-option [value]="model.Model_Name">{{ model.Model_Name }}</mat-option>
       }
     </mat-select>
   </mat-form-field>
@@ -49,14 +49,13 @@
   </mat-form-field>
 
   <!-- CO2 Emissions in g/kg -->
-  <div class="slider-container">
+  <div class="slider-container" [formGroup]="emissionRangeForm">
     <mat-label>CO2 emissions, g/km</mat-label>
-    <mat-slider min="0" max="130" showTickMarks step="5" discrete>
-      <input value="0" matSliderStartThumb />
-      <input value="20" matSliderEndThumb />
+    <mat-slider [min]="0" [max]="130" [showTickMarks]="true" [step]="5" [discrete]="true">
+      <input matSliderStartThumb formControlName="start" />
+      <input matSliderEndThumb formControlName="end" />
     </mat-slider>
   </div>
-
   <div>
     <button mat-button matStepperPrevious>Back</button>
     <button mat-button matStepperNext>Next</button>

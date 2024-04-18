@@ -19,22 +19,15 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { AsyncPipe } from '@angular/common';
 import { LeasingInfoComponentComponent } from './leasing-info-component/leasing-info-component.component';
 
-import {
-  type FinancialInfoFormGroup,
-  type LeasingInfoFormGroup,
-  type VehicleInfoFormGroup,
-  type PersonalAndContactInfoFormGroup,
-  type ReviewAndSubmitFormGroup,
-  type CompleteFormData,
-  LeasingInfo
-} from './types';
+import { type ReviewAndSubmitFormGroup, type CompleteFormData, LeasingInfo } from './types';
 
 import { FinancialInfoComponent } from './financial-info/financial-info.component';
 import { VehicleInfoComponent } from './vehicle-info/vehicle-info.component';
 import { HttpClientModule } from '@angular/common/http';
 import { PersonalContactInfoComponent } from './personal-contact-info/personal-contact-info.component';
-import { ReviewAndSubmitComponent } from './review-and-submit/review-and-submit.component';
 import { CalculatorComponent } from './calculator/calculator.component';
+import { MatCardModule } from '@angular/material/card';
+import type { RequestBody, FinancialInfo, VehicleDetails, Customer } from './types';
 
 /**
  * @title Stepper responsive
@@ -58,9 +51,9 @@ import { CalculatorComponent } from './calculator/calculator.component';
     VehicleInfoComponent,
     HttpClientModule,
     PersonalContactInfoComponent,
-    ReviewAndSubmitComponent,
     CalculatorComponent,
-    MatStepper
+    MatStepper,
+    MatCardModule
   ]
 })
 export class WizardComponent {
@@ -70,6 +63,8 @@ export class WizardComponent {
   @ViewChild('stepOne') stepOne!: LeasingInfoComponentComponent;
   @ViewChild('stepTwo') stepTwo!: FinancialInfoComponent;
   @ViewChild('stepThree') stepThree!: VehicleInfoComponent;
+  @ViewChild('stepFour') stepFour!: PersonalContactInfoComponent;
+
   ngAfterViewInit() {
     // console.log(this.stepOne.firstFormGroup);
   }
@@ -78,88 +73,46 @@ export class WizardComponent {
     console.log(this.stepOne.firstFormGroup.value);
     console.log(this.stepTwo.secondFormGroup.value);
     console.log(this.stepThree.thirdFormGroup.value);
-    console.log(this.stepThree.makeControl);
+    console.log(this.stepThree.emissionRangeForm.value);
+    console.log(this.stepFour.fourthFormGroup.value);
   }
-  // @ViewChild('stepOne') leasingInfoComponent: LeasingInfoComponentComponent;
+
+  submit() {
+    const requestBody: RequestBody = {
+      customer: {
+        name: 'GreIXpYqAZwLEvCDJqfMmPtwm',
+        surname: 'SfGLYOvGayLeDqwLGyafKVhfs',
+        email: 'john.doe@example.com',
+        birthDate: '2024-04-18T10:16:05.006Z',
+        phone: '+370280571581',
+        address: 'string'
+      },
+      vehicleDetails: [
+        {
+          brand: 'string',
+          model: 'string',
+          year: 1885,
+          fuel: 'PETROL',
+          emissionStart: 0,
+          emissionEnd: 12
+        }
+      ],
+      financialInfo: {
+        monthlyIncome: 1,
+        monthlyObligations: 1,
+        maritalStatus: 'SINGLE',
+        dependants: 0
+      },
+      price: 0.01,
+      downPayment: 0,
+      residualValue: 0,
+      yearPeriod: 1
+    };
+  }
 
   // get frmStepOne(): Observable<FormGroup<any>> | null {
   //   return this.leasingInfoComponent?.frmStepOne$ ?? null;
   // }
-
-  // ngAfterViewInit() {
-  //   console.log(this.leasingInfoComponent);
-  //   console.log(this.leasingInfoComponent?.firstFormGroup);
-  // }
-  // print() {
-  //   console.log(this.leasingInfoComponent);
-  //   console.log(this.leasingInfoComponent?.firstFormGroup);
-  // }
-  // firstFormGroup = this._formBuilder.group<LeasingInfoFormGroup>({
-  //   amount: new FormControl<number | null>(null, [
-  //     Validators.required,
-  //     Validators.min(8000),
-  //     Validators.max(120000)
-  //   ]),
-  //   downPayment: new FormControl<number | null>(null, Validators.required),
-  //   calculatedDownPayment: new FormControl<number | null>({ value: null, disabled: true }),
-  //   residualValue: new FormControl<number | null>(null, Validators.required),
-  //   calculatedResidualValue: new FormControl<number | null>({ value: null, disabled: true }),
-  //   period: new FormControl<number | null>(null, Validators.required)
-  // });
-
-  // secondFormGroup = this._formBuilder.group<FinancialInfoFormGroup>({
-  //   employmentStatus: new FormControl<string | null>(null, Validators.required),
-  //   employmentTerm: new FormControl<string | null>(null, Validators.required),
-  //   monthlyIncome: new FormControl<number | null>(null, Validators.required),
-  //   maritalStatus: new FormControl<string | null>(null, Validators.required),
-  //   numberOfDependents: new FormControl<number | null>(null, [
-  //     Validators.required,
-  //     Validators.min(0),
-  //     Validators.max(10)
-  //   ]),
-  //   hasMonthlyObligations: new FormControl<boolean | null>(null, Validators.required),
-  //   monthlyObligations: new FormControl<number | null>(null, [
-  //     Validators.required,
-  //     Validators.min(1),
-  //     Validators.max(100000)
-  //   ])
-  // });
-
-  // thirdFormGroup = this._formBuilder.group<VehicleInfoFormGroup>({
-  //   make: new FormControl<string | null>(null, Validators.required),
-  //   model: new FormControl<string | null>(null, Validators.required),
-  //   year: new FormControl<number | null>(null, [
-  //     Validators.required,
-  //     Validators.min(2010),
-  //     Validators.max(2024)
-  //   ]),
-  //   fuelType: new FormControl<string | null>(null, Validators.required),
-  //   emissions: new FormControl<number | null>(null, Validators.required)
-  // });
-
-  // fourthFormGroup = this._formBuilder.group<PersonalAndContactInfoFormGroup>({
-  //   name: new FormControl<string | null>(null, [Validators.required, Validators.minLength(2)]),
-  //   surname: new FormControl<string | null>(null, [Validators.required, Validators.minLength(2)]),
-  //   dateOfBirth: new FormControl<string | null>(null, [Validators.required]), // @TODO: Date format?
-  //   identificationNumber: new FormControl<string | null>(null, [
-  //     Validators.required,
-  //     Validators.pattern('[1-6]{1}[0-9]{10}')
-  //   ]),
-  //   email: new FormControl<string | null>(null, [Validators.required, Validators.email]),
-  //   phoneNumber: new FormControl<string | null>(null, [
-  //     Validators.required,
-  //     Validators.pattern('[+0-9]{9,13}$')
-  //   ]),
-  //   address: new FormControl<string | null>(null, Validators.required),
-  //   city: new FormControl<string | null>(null, Validators.required),
-  //   postalCode: new FormControl<string | null>(null, [
-  //     Validators.required,
-  //     Validators.pattern('^(LT)?[0-9]{5}$')
-  //   ])
-  // });
-  // fifthFormGroup = this._formBuilder.group<ReviewAndSubmitFormGroup>({
-  //   reviewConfirm: new FormControl<boolean | null>(null, Validators.required)
-  // });
 
   // wizardFormGroup = this._formBuilder.group<CompleteFormData>({
   //   ...this.firstFormGroup.controls,
@@ -169,9 +122,27 @@ export class WizardComponent {
   //   ...this.fifthFormGroup.controls
   // });
 
+  fifthFormGroup = this._formBuilder.group<ReviewAndSubmitFormGroup>({
+    reviewConfirm: new FormControl<boolean | null>(null, Validators.required)
+  });
+
+  get formData() {
+    return this.fifthFormGroup.value;
+  }
+
+  submitReviewedForm() {
+    console.log('Submitted:', this.fifthFormGroup.value);
+  }
+
+  isFormFilled: boolean = false;
+
   stepperOrientation: Observable<StepperOrientation>;
 
-  constructor(breakpointObserver: BreakpointObserver, private fb: FormBuilder) {
+  constructor(
+    breakpointObserver: BreakpointObserver,
+    private fb: FormBuilder,
+    private _formBuilder: FormBuilder
+  ) {
     this.stepperOrientation = breakpointObserver
       .observe('(min-width: 800px)')
       .pipe(map(({ matches }) => (matches ? 'horizontal' : 'vertical')));
