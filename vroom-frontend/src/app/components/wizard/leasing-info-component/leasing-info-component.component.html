@@ -1,4 +1,4 @@
-<form [formGroup]="formGroup" id="leasingInfo-form">
+<form [formGroup]="firstFormGroup" id="leasingInfo-form">
   <mat-form-field>
     <mat-label>Amount</mat-label>
     <input
@@ -10,7 +10,7 @@
       (input)="onAmountChange()"
     />
 
-    @if (formGroup.get('amount')?.invalid) {
+    @if (firstFormGroup.get('amount')?.invalid) {
     <mat-error> Amount must be between 8,000 and 120,000. </mat-error>
     }
   </mat-form-field>
@@ -24,7 +24,7 @@
     </mat-select>
     <input matInput type="number" formControlName="calculatedDownPayment" readonly />
 
-    @if (formGroup.get('downPayment')?.invalid) {
+    @if (firstFormGroup.get('downPayment')?.invalid) {
     <mat-error> Please select a down payment option. </mat-error>
     }
   </mat-form-field>
@@ -42,7 +42,7 @@
     </mat-select>
     <input matInput type="number" formControlName="calculatedResidualValue" readonly />
 
-    @if (formGroup.get('residualValue')?.invalid) {
+    @if (firstFormGroup.get('residualValue')?.invalid) {
     <mat-error> Please select a residual value option. </mat-error>}
   </mat-form-field>
 
@@ -53,23 +53,9 @@
       <mat-option [value]="year">{{ year }} years</mat-option> }
     </mat-select>
 
-    @if (formGroup.get('period')?.invalid) {
+    @if (firstFormGroup.get('period')?.invalid) {
     <mat-error> Please select a period option. </mat-error>
     }
-  </mat-form-field>
-
-  <mat-form-field>
-    <mat-label>Interest Rate</mat-label>
-    <input
-      matInput
-      type="number"
-      formControlName="interestRate"
-      placeholder="Euribor 3 or 6 months"
-      required
-    />
-    <!-- <mat-error *ngIf="formGroup('interestRate')?.invalid">
-      Please enter the interest rate.
-    </mat-error> -->
   </mat-form-field>
 
   <div>

@@ -7,7 +7,6 @@ export interface LeasingInfoFormGroup {
   residualValue: FormControl<number | null>;
   calculatedResidualValue: FormControl<number | null>;
   period: FormControl<number | null>;
-  interestRate: FormControl<number | null>;
 }
 export interface LeasingInfo {
   amount: number;
@@ -28,8 +27,8 @@ export interface FinancialInfoFormGroup {
 }
 
 export interface Calculator {
-  monthly: number,
-  fee: number
+  monthly: number;
+  fee: number;
 }
 
 export interface VehicleInfoFormGroup {
@@ -55,11 +54,16 @@ export interface PersonalAndContactInfoFormGroup {
 export interface ReviewAndSubmitFormGroup {
   reviewConfirm: FormControl<boolean | null>;
 }
-export interface CompleteFormData {
-  leasingInfo: LeasingInfoFormGroup;
-  financialInfo: FinancialInfoFormGroup;
-  vehicleInfo: VehicleInfoFormGroup;
-  personalInfo: PersonalAndContactInfoFormGroup;
-  
-}
+// export interface CompleteFormData {
+//   leasingInfo: LeasingInfoFormGroup;
+//   financialInfo: FinancialInfoFormGroup;
+//   vehicleInfo: VehicleInfoFormGroup;
+//   personalInfo: PersonalAndContactInfoFormGroup;
 
+// }
+
+export type CompleteFormData = LeasingInfoFormGroup &
+  FinancialInfoFormGroup &
+  VehicleInfoFormGroup &
+  PersonalAndContactInfoFormGroup &
+  ReviewAndSubmitFormGroup;

@@ -1,4 +1,4 @@
-<form [formGroup]="formGroup" id="financial-info-form">
+<form [formGroup]="secondFormGroup" id="financial-info-form">
   <mat-form-field>
     <mat-label>Employment Status</mat-label>
     <mat-select formControlName="employmentStatus" required>
@@ -7,7 +7,7 @@
       }
     </mat-select>
 
-    @if (formGroup.get('employmentStatus')?.invalid) {
+    @if (secondFormGroup.get('employmentStatus')?.invalid) {
     <mat-error> Please select an employment status. </mat-error>
     }
   </mat-form-field>
@@ -19,7 +19,7 @@
       }
     </mat-select>
 
-    @if (formGroup.get('employmentTerm')?.invalid) {
+    @if (secondFormGroup.get('employmentTerm')?.invalid) {
     <mat-error> Please select an employment term. </mat-error>
     }
   </mat-form-field>
@@ -33,7 +33,7 @@
       placeholder="Enter monthly income"
       required
     />
-    @if (formGroup.get('monthlyIncome')?.invalid) {
+    @if (secondFormGroup.get('monthlyIncome')?.invalid) {
     <mat-error> Monthly income must be greater than 0. </mat-error>
     }
   </mat-form-field>
@@ -45,7 +45,7 @@
       <mat-option [value]="option">{{ option }} </mat-option>
       }
     </mat-select>
-    @if (formGroup.get('maritalStatus')?.invalid) {
+    @if (secondFormGroup.get('maritalStatus')?.invalid) {
     <mat-error> Please select a marital status. </mat-error>
     }
   </mat-form-field>
@@ -59,7 +59,7 @@
       placeholder="Enter number of dependents"
       required
     />
-    @if (formGroup.get('numberOfDependents')?.invalid) {
+    @if (secondFormGroup.get('numberOfDependents')?.invalid) {
     <mat-error> Number of dependents must be between 0 and 10. </mat-error>
     }
   </mat-form-field>
@@ -71,7 +71,8 @@
     <mat-radio-button value="false">No</mat-radio-button>
   </mat-radio-group>
 
-  @if (formGroup.get('hasMonthlyObligations')?.value !== null && formGroup.get('hasMonthlyObligations')?.value!.toString() === "true") {
+  @if (secondFormGroup.get('hasMonthlyObligations')?.value !== null &&
+  secondFormGroup.get('hasMonthlyObligations')?.value!.toString() === "true") {
   <mat-form-field>
     <mat-label>Monthly Obligations</mat-label>
     <input
@@ -81,16 +82,11 @@
       placeholder="Enter monthly obligations"
       required
     />
-    @if (formGroup.get('monthlyObligations')?.invalid ) {
+    @if (secondFormGroup.get('monthlyObligations')?.invalid ) {
     <mat-error> Monthly obligations must be between 1 and 100000. </mat-error>
     }
   </mat-form-field>
   }
- 
-    
-  
-
-
 
   <div>
     <button mat-button matStepperPrevious>Back</button>

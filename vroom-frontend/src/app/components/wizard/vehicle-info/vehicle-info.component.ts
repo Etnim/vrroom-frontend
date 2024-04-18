@@ -1,6 +1,12 @@
 import { AsyncPipe } from '@angular/common';
 import { Component, Input } from '@angular/core';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators
+} from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -11,9 +17,10 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MakesDataService } from '../../../services/vehicle-info.service';
 import { Make, Model } from '../../../models/makes.model';
 import { HttpClientModule } from '@angular/common/http';
-import { map, startWith,  tap } from 'rxjs/operators';
+import { map, startWith, tap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
-
+import type { VehicleInfoFormGroup } from '../types';
+import { FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-vehicle-info',
@@ -31,12 +38,23 @@ import { Observable, of } from 'rxjs';
     MatInputModule,
     MatAutocompleteModule,
     HttpClientModule,
-    AsyncPipe],
+    AsyncPipe
+  ],
   templateUrl: './vehicle-info.component.html',
   styleUrl: './vehicle-info.component.scss'
 })
 export class VehicleInfoComponent {
-  @Input() formGroup!: FormGroup;
+  thirdFormGroup = this._formBuilder.group<VehicleInfoFormGroup>({
+    make: new FormControl<string | null>(null, Validators.required),
+    model: new FormControl<string | null>('', Validators.required),
+    year: new FormControl<number | null>(null, [
+      Validators.required,
+      Validators.min(2010),
+      Validators.max(2024)
+    ]),
+    fuelType: new FormControl<string | null>(null, Validators.required),
+    emissions: new FormControl<number | null>(null, Validators.required)
+  });
 
   makes: Make[] = [];
   models: Observable<Model[]> = of([]);
@@ -46,30 +64,27 @@ export class VehicleInfoComponent {
   makeControl = new FormControl('', Validators.required);
   modelControl = new FormControl('');
   currentYear = new Date().getFullYear();
-  
-  constructor(private makesDataService: MakesDataService) {
+
+  constructor(private _formBuilder: FormBuilder, private makesDataService: MakesDataService) {
     this.makesDataService.getMakes().subscribe({
       next: (response) => {
         this.makes = response.Results;
       },
-      error: (error) => {console.error('Failed to fetch makes:', error)
+      error: (error) => {
+        console.error('Failed to fetch makes:', error);
       }
     });
-    
-    this.filteredMakes = this.makeControl.valueChanges.pipe(
-      startWith(''),  
-      map(value => typeof value === 'string' ? value : ''),
-      map(name => this._filter(name))
-    );
-    
 
+    this.filteredMakes = this.makeControl.valueChanges.pipe(
+      startWith(''),
+      map((value) => (typeof value === 'string' ? value : '')),
+      map((name) => this._filter(name))
+    );
   }
 
-  onMakeSelectionChange(make : string) {
-    console.log("Selected make:", make);
-    this.models = this.makesDataService.getModels(make).pipe(
-      map(response => response.Results),  
-    )
+  onMakeSelectionChange(make: string) {
+    console.log('Selected make:', make);
+    this.models = this.makesDataService.getModels(make).pipe(map((response) => response.Results));
   }
 
   displayFn(make: Make): string {
@@ -78,7 +93,7 @@ export class VehicleInfoComponent {
 
   private _filter(name: string): Make[] {
     const filterValue = name.toLowerCase();
-    return this.makes.filter(option => option.MakeName.toLowerCase().includes(filterValue));
+    return this.makes.filter((option) => option.MakeName.toLowerCase().includes(filterValue));
   }
 
   trackByMakeId(index: number, make: Make) {
