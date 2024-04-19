@@ -6,6 +6,11 @@
   margin-top: 16px;
 }
 
+mat-card-content {
+  display: flex;
+  flex-direction: column;
+}
+
 .wizard-container {
   width: 100%;
   height: 100%;
@@ -23,10 +28,16 @@
   justify-content: space-around;
 }
 
+#review-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  gap: 2em;
+}
+
 .wizard-content {
   width: 66%;
-  margin: 0 auto;
-  margin-top: 2em;
+  margin: 2em auto 0;
 }
 
 .wizard-content form {
@@ -48,12 +59,69 @@
   border-radius: 0.5em;
 }
 
-@media screen and (max-width: 800px) {
+.title-form {
+  display: flex;
+  padding-bottom: 20px;
+}
+
+.title-mobile {
+  display: none;
+  padding-bottom: 20px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.navigation-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+:host {
+  ::ng-deep {
+    .mat-mdc-button {
+      width: 20%;
+      background-color: #1e364d;
+    }
+
+    .mat-mdc-button:disabled {
+      background-color: grey;
+    }
+
+    .mat-mdc-button:hover {
+      transition-duration: 0.4s;
+      box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+      background-color: darkolivegreen;
+    }
+    .mdc-button__label {
+      color: white;
+    }
+  }
+}
+
+@media screen and (min-width: 401px) and (max-width: 800px) {
+
   .wizard-content {
     width: 80%;
   }
   .wizard-title {
     font-size: x-large;
     padding: 0.8em 1.5em;
+  }
+
+  .title-mobile {
+    display: flex;
+  }
+
+  .title-form {
+    display: none;
+  }
+
+  :host {
+    ::ng-deep {
+      .mat-step-label {
+        display: none;
+      }
+    }
   }
 }

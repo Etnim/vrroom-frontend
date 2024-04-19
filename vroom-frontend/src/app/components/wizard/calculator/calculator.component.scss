@@ -10,3 +10,36 @@ li {
   align-items: center;
   place-content: center;
 }
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 200px 60px 50px;
+}
+
+.grid-title {
+  display: flex;
+  font-size: 16px;
+  justify-content: start;
+}
+
+.grid-value {
+  display: flex;
+  justify-content: end;
+}
+
+.grid-currency {
+  display: flex;
+  font-weight: bold;
+  justify-content: end;
+}
+
+@media screen and (max-width: 600px) {
+
+  .grid-title, .grid-value, .grid-currency {
+    font-size: 14px;
+  }
+
+  .grid-container {
+    grid-template-columns: 175px 50px 50px;
+  }
+}

@@ -1,14 +1,10 @@
 <div class="calculator">
-    <ul class="results">
-        <li><label for="payment">Expected monthly payment :</label>
-          <div>
-            <output id="payment">{{ calculator.monthly }}</output>
-            <span class="units"> Euros</span></div>
-        </li>
-        <li><label for="fee">Agreement fee :</label>
-          <div>
-            <output id="fee">{{ calculator.fee }}</output>
-            <span class="units"> Euros</span></div>
-        </li>
-    </ul>
+  <div class="grid-container">
+    <div class="grid-item grid-title">Expected monthly payment:</div>
+    <div class="grid-item grid-value">{{ calculator.monthly }}</div>
+    <div class="grid-item grid-currency">Euros</div>
+    <div class="grid-item grid-title">Agreement fee:</div>
+    <div class="grid-item grid-value">{{ calculator.fee }}</div>
+    <div class="grid-item grid-currency">Euros</div>
+  </div>
 </div>

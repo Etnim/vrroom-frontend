@@ -1,19 +1,18 @@
-import { Component, Input } from '@angular/core';
-import { FormBuilder, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatStepperModule } from '@angular/material/stepper';
-import { MatButtonModule } from '@angular/material/button';
-import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { AsyncPipe } from '@angular/common';
-import { FormControl } from '@angular/forms';
-import type { LeasingInfoFormGroup } from '../types';
+import {Component, Output} from '@angular/core';
+import {FormBuilder, FormControl, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
+import {MatStepperModule} from '@angular/material/stepper';
+import {MatButtonModule} from '@angular/material/button';
+import {MatInputModule} from '@angular/material/input';
+import {MatSelectModule} from '@angular/material/select';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {AsyncPipe} from '@angular/common';
+import {LeasingInfo, LeasingInfoFormGroup} from '../types';
+import {CalculatorComponent} from "../calculator/calculator.component";
 
 @Component({
   selector: 'app-leasing-info-component',
   standalone: true,
   imports: [
-    LeasingInfoComponentComponent,
     MatStepperModule,
     FormsModule,
     ReactiveFormsModule,
@@ -21,12 +20,15 @@ import type { LeasingInfoFormGroup } from '../types';
     MatSelectModule,
     MatInputModule,
     MatButtonModule,
-    AsyncPipe
+    AsyncPipe,
+    CalculatorComponent
   ],
   templateUrl: './leasing-info-component.component.html',
   styleUrl: './leasing-info-component.component.scss'
 })
 export class LeasingInfoComponentComponent {
+  @Output() leasingInfo!: LeasingInfo;
+
   firstFormGroup = this._formBuilder.group<LeasingInfoFormGroup>({
     amount: new FormControl<number | null>(null, [
       Validators.required,
@@ -34,21 +36,34 @@ export class LeasingInfoComponentComponent {
       Validators.max(120000)
     ]),
     downPayment: new FormControl<number | null>(null, Validators.required),
-    calculatedDownPayment: new FormControl<number | null>({ value: null, disabled: true }),
+    calculatedDownPayment: new FormControl<number | null>({value: null, disabled: true}),
     residualValue: new FormControl<number | null>(null, Validators.required),
-    calculatedResidualValue: new FormControl<number | null>({ value: null, disabled: true }),
+    calculatedResidualValue: new FormControl<number | null>({value: null, disabled: true}),
     period: new FormControl<number | null>(null, Validators.required)
   });
 
-  constructor(private _formBuilder: FormBuilder) {}
+  constructor(private _formBuilder: FormBuilder) {
+    this.leasingInfo = {
+      amount: 80000,
+      downPayment: 10,
+      residualValue: 0,
+      period: 1,
+      interestRate: 0.538
+    }
+
+    this.firstFormGroup.valueChanges.subscribe(value =>
+      this.leasingInfo = {
+        amount: value.amount ?? 8000,
+        downPayment: value.downPayment ?? 10,
+        residualValue: value.residualValue ?? 0,
+        period: value.period ?? 1,
+        interestRate: 0.538
+      })
+  }
 
   downPaymentOptions = [10, 20, 30, 40, 50, 60];
   residualValueOptions = [0, 5, 10, 15, 20, 25, 30];
   periodOptions = [1, 2, 3, 4, 5, 6, 7];
-
-  ngOnInit() {
-    // Fetch interest rate using API
-  }
 
   calculateDownPayment() {
     const amountControl = this.firstFormGroup.get('amount');
@@ -60,7 +75,7 @@ export class LeasingInfoComponentComponent {
 
       if (amount !== null && downPayment !== null) {
         const calculatedDownPayment = (amount * downPayment) / 100;
-        this.firstFormGroup.patchValue({ calculatedDownPayment });
+        this.firstFormGroup.patchValue({calculatedDownPayment});
       }
     }
   }
@@ -75,7 +90,7 @@ export class LeasingInfoComponentComponent {
 
       if (amount !== null && residualValue !== null) {
         const calculatedResidualValue = (amount * residualValue) / 100;
-        this.firstFormGroup.patchValue({ calculatedResidualValue });
+        this.firstFormGroup.patchValue({calculatedResidualValue});
       }
     }
   }
