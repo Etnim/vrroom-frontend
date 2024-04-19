@@ -13,7 +13,6 @@ import {MatRadioModule} from '@angular/material/radio';
   selector: 'app-financial-info',
   standalone: true,
   imports: [
-    FinancialInfoComponent,
     MatStepperModule,
     FormsModule,
     ReactiveFormsModule,

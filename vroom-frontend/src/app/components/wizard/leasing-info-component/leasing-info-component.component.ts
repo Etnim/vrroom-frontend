@@ -1,12 +1,11 @@
-import {Component, Input, Output} from '@angular/core';
-import { FormBuilder, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatStepperModule } from '@angular/material/stepper';
-import { MatButtonModule } from '@angular/material/button';
-import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { AsyncPipe } from '@angular/common';
-import { FormControl } from '@angular/forms';
+import {Component, Output} from '@angular/core';
+import {FormBuilder, FormControl, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
+import {MatStepperModule} from '@angular/material/stepper';
+import {MatButtonModule} from '@angular/material/button';
+import {MatInputModule} from '@angular/material/input';
+import {MatSelectModule} from '@angular/material/select';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {AsyncPipe} from '@angular/common';
 import {LeasingInfo, LeasingInfoFormGroup} from '../types';
 import {CalculatorComponent} from "../calculator/calculator.component";
 
@@ -37,9 +36,9 @@ export class LeasingInfoComponentComponent {
       Validators.max(120000)
     ]),
     downPayment: new FormControl<number | null>(null, Validators.required),
-    calculatedDownPayment: new FormControl<number | null>({ value: null, disabled: true }),
+    calculatedDownPayment: new FormControl<number | null>({value: null, disabled: true}),
     residualValue: new FormControl<number | null>(null, Validators.required),
-    calculatedResidualValue: new FormControl<number | null>({ value: null, disabled: true }),
+    calculatedResidualValue: new FormControl<number | null>({value: null, disabled: true}),
     period: new FormControl<number | null>(null, Validators.required)
   });
 
@@ -76,7 +75,7 @@ export class LeasingInfoComponentComponent {
 
       if (amount !== null && downPayment !== null) {
         const calculatedDownPayment = (amount * downPayment) / 100;
-        this.firstFormGroup.patchValue({ calculatedDownPayment });
+        this.firstFormGroup.patchValue({calculatedDownPayment});
       }
     }
   }
@@ -91,7 +90,7 @@ export class LeasingInfoComponentComponent {
 
       if (amount !== null && residualValue !== null) {
         const calculatedResidualValue = (amount * residualValue) / 100;
-        this.firstFormGroup.patchValue({ calculatedResidualValue });
+        this.firstFormGroup.patchValue({calculatedResidualValue});
       }
     }
   }
