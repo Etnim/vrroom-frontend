@@ -34,7 +34,7 @@ jobs:
         env:
           RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
         run: |
-          if [ "${{ github.ref_name }}" == "main" ] || [ "${{ github.ref_name }}" == "dev" ]; then
+          if [ "${{ github.head_ref }}" == "main" ] || [ "${{ github.head_ref }}" == "dev" ]; then
             SERVICE_ID=${{ secrets.RENDER_SERVICE_ID_DEV }}
             BRANCH="dev"
           else
