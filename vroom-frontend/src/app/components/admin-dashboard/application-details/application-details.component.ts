@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { ActivatedRoute, Router} from '@angular/router';
-import { Location } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 
@@ -89,7 +88,7 @@ export class ApplicationDetailsComponent {
     }
   };
   
-  constructor(private activatedRoute: ActivatedRoute, private router: Router, private location: Location) {
+  constructor(private activatedRoute: ActivatedRoute, private router: Router) {
     this.activatedRoute.paramMap.subscribe(params => {
       this.applicationId = params.get('applicationId')!;
     });
@@ -100,7 +99,4 @@ export class ApplicationDetailsComponent {
     this.router.navigate(['/admin']);
   }
 
-  goBack() {
-    this.location.back();
-  }
 }
