@@ -58,7 +58,10 @@
     }
   </mat-form-field>
 
-  <div>
+  <div class="calculator">
+    <app-calculator [inputValues]="leasingInfo"></app-calculator>
+  </div>
+  <div class="navigation-buttons">
     <button mat-button matStepperNext>Next</button>
   </div>
 </form>

@@ -1,33 +1,27 @@
-import { Component, Output, ViewChild, AfterViewInit } from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormsModule,
-  ReactiveFormsModule,
-  Validators,
-  FormGroup
-} from '@angular/forms';
+import {Component, ViewChild} from '@angular/core';
+import {FormBuilder, FormControl, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 
-import { BreakpointObserver } from '@angular/cdk/layout';
-import { MatStepperModule, StepperOrientation, MatStepper } from '@angular/material/stepper';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { MatButtonModule } from '@angular/material/button';
-import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { AsyncPipe } from '@angular/common';
-import { LeasingInfoComponentComponent } from './leasing-info-component/leasing-info-component.component';
+import {BreakpointObserver} from '@angular/cdk/layout';
+import {MatStepper, MatStepperModule, StepperOrientation} from '@angular/material/stepper';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
+import {MatButtonModule} from '@angular/material/button';
+import {MatInputModule} from '@angular/material/input';
+import {MatSelectModule} from '@angular/material/select';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {AsyncPipe} from '@angular/common';
+import {LeasingInfoComponentComponent} from './leasing-info-component/leasing-info-component.component';
 
-import { type ReviewAndSubmitFormGroup, type CompleteFormData, LeasingInfo } from './types';
+import type {RequestBody} from './types';
+import {type ReviewAndSubmitFormGroup} from './types';
 
-import { FinancialInfoComponent } from './financial-info/financial-info.component';
-import { VehicleInfoComponent } from './vehicle-info/vehicle-info.component';
-import { HttpClientModule } from '@angular/common/http';
-import { PersonalContactInfoComponent } from './personal-contact-info/personal-contact-info.component';
-import { CalculatorComponent } from './calculator/calculator.component';
-import { MatCardModule } from '@angular/material/card';
-import type { RequestBody, FinancialInfo, VehicleDetails, Customer } from './types';
+import {FinancialInfoComponent} from './financial-info/financial-info.component';
+import {VehicleInfoComponent} from './vehicle-info/vehicle-info.component';
+import {HttpClientModule} from '@angular/common/http';
+import {PersonalContactInfoComponent} from './personal-contact-info/personal-contact-info.component';
+import {CalculatorComponent} from './calculator/calculator.component';
+import {MatCardModule} from '@angular/material/card';
+import {MatCheckbox} from "@angular/material/checkbox";
 
 /**
  * @title Stepper responsive
@@ -53,12 +47,12 @@ import type { RequestBody, FinancialInfo, VehicleDetails, Customer } from './typ
     PersonalContactInfoComponent,
     CalculatorComponent,
     MatStepper,
-    MatCardModule
+    MatCardModule,
+    MatCheckbox
   ]
 })
 export class WizardComponent {
   wizardTitle = 'vRroom vRroom';
-  @Output() leasingInfo!: LeasingInfo;
 
   @ViewChild('stepOne') stepOne!: LeasingInfoComponentComponent;
   @ViewChild('stepTwo') stepTwo!: FinancialInfoComponent;
@@ -67,14 +61,6 @@ export class WizardComponent {
 
   ngAfterViewInit() {
     // console.log(this.stepOne.firstFormGroup);
-  }
-
-  print() {
-    console.log(this.stepOne.firstFormGroup.value);
-    console.log(this.stepTwo.secondFormGroup.value);
-    console.log(this.stepThree.thirdFormGroup.value);
-    console.log(this.stepThree.emissionRangeForm.value);
-    console.log(this.stepFour.fourthFormGroup.value);
   }
 
   submit() {
@@ -110,18 +96,6 @@ export class WizardComponent {
     };
   }
 
-  // get frmStepOne(): Observable<FormGroup<any>> | null {
-  //   return this.leasingInfoComponent?.frmStepOne$ ?? null;
-  // }
-
-  // wizardFormGroup = this._formBuilder.group<CompleteFormData>({
-  //   ...this.firstFormGroup.controls,
-  //   ...this.secondFormGroup.controls,
-  //   ...this.thirdFormGroup.controls,
-  //   ...this.fourthFormGroup.controls,
-  //   ...this.fifthFormGroup.controls
-  // });
-
   fifthFormGroup = this._formBuilder.group<ReviewAndSubmitFormGroup>({
     reviewConfirm: new FormControl<boolean | null>(null, Validators.required)
   });
@@ -144,7 +118,7 @@ export class WizardComponent {
     private _formBuilder: FormBuilder
   ) {
     this.stepperOrientation = breakpointObserver
-      .observe('(min-width: 800px)')
-      .pipe(map(({ matches }) => (matches ? 'horizontal' : 'vertical')));
+      .observe('(min-width: 400px)')
+      .pipe(map(({matches}) => (matches ? 'horizontal' : 'vertical')));
   }
 }
