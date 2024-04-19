@@ -9,7 +9,6 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatSliderModule } from '@angular/material/slider';
 import { MakesDataService } from '../../../services/vehicle-info.service';
-import { Make, Model } from '../../../models/makes.model';
 import { HttpClientModule } from '@angular/common/http';
 import { map, startWith } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
@@ -54,10 +53,10 @@ export class VehicleInfoComponent {
     end: new FormControl<number>(20)
   });
 
-  makes: Make[] = [];
-  models: Observable<Model[]> = of([]);
+  makes: string[] = [];
+  models: Observable<string[]> = of([]);
 
-  filteredMakes: Observable<Make[]>;
+  filteredMakes: Observable<string[]>;
 
   makeControl = new FormControl('', Validators.required);
   modelControl = new FormControl('');
@@ -66,7 +65,7 @@ export class VehicleInfoComponent {
   constructor(private _formBuilder: FormBuilder, private makesDataService: MakesDataService) {
     this.makesDataService.getMakes().subscribe({
       next: (response) => {
-        this.makes = response.Results;
+        this.makes = response;
       },
       error: (error) => {
         console.error('Failed to fetch makes:', error);
@@ -83,23 +82,16 @@ export class VehicleInfoComponent {
   onMakeSelectionChange(make: string) {
     console.log('Selected make:', make);
     this.thirdFormGroup.get('make')?.setValue(make);
-    this.models = this.makesDataService.getModels(make).pipe(map((response) => response.Results));
+    this.models = this.makesDataService.getModels(make).pipe(map((response) => response));
   }
 
-  displayFn(make: Make): string {
-    return make && make.MakeName ? make.MakeName : '';
+  displayFn(make: string): string {
+    return make;
   }
 
-  private _filter(name: string): Make[] {
+  private _filter(name: string): string[] {
     const filterValue = name.toLowerCase();
-    return this.makes.filter((option) => option.MakeName.toLowerCase().includes(filterValue));
+    return this.makes.filter((option) => option.toLowerCase().includes(filterValue));
   }
 
-  trackByMakeId(index: number, make: Make) {
-    return make.MakeId;
-  }
-
-  trackByModelId(index: number, model: Model) {
-    return model.Model_ID;
-  }
 }

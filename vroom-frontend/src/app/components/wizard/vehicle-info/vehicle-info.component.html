@@ -12,10 +12,10 @@
     <mat-autocomplete
       #auto="matAutocomplete"
       [displayWith]="displayFn"
-      (optionSelected)="onMakeSelectionChange($event.option.value.MakeName)"
+      (optionSelected)="onMakeSelectionChange($event.option.value)"
     >
-      @for (make of filteredMakes | async; track trackByMakeId) {
-      <mat-option [value]="make">{{ make.MakeName }}</mat-option>
+      @for (make of filteredMakes | async; track make) {
+      <mat-option [value]="make">{{ make }}</mat-option>
       }
     </mat-autocomplete>
   </mat-form-field>
@@ -24,8 +24,8 @@
     <mat-label>Model</mat-label>
 
     <mat-select formControlName="model" placeholder="Select model" required>
-      @for (model of models | async; track trackByModelId) {
-      <mat-option [value]="model.Model_Name">{{ model.Model_Name }}</mat-option>
+      @for (model of models | async; track model) {
+      <mat-option [value]="model">{{ model }}</mat-option>
       }
     </mat-select>
   </mat-form-field>
