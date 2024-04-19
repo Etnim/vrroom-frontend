@@ -34,12 +34,12 @@ jobs:
         env:
           RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
         run: |
-          if [ "${{ github.head_ref }}" == "main" ] || [ "${{ github.head_ref }}" == "dev" ]; then
+          if [ "${{ github.ref_name }}" == "main" ] || [ "${{ github.ref_name }}" == "dev" ]; then
             SERVICE_ID=${{ secrets.RENDER_SERVICE_ID_DEV }}
             BRANCH="dev"
           else
             SERVICE_ID=${{ secrets.RENDER_SERVICE_ID_FEATURE }}
-            BRANCH="${{ github.ref_name }}"
+            BRANCH="${{ github.head_ref }}"
           fi
 
           curl --request PATCH \
