@@ -1,0 +1,72 @@
+table {
+    width: 100%;
+  }
+
+/* application-details.component.scss */
+:host {
+    display: block;
+    padding: 20px;
+    background-color: #f4f4f4; // Soft background color for comfort
+  }
+  
+  .header {
+    background-color: #333;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    font-size: 24px;
+    border-radius: 5px; /* Rounded corners for the header */
+  }
+
+  h1 {
+    color: #f4f4f4;
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  h2 {
+    color: #555;
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+  
+  mat-tab-group {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); // Soft shadow for depth
+  }
+  
+  mat-header-cell {
+    color: #666;
+    font-weight: bold;
+  }
+  
+  mat-cell {
+    color: #444;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse; // Ensures cells are tightly packed
+  }
+  
+  th, td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd; // Subtle borders for rows
+  }
+  
+  button {
+    margin-top: 20px;
+  }
+  
+  /* Enhance the visibility of buttons */
+  button.mat-raised-button {
+    color: #fff;
+    background-color: #106cc8; // Blue is comfortable for most eyes
+  }
+  
+  /* Highlighting rows based on content for better readability */
+  tr:hover {
+    background-color: #e8f4ff; // Light blue on hover for emphasis
+  }
+  

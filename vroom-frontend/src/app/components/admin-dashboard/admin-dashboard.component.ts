@@ -4,6 +4,8 @@ import { NgStyle, formatDate } from '@angular/common';
 import { MatStartDate } from '@angular/material/datepicker';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { Router } from '@angular/router';
+import { ApplicationDetailsComponent } from './application-details/application-details.component';
 
 interface Application {
   applicationId: string;
@@ -17,36 +19,57 @@ interface Application {
 @Component({
   selector: 'admin-dashboard',
   standalone: true,
-  imports: [NgStyle, MatTableModule, MatPaginator],
+  imports: [NgStyle, MatTableModule, MatPaginator, ApplicationDetailsComponent],
   templateUrl: './admin-dashboard.component.html',
   styleUrls: ['./admin-dashboard.component.scss']
 })
 export class AdminDashboardComponent {
-
-
-  displayedColumns: string[] = ['applicationId', 'applicantName', 'leasingAmount', 'dateOfSubmission', 'applicationStatus', 'assignedManager', 'details'];
+  displayedColumns: string[] = [
+    'applicationId',
+    'applicantName',
+    'leasingAmount',
+    'dateOfSubmission',
+    'applicationStatus',
+    'assignedManager',
+    'details'
+  ];
   dataSource: Application[] = []; // DataSource will be populated by fetchApplications method
-  totalApplications = 0; 
+  totalApplications = 0;
   applicationsPerPage = 20;
   currentPage = 1;
   pageSizeOptions = [10, 20, 50];
 
-  constructor() {
+  constructor(private router: Router) {
     this.fetchApplications();
   }
 
   fetchApplications() {
     // Simulated data fetch function
-    const applications = Array.from({length: 50}, (_, index) => ({
+    const applications = Array.from({ length: 50 }, (_, index) => ({
       applicationId: `${index + 1}`,
       applicantName: `Applicant ${index + 1}`,
-      leasingAmount: 25000 + (index * 1000),
-      dateOfSubmission: formatDate(new Date(Date.now() - 86400000 * (index % 10)), 'yyyy-MM-dd', 'en'),
-      applicationStatus: ['SUBMITTED', 'UNDER_REVIEW', 'PENDING_CHANGES', 'PENDING_REVIEW', 'WAITING_FOR_SIGNING', 'SIGNED', 'REJECTED', 'CANCELLED'][index % 8],
+      leasingAmount: 25000 + index * 1000,
+      dateOfSubmission: formatDate(
+        new Date(Date.now() - 86400000 * (index % 10)),
+        'yyyy-MM-dd',
+        'en'
+      ),
+      applicationStatus: [
+        'SUBMITTED',
+        'UNDER_REVIEW',
+        'PENDING_CHANGES',
+        'PENDING_REVIEW',
+        'WAITING_FOR_SIGNING',
+        'SIGNED',
+        'REJECTED',
+        'CANCELLED'
+      ][index % 8],
       assignedManager: `Manager ${index % 10}`
     }));
-    
-    this.dataSource = applications.sort((a, b) => new Date(b.dateOfSubmission).getTime() - new Date(a.dateOfSubmission).getTime());
+
+    this.dataSource = applications.sort(
+      (a, b) => new Date(b.dateOfSubmission).getTime() - new Date(a.dateOfSubmission).getTime()
+    );
     this.totalApplications = this.dataSource.length;
   }
 
@@ -64,8 +87,7 @@ export class AdminDashboardComponent {
       return 'red';
     } else if (diffDays >= 3 && application.applicationStatus === 'SUBMITTED') {
       return 'yellow';
-    }
-    else if (application.applicationStatus === 'SIGNED') {
+    } else if (application.applicationStatus === 'SIGNED') {
       return 'green';
     }
     return '';
@@ -73,6 +95,6 @@ export class AdminDashboardComponent {
 
   viewDetails(applicationId: string) {
     console.log('Viewing details for:', applicationId);
-    // Here you can implement the logic to navigate or open a modal/dialog with application details
+    this.router.navigate(['/details', applicationId]);
   }
 }

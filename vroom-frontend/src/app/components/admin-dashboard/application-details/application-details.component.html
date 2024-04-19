@@ -1,0 +1,139 @@
+<div class="header">
+    <h1>Application details for application {{ applicationId }}</h1>
+</div>
+
+<h1>Application Details for: {{ applicationId }}</h1>
+
+@if (applicationId === application.applicationId){
+<!-- application-details.component.html -->
+
+<mat-tab-group animationDuration="0ms">
+  <mat-tab label="General Info">
+    <table mat-table [dataSource]="[application]" class="mat-elevation-z8">
+      <ng-container matColumnDef="applicationId">
+        <th mat-header-cell *matHeaderCellDef>Application ID</th>
+        <td mat-cell *matCellDef="let element">{{ element.applicationId }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef>Status</th>
+        <td mat-cell *matCellDef="let element">{{ element.status }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="dateOfSubmission">
+        <th mat-header-cell *matHeaderCellDef>Date of Submission</th>
+        <td mat-cell *matCellDef="let element">{{ element.dateOfSubmission }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="assignedManager">
+        <th mat-header-cell *matHeaderCellDef>Assigned Manager</th>
+        <td mat-cell *matCellDef="let element">{{ element.assignedManager }}</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="['applicationId', 'status', 'dateOfSubmission', 'assignedManager']"></tr>
+      <tr mat-row *matRowDef="let row; columns: ['applicationId', 'status', 'dateOfSubmission', 'assignedManager'];"></tr>
+    </table>
+    <button mat-raised-button color="primary">Assign to Myself</button>
+  </mat-tab>
+
+  <mat-tab label="Applicant's Info">
+    <table mat-table [dataSource]="[application.applicantInfo]" class="mat-elevation-z8">
+      <ng-container matColumnDef="fullName">
+        <th mat-header-cell *matHeaderCellDef>Full Name</th>
+        <td mat-cell *matCellDef="let element">{{ element.fullName }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="personalId">
+        <th mat-header-cell *matHeaderCellDef>Personal ID</th>
+        <td mat-cell *matCellDef="let element">{{ element.personalId }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="birthDate">
+        <th mat-header-cell *matHeaderCellDef>Birth Date</th>
+        <td mat-cell *matCellDef="let element">{{ element.birthDate }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef>Email</th>
+        <td mat-cell *matCellDef="let element">{{ element.email }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="phone">
+        <th mat-header-cell *matHeaderCellDef>Phone</th>
+        <td mat-cell *matCellDef="let element">{{ element.phone }}</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="['fullName', 'personalId', 'birthDate', 'email', 'phone']"></tr>
+      <tr mat-row *matRowDef="let row; columns: ['fullName', 'personalId', 'birthDate', 'email', 'phone'];"></tr>
+    </table>
+  </mat-tab>
+
+  <mat-tab label="Financial Info">
+    <table mat-table [dataSource]="[application.financialInfo]" class="mat-elevation-z8">
+      <ng-container matColumnDef="monthlyIncome">
+        <th mat-header-cell *matHeaderCellDef>Monthly Income</th>
+        <td mat-cell *matCellDef="let element">{{ element.monthlyIncome }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="maritalStatus">
+        <th mat-header-cell *matHeaderCellDef>Marital Status</th>
+        <td mat-cell *matCellDef="let element">{{ element.maritalStatus }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="dependants">
+        <th mat-header-cell *matHeaderCellDef>Dependants</th>
+        <td mat-cell *matCellDef="let element">{{ element.dependants }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="obligations">
+        <th mat-header-cell *matHeaderCellDef>Obligations</th>
+        <td mat-cell *matCellDef="let element">{{ element.obligations }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="disposableIncome">
+        <th mat-header-cell *matHeaderCellDef>Disposable Income</th>
+        <td mat-cell *matCellDef="let element">{{ element.disposableIncome }}</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="['monthlyIncome', 'maritalStatus', 'dependants', 'obligations', 'disposableIncome']"></tr>
+      <tr mat-row *matRowDef="let row; columns: ['monthlyIncome', 'maritalStatus', 'dependants', 'obligations', 'disposableIncome'];"></tr>
+    </table>
+  </mat-tab>
+
+  <mat-tab label="Vehicle Info">
+    <table mat-table [dataSource]="[application.vehicleInfo]" class="mat-elevation-z8">
+      <ng-container matColumnDef="make">
+        <th mat-header-cell *matHeaderCellDef>Make</th>
+        <td mat-cell *matCellDef="let element">{{ element.make }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="model">
+        <th mat-header-cell *matHeaderCellDef>Model</th>
+        <td mat-cell *matCellDef="let element">{{ element.model }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="year">
+          <th mat-header-cell *matHeaderCellDef>Year</th>
+          <td mat-cell *matCellDef="let element">{{ element.year }}</td>
+        </ng-container>
+  
+        <ng-container matColumnDef="fuelType">
+          <th mat-header-cell *matHeaderCellDef>Fuel Type</th>
+          <td mat-cell *matCellDef="let element">{{ element.fuelType }}</td>
+        </ng-container>
+  
+        <ng-container matColumnDef="emissions">
+          <th mat-header-cell *matHeaderCellDef>Emissions</th>
+          <td mat-cell *matCellDef="let element">{{ element.emissions }}</td>
+        </ng-container>
+  
+        <tr mat-header-row *matHeaderRowDef="['make', 'model', 'year', 'fuelType', 'emissions']"></tr>
+        <tr mat-row *matRowDef="let row; columns: ['make', 'model', 'year', 'fuelType', 'emissions'];"></tr>
+      </table>
+    </mat-tab>
+  </mat-tab-group>
+  
+}
+
+<button matButton (click)="viewAdminDashboard()">Back to Admin Dashboard</button>
+

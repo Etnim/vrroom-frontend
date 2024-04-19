@@ -3,11 +3,12 @@ import { RouterOutlet } from '@angular/router';
 import { environment } from '../environment/environment';
 import { WizardComponent } from './components/wizard/wizard.component';
 import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
+import { ApplicationDetailsComponent } from './components/admin-dashboard/application-details/application-details.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, WizardComponent, AdminDashboardComponent],
+  imports: [RouterOutlet, WizardComponent, AdminDashboardComponent, ApplicationDetailsComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
