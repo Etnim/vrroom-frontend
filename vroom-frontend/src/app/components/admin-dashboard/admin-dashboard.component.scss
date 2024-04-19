@@ -3,6 +3,11 @@
     max-width: 960px; /* Set a max-width for larger screens */
     padding: 0 15px; /* Padding for a little space around the content */
   }
+  :host {
+    display: block;
+    padding: 20px;
+    background-color: #f4f4f4; // Soft background color for comfort
+  }
   
   .header {
     background-color: #333;
