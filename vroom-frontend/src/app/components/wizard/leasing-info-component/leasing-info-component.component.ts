@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import {Component, Input, Output} from '@angular/core';
 import { FormBuilder, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatButtonModule } from '@angular/material/button';
@@ -7,13 +7,13 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { AsyncPipe } from '@angular/common';
 import { FormControl } from '@angular/forms';
-import type { LeasingInfoFormGroup } from '../types';
+import {LeasingInfo, LeasingInfoFormGroup} from '../types';
+import {CalculatorComponent} from "../calculator/calculator.component";
 
 @Component({
   selector: 'app-leasing-info-component',
   standalone: true,
   imports: [
-    LeasingInfoComponentComponent,
     MatStepperModule,
     FormsModule,
     ReactiveFormsModule,
@@ -21,12 +21,15 @@ import type { LeasingInfoFormGroup } from '../types';
     MatSelectModule,
     MatInputModule,
     MatButtonModule,
-    AsyncPipe
+    AsyncPipe,
+    CalculatorComponent
   ],
   templateUrl: './leasing-info-component.component.html',
   styleUrl: './leasing-info-component.component.scss'
 })
 export class LeasingInfoComponentComponent {
+  @Output() leasingInfo!: LeasingInfo;
+
   firstFormGroup = this._formBuilder.group<LeasingInfoFormGroup>({
     amount: new FormControl<number | null>(null, [
       Validators.required,
@@ -40,15 +43,28 @@ export class LeasingInfoComponentComponent {
     period: new FormControl<number | null>(null, Validators.required)
   });
 
-  constructor(private _formBuilder: FormBuilder) {}
+  constructor(private _formBuilder: FormBuilder) {
+    this.leasingInfo = {
+      amount: 80000,
+      downPayment: 10,
+      residualValue: 0,
+      period: 1,
+      interestRate: 0.538
+    }
+
+    this.firstFormGroup.valueChanges.subscribe(value =>
+      this.leasingInfo = {
+        amount: value.amount ?? 8000,
+        downPayment: value.downPayment ?? 10,
+        residualValue: value.residualValue ?? 0,
+        period: value.period ?? 1,
+        interestRate: 0.538
+      })
+  }
 
   downPaymentOptions = [10, 20, 30, 40, 50, 60];
   residualValueOptions = [0, 5, 10, 15, 20, 25, 30];
   periodOptions = [1, 2, 3, 4, 5, 6, 7];
-
-  ngOnInit() {
-    // Fetch interest rate using API
-  }
 
   calculateDownPayment() {
     const amountControl = this.firstFormGroup.get('amount');

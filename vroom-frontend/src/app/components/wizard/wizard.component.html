@@ -6,43 +6,45 @@
       <div class="wizard-title">
         <h2>{{ wizardTitle }}</h2>
       </div>
-      <mat-stepper class="example-stepper" [orientation]="(stepperOrientation | async)!" linear>
+      <mat-stepper class="example-stepper" [orientation]="(stepperOrientation | async)!" >
         <mat-step [stepControl]="stepOne.firstFormGroup" label="Leasing Information">
+          <h1 class="title-mobile">Leasing Information</h1>
           <app-leasing-info-component #stepOne></app-leasing-info-component>
-
-          <!-- {{ firstFormGroup.valid }} -->
-          <button (click)="print()">yoo</button>
         </mat-step>
 
         <mat-step [stepControl]="stepTwo.secondFormGroup" label="Financial Information">
+          <h1 class="title-mobile">Financial Information</h1>
           <app-financial-info #stepTwo></app-financial-info>
         </mat-step>
 
         <mat-step [stepControl]="stepThree.thirdFormGroup" label="Vehicle information">
+          <h1 class="title-mobile">Vehicle information</h1>
           <app-vehicle-info #stepThree></app-vehicle-info>
         </mat-step>
 
         <mat-step [stepControl]="stepFour.fourthFormGroup" label="Personal and contact information">
+          <h1 class="title-mobile">Personal and contact information</h1>
           <app-personal-contact-info #stepFour></app-personal-contact-info>
         </mat-step>
 
         <mat-step [stepControl]="fifthFormGroup" label="Review and Submit">
+          <h1 class="title-form">Review and Submit</h1>
           <form [formGroup]="fifthFormGroup" id="review-form">
-            <h2>Review and Submit</h2>
+            <h2 class="title-mobile">Review and Submit</h2>
             <mat-card>
               <mat-card-header>
                 <mat-card-title>Leasing Information</mat-card-title>
               </mat-card-header>
               <mat-card-content>
                 @if (stepOne.firstFormGroup.value) {
-                <p><strong>Amount:</strong> {{ stepOne.firstFormGroup.value.amount }}</p>
-                <p>
-                  <strong>Down Payment:</strong> {{ stepOne.firstFormGroup.value.downPayment }}%
-                </p>
-                <p>
-                  <strong>Residual Value:</strong> {{ stepOne.firstFormGroup.value.residualValue }}%
-                </p>
-                <p><strong>Period:</strong> {{ stepOne.firstFormGroup.value.period }}</p>
+                  <p><strong>Amount:</strong> {{ stepOne.firstFormGroup.value.amount }}</p>
+                  <p>
+                    <strong>Down Payment:</strong> {{ stepOne.firstFormGroup.value.downPayment }}%
+                  </p>
+                  <p>
+                    <strong>Residual Value:</strong> {{ stepOne.firstFormGroup.value.residualValue }}%
+                  </p>
+                  <p><strong>Period:</strong> {{ stepOne.firstFormGroup.value.period }}</p>
                 }
               </mat-card-content>
             </mat-card>
@@ -53,31 +55,32 @@
               </mat-card-header>
               <mat-card-content>
                 @if (stepTwo.secondFormGroup.value) {
-                <p>
-                  <strong>Employment Status:</strong>
-                  {{ stepTwo.secondFormGroup.value.employmentStatus }}
-                </p>
-                <p>
-                  <strong>Employment Term:</strong>
-                  {{ stepTwo.secondFormGroup.value.employmentTerm }}
-                </p>
+                  <p>
+                    <strong>Employment Status:</strong>
+                    {{ stepTwo.secondFormGroup.value.employmentStatus }}
+                  </p>
+                  <p>
+                    <strong>Employment Term:</strong>
+                    {{ stepTwo.secondFormGroup.value.employmentTerm }}
+                  </p>
 
-                <p>
-                  <strong>Monthly Income:</strong> {{ stepTwo.secondFormGroup.value.monthlyIncome }}
-                </p>
+                  <p>
+                    <strong>Monthly Income:</strong> {{ stepTwo.secondFormGroup.value.monthlyIncome }}
+                  </p>
 
-                <p>
-                  <strong>Marital Status:</strong>
-                  {{ stepTwo.secondFormGroup.value.maritalStatus }}
-                </p>
-                <p>
-                  <strong>Number of dependents:</strong>
-                  {{ stepTwo.secondFormGroup.value.numberOfDependents }}
-                </p>
+                  <p>
+                    <strong>Marital Status:</strong>
+                    {{ stepTwo.secondFormGroup.value.maritalStatus }}
+                  </p>
+                  <p>
+                    <strong>Number of dependents:</strong>
+                    {{ stepTwo.secondFormGroup.value.numberOfDependents }}
+                  </p>
 
-                @if (stepTwo.secondFormGroup.value.monthlyObligations) {
-                {{ stepTwo.secondFormGroup.value.monthlyObligations }}
-                } }
+                  @if (stepTwo.secondFormGroup.value.monthlyObligations) {
+                    {{ stepTwo.secondFormGroup.value.monthlyObligations }}
+                  }
+                }
               </mat-card-content>
             </mat-card>
 
@@ -87,14 +90,14 @@
               </mat-card-header>
               <mat-card-content>
                 @if (stepThree.thirdFormGroup.value) {
-                <p><strong>Make:</strong> {{ stepThree.thirdFormGroup.value.make }}</p>
-                <p><strong>Model:</strong> {{ stepThree.thirdFormGroup.value.model }}</p>
-                <p><strong>Year:</strong> {{ stepThree.thirdFormGroup.value.year }}</p>
-                <p><strong>Fuel Type:</strong> {{ stepThree.thirdFormGroup.value.fuelType }}</p>
-                <p>
-                  <strong>Emission Range:</strong> {{ stepThree.emissionRangeForm.value.start }} -
-                  {{ stepThree.emissionRangeForm.value.end }}
-                </p>
+                  <p><strong>Make:</strong> {{ stepThree.thirdFormGroup.value.make }}</p>
+                  <p><strong>Model:</strong> {{ stepThree.thirdFormGroup.value.model }}</p>
+                  <p><strong>Year:</strong> {{ stepThree.thirdFormGroup.value.year }}</p>
+                  <p><strong>Fuel Type:</strong> {{ stepThree.thirdFormGroup.value.fuelType }}</p>
+                  <p>
+                    <strong>Emission Range:</strong> {{ stepThree.emissionRangeForm.value.start }} -
+                    {{ stepThree.emissionRangeForm.value.end }}
+                  </p>
 
                 }
               </mat-card-content>
@@ -106,44 +109,41 @@
               </mat-card-header>
               <mat-card-content>
                 @if (stepFour.fourthFormGroup.value) {
-                <p><strong>Name:</strong> {{ stepFour.fourthFormGroup.value.name }}</p>
+                  <p><strong>Name:</strong> {{ stepFour.fourthFormGroup.value.name }}</p>
 
-                <p><strong>Surname:</strong> {{ stepFour.fourthFormGroup.value.surname }}</p>
-                <p><strong>Email:</strong> {{ stepFour.fourthFormGroup.value.email }}</p>
-                <p>
-                  <strong>Date of Birth:</strong> {{ stepFour.fourthFormGroup.value.dateOfBirth }}
-                </p>
-                <p>
-                  <strong>identification Number:</strong>
-                  {{ stepFour.fourthFormGroup.value.identificationNumber }}
-                </p>
-                <p>
-                  <strong>Phone number:</strong> {{ stepFour.fourthFormGroup.value.phoneNumber }}
-                </p>
-                <p><strong>Address:</strong> {{ stepFour.fourthFormGroup.value.address }}</p>
-                <p><strong>City:</strong> {{ stepFour.fourthFormGroup.value.city }}</p>
-                <p><strong>Postal Code</strong> {{ stepFour.fourthFormGroup.value.postalCode }}</p>
+                  <p><strong>Surname:</strong> {{ stepFour.fourthFormGroup.value.surname }}</p>
+                  <p><strong>Email:</strong> {{ stepFour.fourthFormGroup.value.email }}</p>
+                  <p>
+                    <strong>Date of Birth:</strong> {{ stepFour.fourthFormGroup.value.dateOfBirth }}
+                  </p>
+                  <p>
+                    <strong>identification Number:</strong>
+                    {{ stepFour.fourthFormGroup.value.identificationNumber }}
+                  </p>
+                  <p>
+                    <strong>Phone number:</strong> {{ stepFour.fourthFormGroup.value.phoneNumber }}
+                  </p>
+                  <p><strong>Address:</strong> {{ stepFour.fourthFormGroup.value.address }}</p>
+                  <p><strong>City:</strong> {{ stepFour.fourthFormGroup.value.city }}</p>
+                  <p><strong>Postal Code</strong> {{ stepFour.fourthFormGroup.value.postalCode }}</p>
 
                 }
               </mat-card-content>
             </mat-card>
 
             <section>
-              <!-- <mat-checkbox formControlName="reviewConfirm">
+              <mat-checkbox formControlName="reviewConfirm">
                 I attest that all information is correct
-              </mat-checkbox> -->
+              </mat-checkbox>
             </section>
 
-            <div class="actions">
+            <div class="actions navigation-buttons">
               <button mat-button matStepperPrevious>Back</button>
               <button
-                mat-raised-button
-                color="primary"
+                mat-button
                 [disabled]="!fifthFormGroup.get('reviewConfirm')?.value"
                 (click)="submitReviewedForm()"
-              >
-                Submit
-              </button>
+              >Submit</button>
 
               <!-- <button (click)="checkFormFilled()">yoo</button> -->
             </div>
@@ -154,8 +154,5 @@
 
     <div class="navigation-controls"></div>
     <div class="footer"></div>
-  </div>
-  <div class="calculator">
-    <app-calculator [inputValues]="leasingInfo"></app-calculator>
   </div>
 </div>
