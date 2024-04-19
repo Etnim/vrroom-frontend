@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { MakesApiResponse } from '../models/makes.model';
-import { ModelsApiResponse } from '../models/makes.model';
 import { environment } from '../../environment/environment'; 
 
 @Injectable({
@@ -13,12 +11,12 @@ export class MakesDataService {
   
   constructor(private http: HttpClient) {}
 
-  getMakes(): Observable<MakesApiResponse> {
-    return this.http.get<MakesApiResponse>(`${this.apiUrl}/cars/makes`);
+  getMakes(): Observable<string[]> {
+    return this.http.get<string[]>(`${this.apiUrl}/cars/makes`);
   }
 
-  getModels(makeName: string): Observable<ModelsApiResponse> {
-    return this.http.get<ModelsApiResponse>(`${this.apiUrl}/cars/models/${makeName}`);
+  getModels(makeName: string): Observable<string[]> {
+    return this.http.get<string[]>(`${this.apiUrl}/cars/${makeName}/models`);
   }
 
 }
