@@ -1,25 +1,16 @@
 import { Component } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { NgStyle, formatDate } from '@angular/common';
-import { MatStartDate } from '@angular/material/datepicker';
+import { AsyncPipe, NgStyle, formatDate } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { Router } from '@angular/router';
 import { ApplicationDetailsComponent } from './application-details/application-details.component';
-
-interface Application {
-  applicationId: string;
-  applicantName: string;
-  leasingAmount: number;
-  dateOfSubmission: string;
-  applicationStatus: string;
-  assignedManager: string;
-}
+import { ApplicationService, Application } from '../../services/application.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'admin-dashboard',
   standalone: true,
-  imports: [NgStyle, MatTableModule, MatPaginator, ApplicationDetailsComponent],
+  imports: [NgStyle, MatTableModule, MatPaginator, ApplicationDetailsComponent, AsyncPipe],
   templateUrl: './admin-dashboard.component.html',
   styleUrls: ['./admin-dashboard.component.scss']
 })
@@ -39,38 +30,20 @@ export class AdminDashboardComponent {
   currentPage = 1;
   pageSizeOptions = [10, 20, 50];
 
-  constructor(private router: Router) {
+  
+
+  constructor(private appService: ApplicationService, private router: Router) {
     this.fetchApplications();
   }
 
   fetchApplications() {
-    // Simulated data fetch function
-    const applications = Array.from({ length: 50 }, (_, index) => ({
-      applicationId: `${index + 1}`,
-      applicantName: `Applicant ${index + 1}`,
-      leasingAmount: 25000 + index * 1000,
-      dateOfSubmission: formatDate(
-        new Date(Date.now() - 86400000 * (index % 10)),
-        'yyyy-MM-dd',
-        'en'
-      ),
-      applicationStatus: [
-        'SUBMITTED',
-        'UNDER_REVIEW',
-        'PENDING_CHANGES',
-        'PENDING_REVIEW',
-        'WAITING_FOR_SIGNING',
-        'SIGNED',
-        'REJECTED',
-        'CANCELLED'
-      ][index % 8],
-      assignedManager: `Manager ${index % 10}`
-    }));
-
-    this.dataSource = applications.sort(
-      (a, b) => new Date(b.dateOfSubmission).getTime() - new Date(a.dateOfSubmission).getTime()
-    );
-    this.totalApplications = this.dataSource.length;
+    this.appService.fetchApplications(this.currentPage - 1, this.applicationsPerPage).subscribe({
+      next: (data) => {
+        this.dataSource = data.content;
+        this.totalApplications = data.totalElements;
+      },
+      error: (error) => console.error('Failed to fetch applications', error)
+    });
   }
 
   onPageChange(pageData: PageEvent) {
@@ -87,9 +60,7 @@ export class AdminDashboardComponent {
       return 'red';
     } else if (diffDays >= 3 && application.applicationStatus === 'SUBMITTED') {
       return 'yellow';
-    } else if (application.applicationStatus === 'SIGNED') {
-      return 'green';
-    }
+    } 
     return '';
   }
 
