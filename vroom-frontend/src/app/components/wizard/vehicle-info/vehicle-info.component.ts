@@ -38,19 +38,19 @@ import { FormBuilder } from '@angular/forms';
 })
 export class VehicleInfoComponent {
   thirdFormGroup = this._formBuilder.group<VehicleInfoFormGroup>({
-    make: new FormControl<string | null>(null, Validators.required),
+    brand: new FormControl<string | null>(null, Validators.required),
     model: new FormControl<string | null>('', Validators.required),
     year: new FormControl<number | null>(null, [
       Validators.required,
       Validators.min(2010),
       Validators.max(2024)
     ]),
-    fuelType: new FormControl<string | null>(null, Validators.required)
+    fuel: new FormControl<string | null>(null, Validators.required)
   });
 
   emissionRangeForm = this._formBuilder.group<EmissionRangeFormGroup>({
-    start: new FormControl<number>(0),
-    end: new FormControl<number>(20)
+    emissionStart: new FormControl<number>(0),
+    emissionEnd: new FormControl<number>(20)
   });
 
   makes: string[] = [];
@@ -81,7 +81,7 @@ export class VehicleInfoComponent {
 
   onMakeSelectionChange(make: string) {
     console.log('Selected make:', make);
-    this.thirdFormGroup.get('make')?.setValue(make);
+    this.thirdFormGroup.get('brand')?.setValue(make);
     this.models = this.makesDataService.getModels(make).pipe(map((response) => response));
   }
 
@@ -93,5 +93,4 @@ export class VehicleInfoComponent {
     const filterValue = name.toLowerCase();
     return this.makes.filter((option) => option.toLowerCase().includes(filterValue));
   }
-
 }
