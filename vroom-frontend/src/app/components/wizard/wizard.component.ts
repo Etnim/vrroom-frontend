@@ -118,7 +118,7 @@ export class WizardComponent {
     private _formBuilder: FormBuilder
   ) {
     this.stepperOrientation = breakpointObserver
-      .observe('(min-width: 400px)')
+      .observe('(min-width: 300px)')
       .pipe(map(({matches}) => (matches ? 'horizontal' : 'vertical')));
   }
 }
