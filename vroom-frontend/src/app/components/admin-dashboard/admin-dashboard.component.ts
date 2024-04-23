@@ -77,7 +77,9 @@ export class AdminDashboardComponent {
       sortField: [''],
       sortDir: [''],
       startDate: [''],
-      endDate: ['']
+      endDate: [''],
+      pageNumber: [''],
+      pageSize: [''],
     });
     this.dateAdapter.setLocale('lt-US');
     
@@ -85,14 +87,27 @@ export class AdminDashboardComponent {
     this.fetchApplications();
   }
 
-  fetchApplications() {
+  applyPagination(): void {
+    // Retrieve the values from the form
+    const pageNumberValue = this.form.get('pageNumber')?.value ?? 0;
+    const pageSizeValue = this.form.get('pageSize')?.value ?? this.pageSize;
+  
+    // Convert page number from 1-based to 0-based for the backend
+    const pageNumber = pageNumberValue ? pageNumberValue - 1 : 0;
+    const pageSize = pageSizeValue || this.pageSize; // Use current page size if none provided
+  
+    // Call the backend API with the new page number and size
+    this.fetchApplications(pageNumber, pageSize);
+  }
+
+  fetchApplications(pageNumber: number = this.currentPage, pageSize: number = this.pageSize) {
     const { managerId, status, sortField, sortDir, startDate, endDate } = this.form.value;
     const formattedStartDate = startDate ? this.formatDate(startDate) : '';
     const formattedEndDate = endDate ? this.formatDate(endDate) : '';
     
     this.applicationService.fetchApplications(
-      this.currentPage, 
-      this.pageSize, 
+      pageNumber,
+      pageSize,
       sortField, 
       managerId, 
       sortDir, 

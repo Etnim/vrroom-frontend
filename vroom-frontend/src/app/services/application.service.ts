@@ -36,7 +36,7 @@ export class ApplicationService {
   fetchApplications(
     page: number,
     size: number,
-    sortField: string = 'createdAt,DESC',
+    sortField: string,
     managerId?: string,
     sortDir?: string,
     status?: string,
@@ -47,6 +47,14 @@ export class ApplicationService {
       .set('page', page.toString())
       .set('size', size.toString())
       .set('sort', sortField);
+
+    if (page){
+      params = params.set('page', page);
+    }
+
+    if (size) {
+      params = params.set('size', size);
+    }
 
     if (sortField) {
       params = params.set('sortField', sortField);

@@ -84,8 +84,21 @@
     ></mat-row>
   </mat-table>
   
-  <mat-paginator [length]="totalElements" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="onPageChange($event)">
-  </mat-paginator>
+  <div class="pagination-controls" [formGroup]="form">
+    <mat-form-field appearance="fill">
+      <mat-label>Page Number</mat-label>
+      <input matInput type="number" formControlName="pageNumber">
+    </mat-form-field>
   
+    <mat-form-field appearance="fill">
+      <mat-label>Page Size</mat-label>
+      <input matInput type="number" formControlName="pageSize">
+    </mat-form-field>
+  
+    <button mat-button (click)="applyPagination()">Apply</button>
+  </div>
+  
+  <mat-paginator [length]="totalElements" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" [pageIndex]="currentPage">
+  </mat-paginator>
   
   </div>
