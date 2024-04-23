@@ -1,16 +1,51 @@
 <div class="app-page-container">
-
   <div class="header">
     <h1>vRroom Admin Dashboard</h1>
   </div>
-  
-  <mat-table [dataSource]="dataSource.slice((currentPage - 1) * applicationsPerPage, currentPage * applicationsPerPage)" class="mat-elevation-z8">
+
+  <div class="filters" [formGroup]="form">
+    <mat-form-field appearance="fill">
+      <mat-label>Manager ID</mat-label>
+      <input matInput formControlName="managerId">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Status</mat-label>
+      <input matInput formControlName="status">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Sort Field</mat-label>
+      <input matInput formControlName="sortField">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Sort Direction</mat-label>
+      <input matInput formControlName="sortDir">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Start Date</mat-label>
+      <input matInput [matDatepicker]="pickerStart" formControlName="startDate" (dateInput)="fetchApplications()" (dateChange)="fetchApplications()">
+      <mat-datepicker-toggle matSuffix [for]="pickerStart"></mat-datepicker-toggle>
+      <mat-datepicker #pickerStart></mat-datepicker>
+    </mat-form-field>
+    
+    <mat-form-field appearance="fill">
+      <mat-label>End Date</mat-label>
+      <input matInput [matDatepicker]="pickerEnd" formControlName="endDate" (dateInput)="fetchApplications()" (dateChange)="fetchApplications()">
+      <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
+      <mat-datepicker #pickerEnd></mat-datepicker>
+    </mat-form-field>
+  </div>
+
+  <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
     <ng-container matColumnDef="applicationId">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Application ID</mat-header-cell>
       <mat-cell *matCellDef="let element">{{ element.applicationId }}</mat-cell>
     </ng-container>
   
-    <ng-container matColumnDef="applicantName">
+    <ng-container matColumnDef="customerName">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Name Surname</mat-header-cell>
       <mat-cell *matCellDef="let element">{{ element.customerName }} {{ element.customerSurname }}</mat-cell>
     </ng-container>
@@ -20,7 +55,7 @@
       <mat-cell *matCellDef="let element">{{ element.leasingAmount }}</mat-cell>
     </ng-container>
   
-    <ng-container matColumnDef="dateOfSubmission">
+    <ng-container matColumnDef="applicationCreatedDate">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Date of Submission</mat-header-cell>
       <mat-cell *matCellDef="let element">{{ element.applicationCreatedDate }}</mat-cell>
     </ng-container>
@@ -49,8 +84,7 @@
     ></mat-row>
   </mat-table>
   
-  <mat-paginator [length]="totalApplications" [pageSize]="applicationsPerPage" [pageSizeOptions]="pageSizeOptions"
-                 (page)="onPageChange($event)">
+  <mat-paginator [length]="totalElements" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="onPageChange($event)">
   </mat-paginator>
   
   

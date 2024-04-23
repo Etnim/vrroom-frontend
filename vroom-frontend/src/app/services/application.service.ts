@@ -38,6 +38,7 @@ export class ApplicationService {
     size: number,
     sortField: string = 'createdAt,DESC',
     managerId?: string,
+    sortDir?: string,
     status?: string,
     startDate?: string,
     endDate?: string
@@ -47,6 +48,13 @@ export class ApplicationService {
       .set('size', size.toString())
       .set('sort', sortField);
 
+    if (sortField) {
+      params = params.set('sortField', sortField);
+    }
+
+    if (sortDir) {
+      params = params.set('sortDir', sortDir);
+    }
     if (managerId) {
       params = params.set('managerId', managerId);
     }
