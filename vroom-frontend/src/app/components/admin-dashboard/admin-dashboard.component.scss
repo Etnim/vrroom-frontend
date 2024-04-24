@@ -1,55 +1,73 @@
 .container {
-    margin: 20px auto;
-    max-width: 960px; /* Set a max-width for larger screens */
-    padding: 0 15px; /* Padding for a little space around the content */
+  margin: 20px auto;
+  max-width: 960px; /* Set a max-width for larger screens */
+  padding: 0 15px; /* Padding for a little space around the content */
+}
+:host {
+  display: block;
+  padding: 20px;
+  background-color: #f4f4f4; // Soft background color for comfort
+}
+
+.header {
+  background-color: #333;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  font-size: 24px;
+  border-radius: 5px; /* Rounded corners for the header */
+}
+
+.mat-table {
+  width: 100%;
+  overflow-x: auto; /* Allows table to scroll on small screens */
+}
+
+.mat-row,
+.mat-header-row {
+  min-height: 48px; /* Ensures row heights are consistent */
+}
+
+.mat-cell,
+.mat-header-cell {
+  padding: 8px 24px; /* Adequate padding for table cells */
+}
+
+button {
+  background-color: #6200ea;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #3700b3;
+}
+
+@media (max-width: 600px) {
+  .container {
+    max-width: 100%;
+    margin: 10px; /* Smaller margin on smaller screens */
   }
-  :host {
-    display: block;
-    padding: 20px;
-    background-color: #f4f4f4; // Soft background color for comfort
-  }
-  
   .header {
-    background-color: #333;
-    color: white;
-    padding: 10px 20px;
-    text-align: center;
-    font-size: 24px;
-    border-radius: 5px; /* Rounded corners for the header */
+    font-size: 20px; /* Smaller font size on smaller screens */
   }
-  
-  .mat-table {
-    width: 100%;
-    overflow-x: auto; /* Allows table to scroll on small screens */
-  }
-  
-  .mat-row, .mat-header-row {
-    min-height: 48px; /* Ensures row heights are consistent */
-  }
-  
-  .mat-cell, .mat-header-cell {
-    padding: 8px 24px; /* Adequate padding for table cells */
-  }
-  
-  button {
-    background-color: #6200ea;
-    color: white;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  button:hover {
-    background-color: #3700b3;
-  }
-  
-  @media (max-width: 600px) {
-    .container {
-      max-width: 100%;
-      margin: 10px; /* Smaller margin on smaller screens */
-    }
-    .header {
-        font-size: 20px; /* Smaller font size on smaller screens */
-      }
-    }
+}
+
+.mat-form-field {
+  width: 100%;
+  margin-right: 8px;
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px; /* Provide spacing between fields */
+}
+
+.mat-card {
+  padding: 15px; /* Adds padding inside the card */
+}
+

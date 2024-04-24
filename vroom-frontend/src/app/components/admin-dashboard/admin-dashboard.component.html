@@ -3,65 +3,77 @@
     <h1>vRroom Admin Dashboard</h1>
   </div>
 
-  <div class="filters" [formGroup]="form">
-    <mat-form-field appearance="fill">
-      <mat-label>Manager ID</mat-label>
-      <input matInput formControlName="managerId" />
-    </mat-form-field>
+  <mat-card>
+    <mat-card-title>Filter Options</mat-card-title>
+    <mat-card-content>
+      <div class="filters" [formGroup]="form">
+        <mat-form-field appearance="fill">
+          <mat-label>Manager ID</mat-label>
+          <input matInput formControlName="managerId" />
+        </mat-form-field>
 
-    <mat-form-field appearance="fill">
-      <mat-label>Status</mat-label>
-      <input matInput formControlName="status" />
-    </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Status</mat-label>
+          <mat-select formControlName="status">
+            <mat-option value="SUBMITTED">SUBMITTED</mat-option>
+            <mat-option value="UNDER_REVIEW">UNDER_REVIEW</mat-option>
+            <mat-option value="PENDING_CHANGES">PENDING_CHANGES</mat-option>
+            <mat-option value="PENDING_REVIEW">PENDING_REVIEW</mat-option>
+            <mat-option value="WAITING_FOR_SIGNING">WAITING_FOR_SIGNING</mat-option>
+            <mat-option value="SIGNED">SIGNED</mat-option>
+            <mat-option value="REJECTED">REJECTED</mat-option>
+            <mat-option value="CANCELLED">CANCELLED</mat-option>
+          </mat-select>
+        </mat-form-field>
 
-    <mat-form-field appearance="fill">
-      <mat-label>Start Date</mat-label>
-      <input
-        matInput
-        [matDatepicker]="pickerStart"
-        formControlName="startDate"
-        (dateInput)="fetchApplications()"
-        (dateChange)="fetchApplications()"
-      />
-      <mat-datepicker-toggle matSuffix [for]="pickerStart"></mat-datepicker-toggle>
-      <mat-datepicker #pickerStart></mat-datepicker>
-    </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Start Date</mat-label>
+          <input
+            matInput
+            [matDatepicker]="pickerStart"
+            formControlName="startDate"
+            (dateInput)="fetchApplications()"
+            (dateChange)="fetchApplications()"
+          />
+          <mat-datepicker-toggle matSuffix [for]="pickerStart"></mat-datepicker-toggle>
+          <mat-datepicker #pickerStart></mat-datepicker>
+        </mat-form-field>
 
-    <mat-form-field appearance="fill">
-      <mat-label>End Date</mat-label>
-      <input
-        matInput
-        [matDatepicker]="pickerEnd"
-        formControlName="endDate"
-        (dateInput)="fetchApplications()"
-        (dateChange)="fetchApplications()"
-      />
-      <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
-      <mat-datepicker #pickerEnd></mat-datepicker>
-    </mat-form-field>
-  </div>
+        <mat-form-field appearance="fill">
+          <mat-label>End Date</mat-label>
+          <input
+            matInput
+            [matDatepicker]="pickerEnd"
+            formControlName="endDate"
+            (dateInput)="fetchApplications()"
+            (dateChange)="fetchApplications()"
+          />
+          <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
+          <mat-datepicker #pickerEnd></mat-datepicker>
+        </mat-form-field>
+      </div>
+    </mat-card-content>
+  </mat-card>
 
   <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
     <ng-container matColumnDef="applicationId">
       <mat-header-cell *matHeaderCellDef (click)="onSort('applicationId')">
-        Application ID
-        @if (form.get('sortField')?.value === 'applicationId') {
+        Application ID @if (form.get('sortField')?.value === 'applicationId') {
         <mat-icon>
           {{ form.get('sortDir')?.value === 'asc' ? 'expand_more' : 'expand_less' }}
         </mat-icon>
-      }
+        }
       </mat-header-cell>
       <mat-cell *matCellDef="let element">{{ element.applicationId }}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="customerName">
       <mat-header-cell *matHeaderCellDef (click)="onSort('customerName')">
-        Name Surname
-        @if (form.get('sortField')?.value === 'customerName') {
-        <mat-icon >
+        Name Surname @if (form.get('sortField')?.value === 'customerName') {
+        <mat-icon>
           {{ form.get('sortDir')?.value === 'asc' ? 'expand_more' : 'expand_less' }}
         </mat-icon>
-      }
+        }
       </mat-header-cell>
       <mat-cell *matCellDef="let element"
         >{{ element.customerName }} {{ element.customerSurname }}</mat-cell
@@ -70,11 +82,10 @@
 
     <ng-container matColumnDef="leasingAmount">
       <mat-header-cell *matHeaderCellDef (click)="onSort('leasingAmount')">
-        Leasing Amount
-        @if (form.get('sortField')?.value === 'leasingAmount') {
-          <mat-icon >
-            {{ form.get('sortDir')?.value === 'asc' ? 'expand_more' : 'expand_less' }}
-          </mat-icon>
+        Leasing Amount @if (form.get('sortField')?.value === 'leasingAmount') {
+        <mat-icon>
+          {{ form.get('sortDir')?.value === 'asc' ? 'expand_more' : 'expand_less' }}
+        </mat-icon>
         }
       </mat-header-cell>
       <mat-cell *matCellDef="let element">{{ element.leasingAmount }}</mat-cell>
@@ -82,11 +93,10 @@
 
     <ng-container matColumnDef="applicationCreatedDate">
       <mat-header-cell *matHeaderCellDef (click)="onSort('applicationCreatedDate')">
-        Date of Submission
-        @if (form.get('sortField')?.value === 'applicationCreatedDate') {
-          <mat-icon >
-            {{ form.get('sortDir')?.value === 'asc' ? 'expand_more' : 'expand_less' }}
-          </mat-icon>
+        Date of Submission @if (form.get('sortField')?.value === 'applicationCreatedDate') {
+        <mat-icon>
+          {{ form.get('sortDir')?.value === 'asc' ? 'expand_more' : 'expand_less' }}
+        </mat-icon>
         }
       </mat-header-cell>
       <mat-cell *matCellDef="let element">{{ element.applicationCreatedDate }}</mat-cell>
@@ -94,11 +104,10 @@
 
     <ng-container matColumnDef="applicationStatus">
       <mat-header-cell *matHeaderCellDef (click)="onSort('applicationStatus')">
-        Status
-        @if (form.get('sortField')?.value === 'applicationStatus') {
-          <mat-icon >
-            {{ form.get('sortDir')?.value === 'asc' ? 'expand_more' : 'expand_less' }}
-          </mat-icon>
+        Status @if (form.get('sortField')?.value === 'applicationStatus') {
+        <mat-icon>
+          {{ form.get('sortDir')?.value === 'asc' ? 'expand_more' : 'expand_less' }}
+        </mat-icon>
         }
       </mat-header-cell>
       <mat-cell *matCellDef="let element">{{ element.applicationStatus }}</mat-cell>
@@ -106,11 +115,10 @@
 
     <ng-container matColumnDef="assignedManager">
       <mat-header-cell *matHeaderCellDef (click)="onSort('managerName')">
-        Assigned Manager
-        @if (form.get('sortField')?.value === 'managerName') {
-          <mat-icon >
-            {{ form.get('sortDir')?.value === 'asc' ? 'expand_more' : 'expand_less' }}
-          </mat-icon>
+        Assigned Manager @if (form.get('sortField')?.value === 'managerName') {
+        <mat-icon>
+          {{ form.get('sortDir')?.value === 'asc' ? 'expand_more' : 'expand_less' }}
+        </mat-icon>
         }
       </mat-header-cell>
       <mat-cell *matCellDef="let element"

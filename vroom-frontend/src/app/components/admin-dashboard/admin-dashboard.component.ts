@@ -13,6 +13,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
+import { MatCardModule } from '@angular/material/card';
 
 export const MY_DATE_FORMATS = {
   parse: {
@@ -41,7 +42,8 @@ export const MY_DATE_FORMATS = {
     MatInputModule,
     AsyncPipe,
     MatFormFieldModule,
-    MatIconModule
+    MatIconModule,
+    MatCardModule
   ],
   templateUrl: './admin-dashboard.component.html',
   styleUrls: ['./admin-dashboard.component.scss'],
@@ -128,9 +130,9 @@ export class AdminDashboardComponent {
 
   private formatDate(date: any): string {
     if (!date) return '';
-    let d = new Date(date);
-    return d instanceof Date && !isNaN(d.getTime())
-      ? `${d.getFullYear()}-${('0' + (d.getMonth() + 1)).slice(-2)}-${('0' + d.getDate()).slice(
+    let newDate = new Date(date);
+    return newDate instanceof Date && !isNaN(newDate.getTime())
+      ? `${newDate.getFullYear()}-${('0' + (newDate.getMonth() + 1)).slice(-2)}-${('0' + newDate.getDate()).slice(
           -2
         )}`
       : '';
