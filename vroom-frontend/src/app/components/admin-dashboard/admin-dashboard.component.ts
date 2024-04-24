@@ -12,6 +12,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MatIconModule } from '@angular/material/icon';
 
 export const MY_DATE_FORMATS = {
   parse: {
@@ -40,6 +41,7 @@ export const MY_DATE_FORMATS = {
     MatInputModule,
     AsyncPipe,
     MatFormFieldModule,
+    MatIconModule
   ],
   templateUrl: './admin-dashboard.component.html',
   styleUrls: ['./admin-dashboard.component.scss'],
@@ -79,24 +81,21 @@ export class AdminDashboardComponent {
       startDate: [''],
       endDate: [''],
       pageNumber: [''],
-      pageSize: [''],
+      pageSize: ['']
     });
     this.dateAdapter.setLocale('lt-US');
-    
+
     this.form.valueChanges.subscribe(() => this.fetchApplications());
     this.fetchApplications();
   }
 
   applyPagination(): void {
-    // Retrieve the values from the form
     const pageNumberValue = this.form.get('pageNumber')?.value ?? 0;
     const pageSizeValue = this.form.get('pageSize')?.value ?? this.pageSize;
-  
-    // Convert page number from 1-based to 0-based for the backend
+
     const pageNumber = pageNumberValue ? pageNumberValue - 1 : 0;
-    const pageSize = pageSizeValue || this.pageSize; // Use current page size if none provided
-  
-    // Call the backend API with the new page number and size
+    const pageSize = pageSizeValue || this.pageSize;
+
     this.fetchApplications(pageNumber, pageSize);
   }
 
@@ -104,33 +103,52 @@ export class AdminDashboardComponent {
     const { managerId, status, sortField, sortDir, startDate, endDate } = this.form.value;
     const formattedStartDate = startDate ? this.formatDate(startDate) : '';
     const formattedEndDate = endDate ? this.formatDate(endDate) : '';
-    
-    this.applicationService.fetchApplications(
-      pageNumber,
-      pageSize,
-      sortField, 
-      managerId, 
-      sortDir, 
-      status, 
-      formattedStartDate, 
-      formattedEndDate
-    ).subscribe({
-      next: (data) => {
-        this.dataSource = data.content;
-        this.totalElements = data.totalElements;
-        this.currentPage = data.pageNumber;
-        this.pageSize = data.pageSize;
-      },
-      error: (error) => console.error('Failed to fetch applications', error)
-    });
+
+    this.applicationService
+      .fetchApplications(
+        pageNumber,
+        pageSize,
+        sortField,
+        managerId,
+        sortDir,
+        status,
+        formattedStartDate,
+        formattedEndDate
+      )
+      .subscribe({
+        next: (data) => {
+          this.dataSource = data.content;
+          this.totalElements = data.totalElements;
+          this.currentPage = data.pageNumber;
+          this.pageSize = data.pageSize;
+        },
+        error: (error) => console.error('Failed to fetch applications', error)
+      });
   }
-  
+
   private formatDate(date: any): string {
     if (!date) return '';
     let d = new Date(date);
-    return d instanceof Date && !isNaN(d.getTime()) ? `${d.getFullYear()}-${('0' + (d.getMonth() + 1)).slice(-2)}-${('0' + d.getDate()).slice(-2)}` : '';
+    return d instanceof Date && !isNaN(d.getTime())
+      ? `${d.getFullYear()}-${('0' + (d.getMonth() + 1)).slice(-2)}-${('0' + d.getDate()).slice(
+          -2
+        )}`
+      : '';
   }
-  
+
+  onSort(field: string): void {
+    if (this.form.get('sortField')?.value === field) {
+      // Toggle the sort direction for the same field
+      this.form
+        .get('sortDir')
+        ?.setValue(this.form.get('sortDir')?.value === 'asc' ? 'desc' : 'asc');
+    } else {
+      // Set the field and default to ascending for a new field
+      this.form.get('sortField')?.setValue(field);
+      this.form.get('sortDir')?.setValue('asc');
+    }
+    this.fetchApplications();
+  }
 
   onPageChange(event: PageEvent) {
     this.currentPage = event.pageIndex;

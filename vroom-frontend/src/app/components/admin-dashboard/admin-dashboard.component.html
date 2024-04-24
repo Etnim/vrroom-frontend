@@ -6,34 +6,36 @@
   <div class="filters" [formGroup]="form">
     <mat-form-field appearance="fill">
       <mat-label>Manager ID</mat-label>
-      <input matInput formControlName="managerId">
+      <input matInput formControlName="managerId" />
     </mat-form-field>
 
     <mat-form-field appearance="fill">
       <mat-label>Status</mat-label>
-      <input matInput formControlName="status">
-    </mat-form-field>
-
-    <mat-form-field appearance="fill">
-      <mat-label>Sort Field</mat-label>
-      <input matInput formControlName="sortField">
-    </mat-form-field>
-
-    <mat-form-field appearance="fill">
-      <mat-label>Sort Direction</mat-label>
-      <input matInput formControlName="sortDir">
+      <input matInput formControlName="status" />
     </mat-form-field>
 
     <mat-form-field appearance="fill">
       <mat-label>Start Date</mat-label>
-      <input matInput [matDatepicker]="pickerStart" formControlName="startDate" (dateInput)="fetchApplications()" (dateChange)="fetchApplications()">
+      <input
+        matInput
+        [matDatepicker]="pickerStart"
+        formControlName="startDate"
+        (dateInput)="fetchApplications()"
+        (dateChange)="fetchApplications()"
+      />
       <mat-datepicker-toggle matSuffix [for]="pickerStart"></mat-datepicker-toggle>
       <mat-datepicker #pickerStart></mat-datepicker>
     </mat-form-field>
-    
+
     <mat-form-field appearance="fill">
       <mat-label>End Date</mat-label>
-      <input matInput [matDatepicker]="pickerEnd" formControlName="endDate" (dateInput)="fetchApplications()" (dateChange)="fetchApplications()">
+      <input
+        matInput
+        [matDatepicker]="pickerEnd"
+        formControlName="endDate"
+        (dateInput)="fetchApplications()"
+        (dateChange)="fetchApplications()"
+      />
       <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
       <mat-datepicker #pickerEnd></mat-datepicker>
     </mat-form-field>
@@ -41,64 +43,101 @@
 
   <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
     <ng-container matColumnDef="applicationId">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Application ID</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef (click)="onSort('applicationId')">
+        Application ID
+        @if (form.get('sortField')?.value === 'applicationId') {
+        <mat-icon>
+          {{ form.get('sortDir')?.value === 'asc' ? 'expand_more' : 'expand_less' }}
+        </mat-icon>
+      }
+      </mat-header-cell>
       <mat-cell *matCellDef="let element">{{ element.applicationId }}</mat-cell>
     </ng-container>
-  
+
     <ng-container matColumnDef="customerName">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Name Surname</mat-header-cell>
-      <mat-cell *matCellDef="let element">{{ element.customerName }} {{ element.customerSurname }}</mat-cell>
+      <mat-header-cell *matHeaderCellDef (click)="onSort('customerName')">
+        Name Surname
+        @if (form.get('sortField')?.value === 'customerName') {
+        <mat-icon >
+          {{ form.get('sortDir')?.value === 'asc' ? 'expand_more' : 'expand_less' }}
+        </mat-icon>
+      }
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element"
+        >{{ element.customerName }} {{ element.customerSurname }}</mat-cell
+      >
     </ng-container>
-  
+
     <ng-container matColumnDef="leasingAmount">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Leasing Amount</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef (click)="onSort('leasingAmount')">
+        Leasing Amount
+        @if (form.get('sortField')?.value === 'leasingAmount') {
+          <mat-icon >
+            {{ form.get('sortDir')?.value === 'asc' ? 'expand_more' : 'expand_less' }}
+          </mat-icon>
+        }
+      </mat-header-cell>
       <mat-cell *matCellDef="let element">{{ element.leasingAmount }}</mat-cell>
     </ng-container>
-  
+
     <ng-container matColumnDef="applicationCreatedDate">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Date of Submission</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef (click)="onSort('applicationCreatedDate')">
+        Date of Submission
+        @if (form.get('sortField')?.value === 'applicationCreatedDate') {
+          <mat-icon >
+            {{ form.get('sortDir')?.value === 'asc' ? 'expand_more' : 'expand_less' }}
+          </mat-icon>
+        }
+      </mat-header-cell>
       <mat-cell *matCellDef="let element">{{ element.applicationCreatedDate }}</mat-cell>
     </ng-container>
-  
+
     <ng-container matColumnDef="applicationStatus">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef (click)="onSort('applicationStatus')">
+        Status
+        @if (form.get('sortField')?.value === 'applicationStatus') {
+          <mat-icon >
+            {{ form.get('sortDir')?.value === 'asc' ? 'expand_more' : 'expand_less' }}
+          </mat-icon>
+        }
+      </mat-header-cell>
       <mat-cell *matCellDef="let element">{{ element.applicationStatus }}</mat-cell>
     </ng-container>
-  
+
     <ng-container matColumnDef="assignedManager">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Assigned Manager</mat-header-cell>
-      <mat-cell *matCellDef="let element">{{ element.managerName }} {{ element.managerSurname }}</mat-cell>
+      <mat-header-cell *matHeaderCellDef (click)="onSort('managerName')">
+        Assigned Manager
+        @if (form.get('sortField')?.value === 'managerName') {
+          <mat-icon >
+            {{ form.get('sortDir')?.value === 'asc' ? 'expand_more' : 'expand_less' }}
+          </mat-icon>
+        }
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element"
+        >{{ element.managerName }} {{ element.managerSurname }}</mat-cell
+      >
     </ng-container>
-  
+
     <ng-container matColumnDef="details">
       <mat-header-cell *matHeaderCellDef>Details</mat-header-cell>
       <mat-cell *matCellDef="let element">
         <button mat-button (click)="viewDetails(element.applicationId)">View Details</button>
       </mat-cell>
     </ng-container>
-  
+
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row
       *matRowDef="let row; columns: displayedColumns"
       [ngStyle]="{ 'background-color': getRowColor(row) }"
     ></mat-row>
   </mat-table>
-  
-  <div class="pagination-controls" [formGroup]="form">
-    <mat-form-field appearance="fill">
-      <mat-label>Page Number</mat-label>
-      <input matInput type="number" formControlName="pageNumber">
-    </mat-form-field>
-  
-    <mat-form-field appearance="fill">
-      <mat-label>Page Size</mat-label>
-      <input matInput type="number" formControlName="pageSize">
-    </mat-form-field>
-  
-    <button mat-button (click)="applyPagination()">Apply</button>
-  </div>
-  
-  <mat-paginator [length]="totalElements" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" [pageIndex]="currentPage">
+
+  <mat-paginator
+    [length]="totalElements"
+    [pageSize]="pageSize"
+    [pageSizeOptions]="pageSizeOptions"
+    [pageIndex]="currentPage"
+    (page)="onPageChange($event)"
+  >
   </mat-paginator>
-  
-  </div>
+</div>
