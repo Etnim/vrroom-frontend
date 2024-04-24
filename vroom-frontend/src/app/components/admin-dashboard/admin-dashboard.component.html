@@ -15,6 +15,7 @@
         <mat-form-field appearance="fill">
           <mat-label>Status</mat-label>
           <mat-select formControlName="status">
+            <mat-option value="">Default</mat-option>
             <mat-option value="SUBMITTED">SUBMITTED</mat-option>
             <mat-option value="UNDER_REVIEW">UNDER_REVIEW</mat-option>
             <mat-option value="PENDING_CHANGES">PENDING_CHANGES</mat-option>
@@ -69,7 +70,7 @@
 
     <ng-container matColumnDef="customerName">
       <mat-header-cell *matHeaderCellDef (click)="onSort('customerName')">
-        Name Surname @if (form.get('sortField')?.value === 'customerName') {
+        User Name Surname @if (form.get('sortField')?.value === 'customerName') {
         <mat-icon>
           {{ form.get('sortDir')?.value === 'asc' ? 'expand_more' : 'expand_less' }}
         </mat-icon>
