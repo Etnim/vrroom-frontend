@@ -1,81 +1,160 @@
 import { Component } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { NgStyle, formatDate } from '@angular/common';
-import { MatStartDate } from '@angular/material/datepicker';
+import { AsyncPipe, NgStyle, formatDate } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { Router } from '@angular/router';
 import { ApplicationDetailsComponent } from './application-details/application-details.component';
+import { ApplicationService, Application, ApiResponse } from '../../services/application.service';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MatIconModule } from '@angular/material/icon';
+import { MatCardModule } from '@angular/material/card';
 
-interface Application {
-  applicationId: string;
-  applicantName: string;
-  leasingAmount: number;
-  dateOfSubmission: string;
-  applicationStatus: string;
-  assignedManager: string;
-}
+export const MY_DATE_FORMATS = {
+  parse: {
+    dateInput: 'YYYY-MM-DD'
+  },
+  display: {
+    dateInput: 'YYYY-MM-DD',
+    monthYearLabel: 'MMM YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMMM YYYY'
+  }
+};
 
 @Component({
   selector: 'admin-dashboard',
   standalone: true,
-  imports: [NgStyle, MatTableModule, MatPaginator, ApplicationDetailsComponent],
+  imports: [
+    NgStyle,
+    ReactiveFormsModule,
+    MatDatepickerModule,
+    MatTableModule,
+    MatPaginatorModule,
+    ApplicationDetailsComponent,
+    MatSelectModule,
+    MatButtonModule,
+    MatInputModule,
+    AsyncPipe,
+    MatFormFieldModule,
+    MatIconModule,
+    MatCardModule
+  ],
   templateUrl: './admin-dashboard.component.html',
-  styleUrls: ['./admin-dashboard.component.scss']
+  styleUrls: ['./admin-dashboard.component.scss'],
+  providers: [
+    { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS },
+    { provide: MAT_DATE_LOCALE, useValue: 'lt-US' }
+  ]
 })
 export class AdminDashboardComponent {
+  form: FormGroup;
   displayedColumns: string[] = [
     'applicationId',
-    'applicantName',
+    'customerName',
     'leasingAmount',
-    'dateOfSubmission',
+    'applicationCreatedDate',
     'applicationStatus',
     'assignedManager',
     'details'
   ];
-  dataSource: Application[] = []; // DataSource will be populated by fetchApplications method
-  totalApplications = 0;
-  applicationsPerPage = 20;
-  currentPage = 1;
-  pageSizeOptions = [10, 20, 50];
+  dataSource: Application[] = [];
+  totalElements = 0;
+  pageSize = 10;
+  currentPage = 0;
+  pageSizeOptions = [5, 10, 20];
 
-  constructor(private router: Router) {
+  constructor(
+    private fb: FormBuilder,
+    private applicationService: ApplicationService,
+    private router: Router,
+    private dateAdapter: DateAdapter<Date>
+  ) {
+    this.form = this.fb.group({
+      managerId: [''],
+      status: [''],
+      sortField: [''],
+      sortDir: [''],
+      startDate: [''],
+      endDate: [''],
+      pageNumber: [''],
+      pageSize: ['']
+    });
+    this.dateAdapter.setLocale('lt-US');
+
+    this.form.valueChanges.subscribe(() => this.fetchApplications());
     this.fetchApplications();
   }
 
-  fetchApplications() {
-    // Simulated data fetch function
-    const applications = Array.from({ length: 50 }, (_, index) => ({
-      applicationId: `${index + 1}`,
-      applicantName: `Applicant ${index + 1}`,
-      leasingAmount: 25000 + index * 1000,
-      dateOfSubmission: formatDate(
-        new Date(Date.now() - 86400000 * (index % 10)),
-        'yyyy-MM-dd',
-        'en'
-      ),
-      applicationStatus: [
-        'SUBMITTED',
-        'UNDER_REVIEW',
-        'PENDING_CHANGES',
-        'PENDING_REVIEW',
-        'WAITING_FOR_SIGNING',
-        'SIGNED',
-        'REJECTED',
-        'CANCELLED'
-      ][index % 8],
-      assignedManager: `Manager ${index % 10}`
-    }));
+  applyPagination(): void {
+    const pageNumberValue = this.form.get('pageNumber')?.value ?? 0;
+    const pageSizeValue = this.form.get('pageSize')?.value ?? this.pageSize;
 
-    this.dataSource = applications.sort(
-      (a, b) => new Date(b.dateOfSubmission).getTime() - new Date(a.dateOfSubmission).getTime()
-    );
-    this.totalApplications = this.dataSource.length;
+    const pageNumber = pageNumberValue ? pageNumberValue - 1 : 0;
+    const pageSize = pageSizeValue || this.pageSize;
+
+    this.fetchApplications(pageNumber, pageSize);
   }
 
-  onPageChange(pageData: PageEvent) {
-    this.currentPage = pageData.pageIndex + 1;
-    this.applicationsPerPage = pageData.pageSize;
+  fetchApplications(pageNumber: number = this.currentPage, pageSize: number = this.pageSize) {
+    const { managerId, status, sortField, sortDir, startDate, endDate } = this.form.value;
+    const formattedStartDate = startDate ? this.formatDate(startDate) : '';
+    const formattedEndDate = endDate ? this.formatDate(endDate) : '';
+
+    this.applicationService
+      .fetchApplications(
+        pageNumber,
+        pageSize,
+        sortField,
+        managerId,
+        sortDir,
+        status,
+        formattedStartDate,
+        formattedEndDate
+      )
+      .subscribe({
+        next: (data) => {
+          this.dataSource = data.content;
+          this.totalElements = data.totalElements;
+          this.currentPage = data.pageNumber;
+          this.pageSize = data.pageSize;
+        },
+        error: (error) => console.error('Failed to fetch applications', error)
+      });
+  }
+
+  private formatDate(date: any): string {
+    if (!date) return '';
+    let newDate = new Date(date);
+    return newDate instanceof Date && !isNaN(newDate.getTime())
+      ? `${newDate.getFullYear()}-${('0' + (newDate.getMonth() + 1)).slice(-2)}-${('0' + newDate.getDate()).slice(
+          -2
+        )}`
+      : '';
+  }
+
+  onSort(field: string): void {
+    if (this.form.get('sortField')?.value === field) {
+      // Toggle the sort direction for the same field
+      this.form
+        .get('sortDir')
+        ?.setValue(this.form.get('sortDir')?.value === 'asc' ? 'desc' : 'asc');
+    } else {
+      // Set the field and default to ascending for a new field
+      this.form.get('sortField')?.setValue(field);
+      this.form.get('sortDir')?.setValue('asc');
+    }
+    this.fetchApplications();
+  }
+
+  onPageChange(event: PageEvent) {
+    this.currentPage = event.pageIndex;
+    this.pageSize = event.pageSize;
     this.fetchApplications();
   }
 
@@ -87,8 +166,6 @@ export class AdminDashboardComponent {
       return 'red';
     } else if (diffDays >= 3 && application.applicationStatus === 'SUBMITTED') {
       return 'yellow';
-    } else if (application.applicationStatus === 'SIGNED') {
-      return 'green';
     }
     return '';
   }
