@@ -1,102 +1,47 @@
 import { Component } from '@angular/core';
 import { MatButton } from '@angular/material/button';
-import { ActivatedRoute, Router} from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
+import { ApplicationService } from '../../../services/application.service';
+import { MatCardModule } from '@angular/material/card';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
-interface ApplicationDetails {
-  applicationId: string;
-  status: string;
-  dateOfSubmission: string;
-  assignedManager: string;
-  applicantInfo: {
-    fullName: string;
-    personalId: string;
-    birthDate: string;
-    email: string;
-    phone: string;
-  }
-  financialInfo: {
-    monthlyIncome: number;
-    maritalStatus: string;
-    dependants: number;
-    obligations: number;
-    disposableIncome: number;
-  }
-  vehicleInfo: {
-    make: string;
-    model: string;
-    year: number;
-    fuelType: string;
-    emissions: string;
-  }
-  leasingInfo: {
-    amount: number;
-    downpayment: number;
-    period: number;
-    residualValue: number;
-    interestRate: number;
-    creditRating: string;
-    euribor: string;
-    agreementFee: number;
-  }
-}
 @Component({
   selector: 'app-application-details',
   standalone: true,
-  imports: [MatButton, MatTableModule, MatTabsModule],
+  imports: [MatButton, MatTableModule, MatTabsModule, MatCardModule, MatProgressSpinnerModule],
   templateUrl: './application-details.component.html',
   styleUrl: './application-details.component.scss'
 })
 export class ApplicationDetailsComponent {
-  applicationId!: string;
-  application: ApplicationDetails = {
-    applicationId: '1',
-    status: 'Submitted',
-    dateOfSubmission: '2023-04-18',
-    assignedManager: 'Unassigned',
-    applicantInfo: {
-      fullName: 'John Doe',
-      personalId: '987654321',
-      birthDate: '1990-01-01',
-      email: 'john.doe@example.com',
-      phone: '123-456-7890',
-    },
-    financialInfo: {
-      monthlyIncome: 5000,
-      maritalStatus: 'Married',
-      dependants: 2,
-      obligations: 300,
-      disposableIncome: 4700,
-    },
-    vehicleInfo: {
-      make: 'Tesla',
-      model: 'Model 3',
-      year: 2022,
-      fuelType: 'Electric',
-      emissions: 'Zero',
-    },
-    leasingInfo: {
-      amount: 35000,
-      downpayment: 5000,
-      period: 60,
-      residualValue: 10000,
-      creditRating: 'B',
-      interestRate: 3.5,
-      euribor: '3M',
-      agreementFee: 300,
-    }
-  };
-  
-  constructor(private activatedRoute: ActivatedRoute, private router: Router) {
+  application: any = null;
+
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private appService: ApplicationService,
+    private router: Router
+  ) {
     this.activatedRoute.paramMap.subscribe(params => {
-      this.applicationId = params.get('applicationId')!;
+      const applicationId = params.get('applicationId');
+      if (applicationId) {
+        this.fetchApplicationDetails(applicationId);
+      }
     });
   }
 
+  fetchApplicationDetails(id: string) {
+    this.appService.getApplicationDetails(id).subscribe({
+      next: (data) => {
+        this.application = data;
+      },
+      error: (error) => {
+        console.error('Failed to fetch application details', error);
+      }
+    });
+  }
 
   viewAdminDashboard() {
     this.router.navigate(['/admin']);
   }
-
 }

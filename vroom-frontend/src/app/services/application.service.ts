@@ -28,8 +28,8 @@ export interface Application {
   providedIn: 'root'
 })
 export class ApplicationService {
-  private apiUrl = environment.apiHost + '/applications';
-  // private apiUrl = environment.apiHostLocal + '/applications'; // Adjust to a different base URL
+  // private apiUrl = environment.apiHost + '/applications';
+  private apiUrl = environment.apiHostLocal + '/applications'; // Adjust to a different base URL
 
   constructor(private http: HttpClient) {}
 
@@ -77,6 +77,10 @@ export class ApplicationService {
     }
 
     return this.http.get<ApiResponse>(this.apiUrl, { params });
+  }
+
+  getApplicationDetails(id: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/${id}`);
   }
 
   submitData(data: CustomerData): Observable<any> {
