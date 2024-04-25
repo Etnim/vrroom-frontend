@@ -32,15 +32,15 @@ export interface Calculator {
 }
 
 export interface VehicleInfoFormGroup {
-  make: FormControl<string | null>;
+  brand: FormControl<string | null>;
   model: FormControl<string | null>;
   year: FormControl<number | null>;
-  fuelType: FormControl<string | null>;
+  fuel: FormControl<string | null>;
 }
 
 export interface EmissionRangeFormGroup {
-  start: FormControl<number | null>;
-  end: FormControl<number | null>;
+  emissionStart: FormControl<number | null>;
+  emissionEnd: FormControl<number | null>;
 }
 
 export interface PersonalAndContactInfoFormGroup {
@@ -51,8 +51,6 @@ export interface PersonalAndContactInfoFormGroup {
   email: FormControl<string | null>;
   phoneNumber: FormControl<string | null>;
   address: FormControl<string | null>;
-  city: FormControl<string | null>;
-  postalCode: FormControl<string | null>;
 }
 
 export interface ReviewAndSubmitFormGroup {

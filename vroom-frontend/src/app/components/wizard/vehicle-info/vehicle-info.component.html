@@ -40,7 +40,7 @@
 
   <mat-form-field>
     <mat-label>Fuel type</mat-label>
-    <mat-select formControlName="fuelType" required>
+    <mat-select formControlName="fuel" required>
       <mat-option value="petrol">Petrol</mat-option>
       <mat-option value="diesel">Diesel</mat-option>
       <mat-option value="electric">Electric</mat-option>
@@ -52,8 +52,8 @@
   <div class="slider-container" [formGroup]="emissionRangeForm">
     <mat-label>CO2 emissions, g/km</mat-label>
     <mat-slider [min]="0" [max]="130" [showTickMarks]="true" [step]="5" [discrete]="true">
-      <input matSliderStartThumb formControlName="start" />
-      <input matSliderEndThumb formControlName="end" />
+      <input matSliderStartThumb formControlName="emissionStart" />
+      <input matSliderEndThumb formControlName="emissionEnd" />
     </mat-slider>
   </div>
   <div class="navigation-buttons">

@@ -45,16 +45,8 @@ export class PersonalContactInfoComponent {
       Validators.pattern('[1-6]{1}[0-9]{10}')
     ]),
     email: new FormControl<string | null>(null, [Validators.required, Validators.email]),
-    phoneNumber: new FormControl<string | null>(null, [
-      Validators.required,
-      Validators.pattern('[+0-9]{9,13}$')
-    ]),
-    address: new FormControl<string | null>(null, Validators.required),
-    city: new FormControl<string | null>(null, Validators.required),
-    postalCode: new FormControl<string | null>(null, [
-      Validators.required,
-      Validators.pattern('^(LT)?[0-9]{5}$')
-    ])
+    phoneNumber: new FormControl<string | null>(null, [Validators.required]),
+    address: new FormControl<string | null>(null, Validators.required)
   });
 
   minDate: Date;

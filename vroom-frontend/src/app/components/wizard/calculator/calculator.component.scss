@@ -1,8 +1,3 @@
-li {
-  display: flex;
-  flex-direction: row;
-}
-
 .calculator {
   height: 100%;
   display: flex;
@@ -41,5 +36,20 @@ li {
 
   .grid-container {
     grid-template-columns: 175px 50px 50px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .actions {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .grid-title, .grid-value, .grid-currency {
+    font-size: 12px;
+  }
+
+  .grid-container {
+    grid-template-columns: 150px 30px 30px;
   }
 }

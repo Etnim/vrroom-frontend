@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environment/environment';
-
+import type { CustomerData } from '../types/requests';
 export interface ApiResponse {
   content: Application[];
   pageNumber: number;
@@ -48,7 +48,7 @@ export class ApplicationService {
       .set('size', size.toString())
       .set('sort', sortField);
 
-    if (page){
+    if (page) {
       params = params.set('page', page);
     }
 
@@ -77,5 +77,9 @@ export class ApplicationService {
     }
 
     return this.http.get<ApiResponse>(this.apiUrl, { params });
+  }
+
+  submitData(data: CustomerData): Observable<any> {
+    return this.http.post(`${this.apiUrl}/applications/application`, data);
   }
 }
