@@ -127,17 +127,11 @@
       >
     </ng-container>
 
-    <ng-container matColumnDef="details">
-      <mat-header-cell *matHeaderCellDef>Details</mat-header-cell>
-      <mat-cell *matCellDef="let element">
-        <button mat-button (click)="viewDetails(element.applicationId)">View Details</button>
-      </mat-cell>
-    </ng-container>
-
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row
-      *matRowDef="let row; columns: displayedColumns"
+      *matRowDef="let row; let element; columns: displayedColumns"
       [ngStyle]="{ 'background-color': getRowColor(row) }"
+      (click)="viewDetails(element.applicationId)"
     ></mat-row>
   </mat-table>
 
