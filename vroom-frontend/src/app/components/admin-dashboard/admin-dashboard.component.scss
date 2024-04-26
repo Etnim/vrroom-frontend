@@ -7,6 +7,12 @@
   display: block;
   padding: 20px;
   background-color: #f4f4f4; // Soft background color for comfort
+
+  ::ng-deep {
+    .mat-mdc-form-field-infix {
+      text-align: center;
+    }
+  }
 }
 
 .header {
@@ -44,6 +50,24 @@ button {
 
 button:hover {
   background-color: #3700b3;
+}
+
+
+
+mat-header-cell {
+  justify-content: center;
+}
+
+mat-row:hover {
+  cursor: pointer;
+  background-color: lightcyan;
+  filter: invert(10%);
+}
+
+mat-header-cell:hover {
+  cursor: pointer;
+  background-color: lightcyan;
+  filter: invert(10%);
 }
 
 @media (max-width: 600px) {

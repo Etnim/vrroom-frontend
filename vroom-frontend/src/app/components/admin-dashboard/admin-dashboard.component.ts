@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { AsyncPipe, NgStyle, formatDate } from '@angular/common';
+import { AsyncPipe, NgStyle } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { Router } from '@angular/router';
 import { ApplicationDetailsComponent } from './application-details/application-details.component';
-import { ApplicationService, Application, ApiResponse } from '../../services/application.service';
+import { Application, ApplicationService } from '../../services/application.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -60,8 +60,7 @@ export class AdminDashboardComponent {
     'leasingAmount',
     'applicationCreatedDate',
     'applicationStatus',
-    'assignedManager',
-    'details'
+    'assignedManager'
   ];
   dataSource: Application[] = [];
   totalElements = 0;
@@ -133,8 +132,8 @@ export class AdminDashboardComponent {
     let newDate = new Date(date);
     return newDate instanceof Date && !isNaN(newDate.getTime())
       ? `${newDate.getFullYear()}-${('0' + (newDate.getMonth() + 1)).slice(-2)}-${('0' + newDate.getDate()).slice(
-          -2
-        )}`
+        -2
+      )}`
       : '';
   }
 
