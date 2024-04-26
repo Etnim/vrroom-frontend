@@ -28,8 +28,8 @@ export interface Application {
   providedIn: 'root'
 })
 export class ApplicationService {
-  // private apiUrl = environment.apiHost + '/applications';
-  private apiUrl = environment.apiHostLocal + '/applications'; // Adjust to a different base URL
+  private apiUrl = environment.apiHost + '/applications';
+  // private apiUrl = environment.apiHostLocal + '/applications'; // Adjust to a different base URL
 
   constructor(private http: HttpClient) {}
 
