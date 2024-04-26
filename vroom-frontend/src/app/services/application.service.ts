@@ -79,6 +79,10 @@ export class ApplicationService {
     return this.http.get<ApiResponse>(this.apiUrl, { params });
   }
 
+  getApplicationDetails(id: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/${id}`);
+  }
+
   submitData(data: CustomerData): Observable<any> {
     return this.http.post(`${this.apiUrl}/applications/application`, data);
   }
