@@ -47,4 +47,14 @@ export class AuthService {
 
     return from(promise);
   }
+
+  getUserIdToken(): Observable<string> {
+    const currentUser = this.fireBaseAuth.currentUser;
+    if (currentUser) {
+      const promise = currentUser.getIdToken();
+      return from(promise);
+    } else {
+      return from(Promise.resolve(''));
+    }
+  }
 }
