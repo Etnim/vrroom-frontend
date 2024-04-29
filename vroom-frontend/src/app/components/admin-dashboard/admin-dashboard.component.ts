@@ -75,6 +75,8 @@ export class AdminDashboardComponent {
     private dateAdapter: DateAdapter<Date>
   ) {
     this.form = this.fb.group({
+      customerId: [''],
+      managerFullName: [''],
       managerId: [''],
       status: [''],
       sortField: [''],
@@ -101,7 +103,7 @@ export class AdminDashboardComponent {
   }
 
   fetchApplications(pageNumber: number = this.currentPage, pageSize: number = this.pageSize) {
-    const { managerId, status, sortField, sortDir, startDate, endDate } = this.form.value;
+    const { customerId, managerFullName, status, sortField, sortDir, startDate, endDate } = this.form.value;
     const formattedStartDate = startDate ? this.formatDate(startDate) : '';
     const formattedEndDate = endDate ? this.formatDate(endDate) : '';
 
@@ -110,7 +112,8 @@ export class AdminDashboardComponent {
         pageNumber,
         pageSize,
         sortField,
-        managerId,
+        customerId,
+        managerFullName,
         sortDir,
         status,
         formattedStartDate,

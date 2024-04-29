@@ -7,9 +7,15 @@
     <mat-card-title>Filter Options</mat-card-title>
     <mat-card-content>
       <div class="filters" [formGroup]="form">
+
         <mat-form-field appearance="fill">
-          <mat-label>Manager ID</mat-label>
-          <input matInput formControlName="managerId" />
+          <mat-label>Manager Full Name</mat-label>
+          <input matInput formControlName="managerFullName" />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Customer ID</mat-label>
+          <input matInput formControlName="customerId" />
         </mat-form-field>
 
         <mat-form-field appearance="fill">

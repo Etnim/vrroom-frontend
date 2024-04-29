@@ -9,6 +9,6 @@ export const environment = {
     messagingSenderId: '441096976970',
     appId: '1:441096976970:web:874e0ec004dc66245444b3'
   }
+  // apiHost: 'http://localhost:8080',
 
-  // apiHostLocal: 'http://localhost:8080',
 };
