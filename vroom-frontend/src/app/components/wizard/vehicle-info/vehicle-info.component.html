@@ -22,12 +22,17 @@
 
   <mat-form-field appearance="fill">
     <mat-label>Model</mat-label>
-
-    <mat-select formControlName="model" placeholder="Select model" required>
-      @for (model of models | async; track model) {
+    <input type="text"
+    placeholder="Select model"
+    matInput
+    [formControl]="modelControl"
+    [matAutocomplete]="autoModel"
+    required>
+    <mat-autocomplete #autoModel="matAutocomplete" [displayWith]="displayFn">
+      @for (model of filteredModels | async; track model) {
       <mat-option [value]="model">{{ model }}</mat-option>
       }
-    </mat-select>
+    </mat-autocomplete>
   </mat-form-field>
 
   <mat-form-field>
