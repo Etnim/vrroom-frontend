@@ -10,8 +10,8 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatSliderModule } from '@angular/material/slider';
 import { MakesDataService } from '../../../services/vehicle-info.service';
 import { HttpClientModule } from '@angular/common/http';
-import { map, startWith } from 'rxjs/operators';
-import { Observable, of } from 'rxjs';
+import { map, startWith, switchMap, tap, withLatestFrom } from 'rxjs/operators';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import type { VehicleInfoFormGroup, EmissionRangeFormGroup } from '../types';
 import { FormBuilder } from '@angular/forms';
 
@@ -54,39 +54,87 @@ export class VehicleInfoComponent {
   });
 
   makes: string[] = [];
-  models: Observable<string[]> = of([]);
+  models: string[] = [];
 
-  filteredMakes: Observable<string[]>;
+  filteredMakes: Observable<string[]> = of ([]);
+  filteredModels: Observable<string[]>;
 
   makeControl = new FormControl('', Validators.required);
   modelControl = new FormControl('');
   currentYear = new Date().getFullYear();
 
   constructor(private _formBuilder: FormBuilder, private makesDataService: MakesDataService) {
-    this.makesDataService.getMakes().subscribe({
-      next: (response) => {
-        this.makes = response;
-      },
-      error: (error) => {
-        console.error('Failed to fetch makes:', error);
-      }
+    this.makesDataService.getMakes().subscribe(makes => {
+      this.makes = makes;
+      this.filteredMakes = this.makeControl.valueChanges.pipe(
+        startWith(''),
+        map(value => this._filter(value || ''))
+      );
     });
+    this.filteredModels = of([]);
 
-    this.filteredMakes = this.makeControl.valueChanges.pipe(
+    // Reactively filter models based on user input
+    this.modelControl.valueChanges.pipe(
       startWith(''),
-      map((value) => (typeof value === 'string' ? value : '')),
-      map((name) => this._filter(name))
-    );
+      tap((value) => this.thirdFormGroup.get('model')?.setValue (value)),
+      switchMap(input => of(this.models.filter(model => model.toLowerCase().includes((input || '').toLowerCase()))))
+    ).subscribe(filtered => {
+      this.filteredModels = of(filtered);
+      
+    });
+  
+
+
+
+    // this.filteredModels = this.modelControl.valueChanges.pipe( 
+    //   startWith(''),
+    //   switchMap(value => this.updateAndFilterModels(value || ''))
+    // );
+   
+  
+    
+  
+    // this.modelControl.valueChanges.pipe(
+    //   startWith(''),
+    //   map(value => value ? value.toLowerCase() : '')
+    // ).subscribe(value => {
+    //   if (!value) {
+    //     this.models.subscribe(models => this.filteredModels.next(models));
+    //     this.thirdFormGroup.get('model')?.setValue(null);
+    //     } else{
+    //       this.models.subscribe(models => {
+    //         this.filteredModels.next(models.filter(model => model.toLowerCase().includes(value)));
+    //         this.thirdFormGroup.get('model')?.setValue(this.modelControl.value);
+    //     });
+    //   }
+    // });
   }
 
+  updateAndFilterModels(value: string): Observable<string[]> {
+    const selectedMake = this.thirdFormGroup.get('brand')!.value;
+    if (selectedMake) {
+      return this.makesDataService.getModels(selectedMake).pipe(
+        map(models => {
+          this.models = models;
+          return models.filter(model => model.toLowerCase().includes(value.toLowerCase()));
+        })
+      );
+    }
+    return of([]);
+  }
+ 
   onMakeSelectionChange(make: string) {
     console.log('Selected make:', make);
-    this.thirdFormGroup.get('brand')?.setValue(make);
-    this.models = this.makesDataService.getModels(make).pipe(map((response) => response));
+    this.thirdFormGroup.get('brand')!.setValue(make);
+    this.modelControl.reset();
+    this.makesDataService.getModels(make).subscribe(models => {
+      this.models = models;
+      this.filteredModels = of(models);
+    });
   }
 
-  displayFn(make: string): string {
-    return make;
+  displayFn(item: any): string {
+    return item ? item : '';
   }
 
   private _filter(name: string): string[] {
