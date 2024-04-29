@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environment/environment';
 import type { CustomerData } from '../types/requests';
@@ -92,6 +92,6 @@ export class ApplicationService {
   }
 
   submitData(data: CustomerData): Observable<any> {
-    return this.http.post(`${this.apiUrl}/applications/application`, data);
-  }
+    return this.http.post(`${this.apiUrl}/application`, data, { responseType: 'text' });
+}
 }

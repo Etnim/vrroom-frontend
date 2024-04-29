@@ -44,7 +44,7 @@ export class FinancialInfoComponent {
     monthlyObligations: new FormControl<number>(0, [Validators.min(0), Validators.max(100000)])
   });
 
-  employmentStatusOptions = ['Full-time', 'Part-time', 'Self-employed'];
+  employmentStatusOptions = ['Full-time', 'Part-time', 'Self-employed', 'Unemployed'];
   employmentTermOptions = [
     'Less than 1 year',
     '1 year',
