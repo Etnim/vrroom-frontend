@@ -14,7 +14,7 @@
     <h2>General Info</h2>
     <p>Status: {{ application?.applicationStatus }}</p>
     <p>Date of Submission: {{ application?.dateOfSubmission }}</p>
-    <p>Assigned Manager: {{ application?.assignedManager.name + ' ' + application?.assignedManager.surname || 'None' }}</p>
+    <p>Assigned Manager: {{ (application?.assignedManager ? application.assignedManager.name + ' ' + application.assignedManager.surname : 'None') }}</p>
   </mat-card-content>
 </mat-card>
 
@@ -37,7 +37,7 @@
     <p>Monthly Income: {{ application?.financialInfo?.monthlyIncome }}</p>
     <p>Marital Status: {{ application?.financialInfo?.maritalStatus }}</p>
     <p>Dependants: {{ application?.financialInfo?.dependants }}</p>
-    <p>Obligations: {{ application?.financialInfo?.monthlyObligations }}</p>
+    <p>Obligations: {{ application?.financialInfo?.monthlyObligations ? application.financialInfo.monthlyObligations : 0 }}</p>
     <p>Disposable Income: {{ application?.financialInfo?.disposableIncome }}</p>
   </mat-card-content>
 </mat-card>

@@ -1,10 +1,10 @@
 import { z } from 'zod';
 
 enum FuelType {
-  PETROL = 'PETROL',
-  DIESEL = 'DIESEL',
-  ELECTRIC = 'ELECTRIC',
-  HYBRID = 'HYBRID'
+  PETROL = 'Petrol',
+  DIESEL = 'Diesel',
+  ELECTRIC = 'Electric',
+  HYBRID = 'Hybrid'
 }
 
 export const vehicleDetailsSchema = z.object({
@@ -36,15 +36,17 @@ export function mapFormValueToVehicleDetailsInsert(
     emissionEnd: number | null;
   }
 ): VehicleDetailsInsert {
-  if (formValue.fuel === null) {
-    throw new Error('Invalid fuel type');
+  const fuelValueCorrected = formValue.fuel ? formValue.fuel.charAt(0).toUpperCase() + formValue.fuel.slice(1).toLowerCase() : null;
+
+  if (!fuelValueCorrected || !Object.values(FuelType).includes(fuelValueCorrected as FuelType)) {
+    throw new Error(`Invalid fuel type: ${formValue.fuel}`);
   }
 
   return {
     brand: formValue.brand!,
     model: formValue.model!,
     year: Math.floor(formValue.year!),
-    fuel: formValue.fuel.toUpperCase(),
+    fuel: fuelValueCorrected,
     emissionStart: emissionForm.emissionStart!,
     emissionEnd: emissionForm.emissionEnd!
   };
