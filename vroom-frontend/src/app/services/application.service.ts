@@ -28,8 +28,7 @@ export interface Application {
   providedIn: 'root'
 })
 export class ApplicationService {
-  //private apiUrl = environment.apiHost + '/applications';
-  private apiUrl = environment.apiHostLocal + '/applications'; // Adjust to a different base URL
+  private apiUrl = environment.apiHost + '/applications';
 
   constructor(private http: HttpClient) {}
 
@@ -37,7 +36,8 @@ export class ApplicationService {
     page: number,
     size: number,
     sortField: string,
-    managerId?: string,
+    customerId?: string,
+    managerFullName?: string,
     sortDir?: string,
     status?: string,
     startDate?: string,
@@ -63,15 +63,23 @@ export class ApplicationService {
     if (sortDir) {
       params = params.set('sortDir', sortDir);
     }
-    if (managerId) {
-      params = params.set('managerId', managerId);
+
+    if (customerId) {
+      params = params.set('customerId', customerId);
     }
+
+    if (managerFullName) {
+      params = params.set('managerFullName', managerFullName);
+    }
+
     if (status) {
       params = params.set('status', status);
     }
+
     if (startDate) {
       params = params.set('startDate', startDate);
     }
+
     if (endDate) {
       params = params.set('endDate', endDate);
     }
