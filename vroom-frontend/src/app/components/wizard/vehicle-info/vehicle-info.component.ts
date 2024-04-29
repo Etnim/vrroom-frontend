@@ -80,34 +80,8 @@ export class VehicleInfoComponent {
       switchMap(input => of(this.models.filter(model => model.toLowerCase().includes((input || '').toLowerCase()))))
     ).subscribe(filtered => {
       this.filteredModels = of(filtered);
-      
+
     });
-  
-
-
-
-    // this.filteredModels = this.modelControl.valueChanges.pipe( 
-    //   startWith(''),
-    //   switchMap(value => this.updateAndFilterModels(value || ''))
-    // );
-   
-  
-    
-  
-    // this.modelControl.valueChanges.pipe(
-    //   startWith(''),
-    //   map(value => value ? value.toLowerCase() : '')
-    // ).subscribe(value => {
-    //   if (!value) {
-    //     this.models.subscribe(models => this.filteredModels.next(models));
-    //     this.thirdFormGroup.get('model')?.setValue(null);
-    //     } else{
-    //       this.models.subscribe(models => {
-    //         this.filteredModels.next(models.filter(model => model.toLowerCase().includes(value)));
-    //         this.thirdFormGroup.get('model')?.setValue(this.modelControl.value);
-    //     });
-    //   }
-    // });
   }
 
   updateAndFilterModels(value: string): Observable<string[]> {
@@ -122,7 +96,7 @@ export class VehicleInfoComponent {
     }
     return of([]);
   }
- 
+
   onMakeSelectionChange(make: string) {
     console.log('Selected make:', make);
     this.thirdFormGroup.get('brand')!.setValue(make);
