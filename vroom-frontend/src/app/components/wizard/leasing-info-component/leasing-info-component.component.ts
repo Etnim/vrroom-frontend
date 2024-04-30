@@ -30,33 +30,33 @@ export class LeasingInfoComponentComponent {
   @Output() leasingInfo!: LeasingInfo;
 
   firstFormGroup = this._formBuilder.group<LeasingInfoFormGroup>({
-    amount: new FormControl<number | null>(null, [
+    amount: new FormControl<number | null>(10000, [
       Validators.required,
       Validators.min(8000),
       Validators.max(120000)
     ]),
-    downPayment: new FormControl<number | null>(null, Validators.required),
+    downPayment: new FormControl<number | null>(10, Validators.required),
     calculatedDownPayment: new FormControl<number | null>({value: null, disabled: true}),
-    residualValue: new FormControl<number | null>(null, Validators.required),
+    residualValue: new FormControl<number | null>(30, Validators.required),
     calculatedResidualValue: new FormControl<number | null>({value: null, disabled: true}),
-    period: new FormControl<number | null>(null, Validators.required)
+    period: new FormControl<number | null>(5, Validators.required)
   });
 
   constructor(private _formBuilder: FormBuilder) {
     this.leasingInfo = {
-      amount: 80000,
+      amount: 10000,
       downPayment: 10,
-      residualValue: 0,
-      period: 1,
+      residualValue: 30,
+      period: 5,
       interestRate: 0.538
     }
 
     this.firstFormGroup.valueChanges.subscribe(value =>
       this.leasingInfo = {
-        amount: value.amount ?? 8000,
+        amount: value.amount ?? 10000,
         downPayment: value.downPayment ?? 10,
-        residualValue: value.residualValue ?? 0,
-        period: value.period ?? 1,
+        residualValue: value.residualValue ?? 30,
+        period: value.period ?? 5,
         interestRate: 0.538
       })
   }
