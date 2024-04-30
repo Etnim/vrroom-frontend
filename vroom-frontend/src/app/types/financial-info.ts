@@ -1,17 +1,17 @@
 import { z } from 'zod';
 
 export enum MaritalStatus {
-  SINGLE = 'SINGLE',
-  MARRIED = 'MARRIED',
-  DIVORCED = 'DIVORCED',
-  COHABITEE = 'COHABITEE'
+  SINGLE = 'Single',
+  MARRIED = 'Married',
+  DIVORCED = 'Divorced',
+  COHABITEE = 'Cohabitee'
 }
 
 export enum EmploymentStatus {
-  FULLTIME = 'FULLTIME',
-  PARTTIME = 'PARTTIME',
-  SELFEMPLOYED = 'SELFEMPLOYED',
-  UNEMPLOYED = 'UNEMPLOYED'
+  FULLTIME = 'Full-time',
+  PARTTIME = 'Part-time',
+  SELFEMPLOYED = 'Self-emplyoyed',
+  UNEMPLOYED = 'Unemployed'
 }
 
 export const financialInfoSchema = z.object({
@@ -48,11 +48,16 @@ export function mapFormValueToFinancialInfoInsert(formValue: {
     monthlyObligations = formValue.monthlyObligations ?? 0;
   }
 
+  const maritalStatusFormatted = formValue.maritalStatus ? formValue.maritalStatus.charAt(0).toUpperCase() + formValue.maritalStatus.slice(1).toLowerCase() : null;
+  if (!maritalStatusFormatted || !Object.values(MaritalStatus).includes(maritalStatusFormatted as MaritalStatus)) {
+    throw new Error(`Invalid marital status: ${formValue.maritalStatus}`);
+  }
+
   return {
     monthlyIncome: formValue.monthlyIncome!,
     monthlyObligations: monthlyObligations,
-    maritalStatus: formValue.maritalStatus!.toUpperCase(),
-    employmentStatus: formValue.employmentStatus!.split('-').join('').toUpperCase(),
+    maritalStatus: maritalStatusFormatted,
+    employmentStatus: formValue.employmentStatus!,
     employmentTerm: parseInt(formValue.employmentTerm!),
     dependants: formValue.numberOfDependents!
   };

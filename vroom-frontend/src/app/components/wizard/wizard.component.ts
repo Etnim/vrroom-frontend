@@ -71,12 +71,12 @@ export class WizardComponent {
   submit() {
     const requestBody: CustomerData = {
       customer: mapFormValueToCustomerInsert(this.stepFour.fourthFormGroup.getRawValue()),
-      vehicleDetails: [
+      vehicleDetails:
         mapFormValueToVehicleDetailsInsert(
           this.stepThree.thirdFormGroup.getRawValue(),
           this.stepThree.emissionRangeForm.getRawValue()
         )
-      ],
+      ,
       financialInfo: mapFormValueToFinancialInfoInsert(this.stepTwo.secondFormGroup.getRawValue()),
       price: this.stepOne.firstFormGroup.value.amount!,
       downPayment: this.stepOne.firstFormGroup.value.downPayment!,

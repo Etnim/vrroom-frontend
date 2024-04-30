@@ -15,7 +15,7 @@ export interface CustomerData {
     fuel: string;
     emissionStart: number;
     emissionEnd: number;
-  }[];
+  };
   financialInfo: {
     monthlyIncome: number;
     monthlyObligations: number;
