@@ -37,15 +37,20 @@
               </mat-card-header>
               <mat-card-content>
                 @if (stepOne.firstFormGroup.value) {
-                <p><strong>Amount:</strong> {{ stepOne.firstFormGroup.value.amount }}</p>
+                <p><strong>Amount:</strong> {{ stepOne.firstFormGroup.value.amount }}€</p>
                 <p>
                   <strong>Down Payment:</strong> {{ stepOne.firstFormGroup.value.downPayment }}%
                 </p>
                 <p>
                   <strong>Residual Value:</strong> {{ stepOne.firstFormGroup.value.residualValue }}%
                 </p>
-                <p><strong>Period:</strong> {{ stepOne.firstFormGroup.value.period }}</p>
+                <p>
+                  @if (stepOne.firstFormGroup.value.period === 1) { 
+                    <strong>Period:</strong> {{ stepOne.firstFormGroup.value.period }} year
+                  }@else {<strong>Period:</strong> {{ stepOne.firstFormGroup.value.period }} years}</p>
                 }
+                <p><strong>Expected Monthly Payment:</strong>
+                  €</p>
               </mat-card-content>
             </mat-card>
 
@@ -78,8 +83,9 @@
                 </p>
 
                 @if (stepTwo.secondFormGroup.value.monthlyObligations) {
-                {{ stepTwo.secondFormGroup.value.monthlyObligations }}
-                } }
+                <p><strong>Monthly Obligations:</strong> 
+                {{ stepTwo.secondFormGroup.value.monthlyObligations }} €/month </p>
+                } } 
               </mat-card-content>
             </mat-card>
 
@@ -117,7 +123,7 @@
                   <strong>Date of Birth:</strong> {{ stepFour.fourthFormGroup.value.dateOfBirth }}
                 </p>
                 <p>
-                  <strong>identification Number:</strong>
+                  <strong>Identification Number:</strong>
                   {{ stepFour.fourthFormGroup.value.identificationNumber }}
                 </p>
                 <p>

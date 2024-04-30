@@ -49,8 +49,10 @@
   <mat-form-field>
     <mat-label>Period</mat-label>
     <mat-select formControlName="period" required>
-      @for (year of periodOptions; track year) {
-      <mat-option [value]="year">{{ year }} years</mat-option> }
+      @for (year of periodOptions; track year) { @if (year === 1) {
+      <mat-option [value]="year">{{ year }} year</mat-option>
+      } @else{
+      <mat-option [value]="year">{{ year }} years</mat-option>} }
     </mat-select>
 
     @if (firstFormGroup.get('period')?.invalid) {
