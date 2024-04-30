@@ -8,7 +8,7 @@ export const environment = {
     storageBucket: 'angular-app-fbe0d.appspot.com',
     messagingSenderId: '441096976970',
     appId: '1:441096976970:web:874e0ec004dc66245444b3'
-  }
+  },
   // apiHost: 'http://localhost:8080',
 
 };

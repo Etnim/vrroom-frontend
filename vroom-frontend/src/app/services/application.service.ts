@@ -92,6 +92,6 @@ export class ApplicationService {
   }
 
   submitData(data: CustomerData): Observable<any> {
-    return this.http.post(`${this.apiUrl}/applications/application`, data);
-  }
+    return this.http.post(`${this.apiUrl}/application`, data, { responseType: 'text' });
+}
 }
