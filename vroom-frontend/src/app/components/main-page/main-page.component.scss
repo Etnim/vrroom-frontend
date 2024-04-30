@@ -1,0 +1,88 @@
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.background-container {
+  background-image: url('../../../img/vrroomcar1.jpg') ;
+  background-color: #cccccc;
+  height: 100%;
+  width: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
+
+.title-container {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  justify-content: space-between;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 72px;
+  font-family: "Roboto Light", sans-serif;
+  font-weight: bold;
+}
+
+.button-container {
+  width: 30%;
+  height: 50px;
+  text-align: center;
+  display: flex;
+  position: absolute;
+  justify-content: space-between;
+  top: 70%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.buttons-group {
+  width: 45%;
+  background-color: transparent;
+  border: 4px solid lightgrey;
+  font-size: 22px;
+  border-radius: 10px;
+  color: lightgrey;
+  font-weight: bolder;
+}
+
+.buttons-group:hover{
+  cursor: pointer;
+  background-color: transparentize(lightgrey, 0.9);
+}
+
+.buttons-group:active{
+  cursor: pointer;
+  background-color: transparentize(lightgrey, 0.5);
+}
+
+@media screen and (min-width: 300px) and (max-width: 800px) {
+  .title-container {
+    font-size: 36px;
+  }
+
+  .button-container {
+    width: 50%;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+  }
+
+  .buttons-group {
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    border: 4px solid black;
+    font-size: 20px;
+    border-radius: 10px;
+    color: black;
+    font-weight: bold;
+  }
+}

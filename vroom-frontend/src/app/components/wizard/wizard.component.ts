@@ -124,4 +124,8 @@ export class WizardComponent {
       .observe('(min-width: 300px)')
       .pipe(map(({ matches }) => (matches ? 'horizontal' : 'vertical')));
   }
+
+  navigateToMain(){
+    this.router.navigate(['']);
+  }
 }

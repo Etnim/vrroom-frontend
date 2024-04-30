@@ -6,17 +6,22 @@ import { SubmissionSuccessComponent } from './components/wizard/submission-succe
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { AuthGuard, redirectUnauthorizedTo } from '@angular/fire/auth-guard';
-import { canActivate } from '@angular/fire/auth-guard';
+import { MainPageComponent } from './components/main-page/main-page.component';
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['login']);
 
 export const routes: Routes = [
-  { path: '', component: WizardComponent },
+  { path: '', component: MainPageComponent },
   {
     path: 'admin',
     component: AdminDashboardComponent,
     canActivate: [AuthGuard],
     data: { authGuardPipe: redirectUnauthorizedToLogin }
+  },
+
+  {
+    path: 'car-lease',
+    component: WizardComponent
   },
 
   {
