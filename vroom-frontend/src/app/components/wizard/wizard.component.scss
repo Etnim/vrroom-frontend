@@ -62,6 +62,7 @@ mat-card-content {
 .title-form {
   display: flex;
   padding-bottom: 20px;
+  margin-top: 10px;
 }
 
 .title-mobile {
@@ -96,6 +97,14 @@ mat-card-content {
     }
     .mdc-button__label {
       color: white;
+    }
+
+    .mat-step-header {
+      height: 50px;
+    }
+
+    form {
+      margin-top: 10px;
     }
   }
 }
