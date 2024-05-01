@@ -7,7 +7,9 @@ export interface LeasingInfoFormGroup {
   residualValue: FormControl<number | null>;
   calculatedResidualValue: FormControl<number | null>;
   period: FormControl<number | null>;
+  euriborRate: FormControl<string | null>;
 }
+
 export interface LeasingInfo {
   amount: number;
   downPayment: number;
