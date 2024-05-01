@@ -13,7 +13,20 @@ table {
 }
 
 mat-card {
+  width: 100%;
   justify-content: center;
+}
+
+.split-container {
+  width: 50%;
+  justify-content: center;
+}
+
+.main-details-container {
+  display: flex;
+  flex-direction: row;
+  align-items: start;
+  gap: 20px;
 }
 
 .header {
@@ -38,7 +51,7 @@ h2 {
 }
 
 p {
-  margin-top: 10px;  // Space above each paragraph
+  margin-top: 10px; // Space above each paragraph
   margin-bottom: 15px; // Space below each paragraph
 }
 
@@ -114,4 +127,11 @@ mat-card-title {
 
 #back-button, #assign-button {
   width: 20%;
+}
+
+.split-container{
+
+}
+.file-upload {
+  padding: 7px;
 }
