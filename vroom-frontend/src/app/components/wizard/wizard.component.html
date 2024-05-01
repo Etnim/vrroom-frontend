@@ -3,7 +3,7 @@
   <div class="main">
     <div class="progress-indicator"></div>
     <div class="wizard-content">
-      <div class="wizard-title">
+      <div class="wizard-title" (click)="navigateToMain()">
         <h2>{{ wizardTitle }}</h2>
       </div>
       <mat-stepper class="example-stepper" [orientation]="(stepperOrientation | async)!">
@@ -37,14 +37,18 @@
               </mat-card-header>
               <mat-card-content>
                 @if (stepOne.firstFormGroup.value) {
-                <p><strong>Amount:</strong> {{ stepOne.firstFormGroup.value.amount }}</p>
+                <p><strong>Amount:</strong> {{ stepOne.firstFormGroup.value.amount }}€</p>
                 <p>
                   <strong>Down Payment:</strong> {{ stepOne.firstFormGroup.value.downPayment }}%
                 </p>
                 <p>
                   <strong>Residual Value:</strong> {{ stepOne.firstFormGroup.value.residualValue }}%
                 </p>
-                <p><strong>Period:</strong> {{ stepOne.firstFormGroup.value.period }}</p>
+                <p>
+                  @if (stepOne.firstFormGroup.value.period === 1) {
+                  <strong>Period:</strong> {{ stepOne.firstFormGroup.value.period }} year }@else
+                  {<strong>Period:</strong> {{ stepOne.firstFormGroup.value.period }} years}
+                </p>
                 }
               </mat-card-content>
             </mat-card>
@@ -76,9 +80,11 @@
                   <strong>Number of dependents:</strong>
                   {{ stepTwo.secondFormGroup.value.numberOfDependents }}
                 </p>
-
                 @if (stepTwo.secondFormGroup.value.monthlyObligations) {
-                {{ stepTwo.secondFormGroup.value.monthlyObligations }}
+                <p>
+                  <strong>Monthly Obligations:</strong>
+                  {{ stepTwo.secondFormGroup.value.monthlyObligations }} €/month
+                </p>
                 } }
               </mat-card-content>
             </mat-card>
@@ -110,21 +116,19 @@
               <mat-card-content>
                 @if (stepFour.fourthFormGroup.value) {
                 <p><strong>Name:</strong> {{ stepFour.fourthFormGroup.value.name }}</p>
-
                 <p><strong>Surname:</strong> {{ stepFour.fourthFormGroup.value.surname }}</p>
                 <p><strong>Email:</strong> {{ stepFour.fourthFormGroup.value.email }}</p>
                 <p>
                   <strong>Date of Birth:</strong> {{ stepFour.fourthFormGroup.value.dateOfBirth }}
                 </p>
                 <p>
-                  <strong>identification Number:</strong>
+                  <strong>Identification Number:</strong>
                   {{ stepFour.fourthFormGroup.value.identificationNumber }}
                 </p>
                 <p>
                   <strong>Phone number:</strong> {{ stepFour.fourthFormGroup.value.phoneNumber }}
                 </p>
                 <p><strong>Address:</strong> {{ stepFour.fourthFormGroup.value.address }}</p>
-
                 }
               </mat-card-content>
             </mat-card>
@@ -144,15 +148,10 @@
               >
                 Submit
               </button>
-
-              <!-- <button (click)="checkFormFilled()">yoo</button> -->
             </div>
           </form>
         </mat-step>
       </mat-stepper>
     </div>
-
-    <div class="navigation-controls"></div>
-    <div class="footer"></div>
   </div>
 </div>

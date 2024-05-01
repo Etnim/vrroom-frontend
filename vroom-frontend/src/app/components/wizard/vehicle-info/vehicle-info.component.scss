@@ -1,4 +1,5 @@
 #vehicleInfo-form {
+  height: auto;
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -32,13 +33,13 @@ mat-slider {
   ::ng-deep {
     .mat-mdc-button {
       width: 20%;
-      background-color: #1e364d;
+      background-color: #071558;
     }
 
     .mat-mdc-button:hover {
       transition-duration: 0.4s;
       box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
-      background-color: darkolivegreen;
+      background-color: darkslategrey;
     }
     .mdc-button__label {
       color: white;

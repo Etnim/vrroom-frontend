@@ -22,7 +22,6 @@ import { FinancialInfoComponent } from './financial-info/financial-info.componen
 import { VehicleInfoComponent } from './vehicle-info/vehicle-info.component';
 import { HttpClientModule } from '@angular/common/http';
 import { PersonalContactInfoComponent } from './personal-contact-info/personal-contact-info.component';
-import { CalculatorComponent } from './calculator/calculator.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckbox } from '@angular/material/checkbox';
 import type { CustomerData } from '../../types/requests';
@@ -31,6 +30,7 @@ import { mapFormValueToVehicleDetailsInsert } from '../../types/vehicle-details'
 import { mapFormValueToFinancialInfoInsert } from '../../types/financial-info';
 import { ApplicationService } from '../../services/application.service';
 import { Router } from '@angular/router';
+import { CalculatorComponent } from './calculator/calculator.component';
 
 /**
  * @title Stepper responsive
@@ -81,7 +81,8 @@ export class WizardComponent {
       price: this.stepOne.firstFormGroup.value.amount!,
       downPayment: this.stepOne.firstFormGroup.value.downPayment!,
       residualValue: this.stepOne.firstFormGroup.value.residualValue!,
-      yearPeriod: this.stepOne.firstFormGroup.value.period!
+      yearPeriod: this.stepOne.firstFormGroup.value.period!,
+      
     };
 
     console.log(requestBody);
@@ -123,5 +124,9 @@ export class WizardComponent {
     this.stepperOrientation = breakpointObserver
       .observe('(min-width: 300px)')
       .pipe(map(({ matches }) => (matches ? 'horizontal' : 'vertical')));
+  }
+
+  navigateToMain(){
+    this.router.navigate(['']);
   }
 }
