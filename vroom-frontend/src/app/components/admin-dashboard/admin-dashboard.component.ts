@@ -134,9 +134,7 @@ export class AdminDashboardComponent {
     if (!date) return '';
     let newDate = new Date(date);
     return newDate instanceof Date && !isNaN(newDate.getTime())
-      ? `${newDate.getFullYear()}-${('0' + (newDate.getMonth() + 1)).slice(-2)}-${('0' + newDate.getDate()).slice(
-        -2
-      )}`
+      ? `${newDate.getFullYear()}-${('0' + (newDate.getMonth() + 1)).slice(-2)}-${('0' + newDate.getDate()).slice(-2)}T${('0' + newDate.getHours()).slice(-2)}:${('0' + newDate.getMinutes()).slice(-2)}:${('0' + newDate.getSeconds()).slice(-2)}`
       : '';
   }
 
