@@ -98,8 +98,6 @@ export class WizardComponent {
     });
   }
 
-  
-
   fifthFormGroup = this._formBuilder.group<ReviewAndSubmitFormGroup>({
     reviewConfirm: new FormControl<boolean | null>(null, Validators.required)
   });
