@@ -1,13 +1,19 @@
-import {Component, Output} from '@angular/core';
-import {FormBuilder, FormControl, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
-import {MatStepperModule} from '@angular/material/stepper';
-import {MatButtonModule} from '@angular/material/button';
-import {MatInputModule} from '@angular/material/input';
-import {MatSelectModule} from '@angular/material/select';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {AsyncPipe} from '@angular/common';
-import {LeasingInfo, LeasingInfoFormGroup} from '../types';
-import {CalculatorComponent} from "../calculator/calculator.component";
+import { Component, Output } from '@angular/core';
+import {
+  FormBuilder,
+  FormControl,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators
+} from '@angular/forms';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { AsyncPipe } from '@angular/common';
+import { LeasingInfo, LeasingInfoFormGroup } from '../types';
+import { CalculatorComponent } from '../calculator/calculator.component';
 import { LeasingInfoService } from '../../../services/leasing-info.service';
 
 @Component({
@@ -31,7 +37,7 @@ export class LeasingInfoComponentComponent {
   @Output() leasingInfo!: LeasingInfo;
 
   firstFormGroup = this._formBuilder.group<LeasingInfoFormGroup>({
-    amount: new FormControl<number | null>(10000, [
+    amount: new FormControl<number | null>(null, [
       Validators.required,
       Validators.min(8000),
       Validators.max(120000)
@@ -77,7 +83,6 @@ export class LeasingInfoComponentComponent {
           error: (error) => console.error('Error fetching Euribor rate:', error)
         });}
       });
-      
   }
 
   downPaymentOptions = [10, 20, 30, 40, 50, 60];
@@ -94,7 +99,7 @@ export class LeasingInfoComponentComponent {
 
       if (amount !== null && downPayment !== null) {
         const calculatedDownPayment = (amount * downPayment) / 100;
-        this.firstFormGroup.patchValue({calculatedDownPayment});
+        this.firstFormGroup.patchValue({ calculatedDownPayment });
       }
     }
   }
@@ -110,7 +115,7 @@ export class LeasingInfoComponentComponent {
 
       if (amount !== null && residualValue !== null) {
         const calculatedResidualValue = (amount * residualValue) / 100;
-        this.firstFormGroup.patchValue({calculatedResidualValue});
+        this.firstFormGroup.patchValue({ calculatedResidualValue });
       }
     }
   }
