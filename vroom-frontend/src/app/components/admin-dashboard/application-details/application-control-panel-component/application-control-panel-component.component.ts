@@ -39,7 +39,7 @@ export class ApplicationControlPanelComponentComponent {
     this.applicationService.uploadAgreement(this.applicationId, formData).subscribe({
         next: (response) => {
           console.log(response);
-          alert("Agreement uploaded successfully");
+        this.router.navigate(['/admin']);
         },
         error:
           (error) => {
