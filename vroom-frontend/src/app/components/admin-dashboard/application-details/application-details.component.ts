@@ -6,6 +6,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { ApplicationService } from '../../../services/application.service';
 import { MatCardModule } from '@angular/material/card';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import dateMoment from 'moment/moment';
 
 @Component({
   selector: 'app-application-details',
@@ -43,5 +44,9 @@ export class ApplicationDetailsComponent {
 
   viewAdminDashboard() {
     this.router.navigate(['/admin']);
+  }
+
+  getDateFromDateTimeString(yourDate: string | null | undefined) {
+    return (dateMoment(yourDate)).format('YYYY-MM-DD HH:mm:ss');
   }
 }

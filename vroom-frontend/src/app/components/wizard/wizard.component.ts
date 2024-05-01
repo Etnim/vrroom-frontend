@@ -1,11 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormsModule,
-  ReactiveFormsModule,
-  Validators
-} from '@angular/forms';
+import { FormBuilder, FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { MatStepper, MatStepperModule, StepperOrientation } from '@angular/material/stepper';
@@ -15,7 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, getLocaleDateFormat } from '@angular/common';
 import { LeasingInfoComponentComponent } from './leasing-info-component/leasing-info-component.component';
 import { type ReviewAndSubmitFormGroup } from './types';
 import { FinancialInfoComponent } from './financial-info/financial-info.component';
@@ -26,11 +20,12 @@ import { CalculatorComponent } from './calculator/calculator.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckbox } from '@angular/material/checkbox';
 import type { CustomerData } from '../../types/requests';
-import { mapFormValueToCustomerInsert, type CustomerInsert } from '../../types/customer';
+import { mapFormValueToCustomerInsert } from '../../types/customer';
 import { mapFormValueToVehicleDetailsInsert } from '../../types/vehicle-details';
 import { mapFormValueToFinancialInfoInsert } from '../../types/financial-info';
 import { ApplicationService } from '../../services/application.service';
 import { Router } from '@angular/router';
+import dateMoment from 'moment';
 
 /**
  * @title Stepper responsive
@@ -124,4 +119,10 @@ export class WizardComponent {
       .observe('(min-width: 300px)')
       .pipe(map(({ matches }) => (matches ? 'horizontal' : 'vertical')));
   }
+
+  getDateFromDateTimeString(yourDate: string | null | undefined) {
+    return (dateMoment(yourDate)).format('YYYY-MM-DD');
+  }
+
+  protected readonly getLocaleDateFormat = getLocaleDateFormat;
 }

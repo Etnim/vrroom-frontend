@@ -114,7 +114,12 @@
                 <p><strong>Surname:</strong> {{ stepFour.fourthFormGroup.value.surname }}</p>
                 <p><strong>Email:</strong> {{ stepFour.fourthFormGroup.value.email }}</p>
                 <p>
-                  <strong>Date of Birth:</strong> {{ stepFour.fourthFormGroup.value.dateOfBirth }}
+                  <strong>Date of Birth:</strong>
+                  @if(stepFour.fourthFormGroup.value.dateOfBirth) {
+                    {{ getDateFromDateTimeString(stepFour.fourthFormGroup.value.dateOfBirth) }}
+                  } @else {
+                    {{ stepFour.fourthFormGroup.value.dateOfBirth }}
+                  }
                 </p>
                 <p>
                   <strong>identification Number:</strong>
@@ -144,8 +149,6 @@
               >
                 Submit
               </button>
-
-              <!-- <button (click)="checkFormFilled()">yoo</button> -->
             </div>
           </form>
         </mat-step>

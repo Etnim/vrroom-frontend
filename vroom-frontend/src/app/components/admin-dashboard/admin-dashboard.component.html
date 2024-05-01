@@ -106,7 +106,7 @@
         </mat-icon>
         }
       </mat-header-cell>
-      <mat-cell *matCellDef="let element">{{ element.applicationCreatedDate }}</mat-cell>
+      <mat-cell *matCellDef="let element">{{ getDateFromDateTimeString(element.applicationCreatedDate) }}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="applicationStatus">

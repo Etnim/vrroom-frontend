@@ -15,7 +15,7 @@
         <!-- General Application Info -->
         <h2>General Info</h2>
         <p>Status: {{ application?.applicationStatus }}</p>
-        <p>Date of Submission: {{ application?.dateOfSubmission }}</p>
+        <p>Date of Submission: {{ getDateFromDateTimeString(application?.dateOfSubmission) }}</p>
         <p>
           Assigned Manager:
           {{

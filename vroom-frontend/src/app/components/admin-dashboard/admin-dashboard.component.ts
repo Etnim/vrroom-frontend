@@ -14,6 +14,7 @@ import { MatInputModule } from '@angular/material/input';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
+import dateMoment from 'moment';
 
 export const MY_DATE_FORMATS = {
   parse: {
@@ -170,6 +171,10 @@ export class AdminDashboardComponent {
       return 'yellow';
     }
     return '';
+  }
+
+  getDateFromDateTimeString(yourDate: string | null | undefined) {
+    return (dateMoment(yourDate)).format('YYYY-MM-DD HH:mm:ss');
   }
 
   viewDetails(applicationId: string) {
