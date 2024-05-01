@@ -1,0 +1,31 @@
+
+
+.mat-mdc-button{
+  margin-left: 10px;
+}
+
+.custom-file-upload {
+  display: inline-block;
+  padding: 6px 12px;
+  cursor: pointer;
+  background-color: #071558;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+  transition: background-color 0.4s ease-in-out;
+}
+
+.custom-file-upload:hover {
+  background-color: darkslategrey;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.file-upload span {
+  margin-left: 10px;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  color: #666;
+}
+
+
