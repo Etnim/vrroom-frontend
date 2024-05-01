@@ -8,6 +8,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {AsyncPipe} from '@angular/common';
 import {LeasingInfo, LeasingInfoFormGroup} from '../types';
 import {CalculatorComponent} from "../calculator/calculator.component";
+import { LeasingInfoService } from '../../../services/leasing-info.service';
 
 @Component({
   selector: 'app-leasing-info-component',
@@ -39,16 +40,23 @@ export class LeasingInfoComponentComponent {
     calculatedDownPayment: new FormControl<number | null>({value: null, disabled: true}),
     residualValue: new FormControl<number | null>(30, Validators.required),
     calculatedResidualValue: new FormControl<number | null>({value: null, disabled: true}),
-    period: new FormControl<number | null>(5, Validators.required)
+    period: new FormControl<number | null>(5, Validators.required),
+    euriborRate: new FormControl<string | null>(null, Validators.required),
   });
 
-  constructor(private _formBuilder: FormBuilder) {
+  euriborRates: { label: string, value: string }[] = [
+    { label: '3 Months', value: '3m' },
+    { label: '6 Months', value: '6m' }
+  ];
+  selectedEuriborRate?: number;
+
+  constructor(private _formBuilder: FormBuilder, private leasingService: LeasingInfoService) {
     this.leasingInfo = {
       amount: 10000,
       downPayment: 10,
       residualValue: 30,
       period: 5,
-      interestRate: 0.538
+      interestRate: this.selectedEuriborRate ?? 0.538
     }
 
     this.firstFormGroup.valueChanges.subscribe(value =>
@@ -57,8 +65,19 @@ export class LeasingInfoComponentComponent {
         downPayment: value.downPayment ?? 10,
         residualValue: value.residualValue ?? 30,
         period: value.period ?? 5,
-        interestRate: 0.538
+        interestRate: this.selectedEuriborRate ?? 0.538
       })
+
+      this.firstFormGroup.get('euriborRate')?.valueChanges.subscribe(term => {
+        if (term){
+        this.leasingService.getEuriborRate(term).subscribe({
+          next: (rate) => {
+            this.selectedEuriborRate = rate;
+          },
+          error: (error) => console.error('Error fetching Euribor rate:', error)
+        });}
+      });
+      
   }
 
   downPaymentOptions = [10, 20, 30, 40, 50, 60];
@@ -80,6 +99,7 @@ export class LeasingInfoComponentComponent {
     }
   }
 
+
   calculateResidualValue() {
     const amountControl = this.firstFormGroup.get('amount');
     const residualValueControl = this.firstFormGroup.get('residualValue');
@@ -99,4 +119,5 @@ export class LeasingInfoComponentComponent {
     this.calculateDownPayment();
     this.calculateResidualValue();
   }
+
 }
