@@ -95,7 +95,7 @@
         </mat-icon>
         }
       </mat-header-cell>
-      <mat-cell *matCellDef="let element">{{ element.leasingAmount }}</mat-cell>
+      <mat-cell *matCellDef="let element">{{ element.leasingAmount }}€</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="applicationCreatedDate">
@@ -106,7 +106,7 @@
         </mat-icon>
         }
       </mat-header-cell>
-      <mat-cell *matCellDef="let element">{{ element.applicationCreatedDate }}</mat-cell>
+      <mat-cell *matCellDef="let element">{{ element.applicationCreatedDate.split('T')[0] }}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="applicationStatus">
