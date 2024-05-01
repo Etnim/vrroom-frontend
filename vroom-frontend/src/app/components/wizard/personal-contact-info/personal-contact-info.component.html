@@ -58,7 +58,7 @@
     <mat-label>Phone Number</mat-label>
     <input matInput formControlName="phoneNumber" placeholder="Enter your phone number" required />
     @if ( fourthFormGroup.get('phoneNumber')?.invalid){
-    <mat-error>Please enter a valid phone number.</mat-error>
+    <mat-error>Please enter a valid phone number in the format "+37062408658".</mat-error>
     }
   </mat-form-field>
 

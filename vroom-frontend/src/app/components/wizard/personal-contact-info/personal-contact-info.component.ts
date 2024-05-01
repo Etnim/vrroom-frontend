@@ -1,13 +1,24 @@
 import { Component } from '@angular/core';
 import type { PersonalAndContactInfoFormGroup } from '../types';
-import { FormBuilder, FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators
+} from '@angular/forms';
 import { AsyncPipe } from '@angular/common';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, provideNativeDateAdapter } from '@angular/material/core';
+import {
+  DateAdapter,
+  MAT_DATE_FORMATS,
+  MAT_DATE_LOCALE,
+  provideNativeDateAdapter
+} from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 
@@ -37,9 +48,11 @@ export const MY_FORMATS = {
     AsyncPipe,
     MatSelectModule
   ],
-  providers: [provideNativeDateAdapter(),
-    {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
-    { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS }],
+  providers: [
+    provideNativeDateAdapter(),
+    { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
+    { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS }
+  ],
   templateUrl: './personal-contact-info.component.html',
   styleUrls: ['./personal-contact-info.component.scss']
 })
@@ -53,7 +66,10 @@ export class PersonalContactInfoComponent {
       Validators.pattern('[1-6]{1}[0-9]{10}')
     ]),
     email: new FormControl<string | null>(null, [Validators.required, Validators.email]),
-    phoneNumber: new FormControl<string | null>(null, [Validators.required]),
+    phoneNumber: new FormControl<string | null>(null, [
+      Validators.required,
+      Validators.pattern('^\\+370\\d{8}$')
+    ]),
     address: new FormControl<string | null>(null, Validators.required)
   });
 

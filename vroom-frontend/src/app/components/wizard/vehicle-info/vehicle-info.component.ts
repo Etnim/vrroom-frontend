@@ -45,18 +45,14 @@ export class VehicleInfoComponent {
       Validators.min(2010),
       Validators.max(2024)
     ]),
-    fuel: new FormControl<string | null>(null, Validators.required)
-  });
-
-  emissionRangeForm = this._formBuilder.group<EmissionRangeFormGroup>({
-    emissionStart: new FormControl<number>(0),
-    emissionEnd: new FormControl<number>(20)
+    fuel: new FormControl<string | null>(null, Validators.required),
+    emission: new FormControl<number | null>(120, Validators.required)
   });
 
   makes: string[] = [];
   models: string[] = [];
 
-  filteredMakes: Observable<string[]> = of ([]);
+  filteredMakes: Observable<string[]> = of([]);
   filteredModels: Observable<string[]>;
 
   makeControl = new FormControl('', Validators.required);
@@ -64,33 +60,38 @@ export class VehicleInfoComponent {
   currentYear = new Date().getFullYear();
 
   constructor(private _formBuilder: FormBuilder, private makesDataService: MakesDataService) {
-    this.makesDataService.getMakes().subscribe(makes => {
+    this.makesDataService.getMakes().subscribe((makes) => {
       this.makes = makes;
       this.filteredMakes = this.makeControl.valueChanges.pipe(
         startWith(''),
-        map(value => this._filter(value || ''))
+        map((value) => this._filter(value || ''))
       );
     });
     this.filteredModels = of([]);
 
     // Reactively filter models based on user input
-    this.modelControl.valueChanges.pipe(
-      startWith(''),
-      tap((value) => this.thirdFormGroup.get('model')?.setValue (value)),
-      switchMap(input => of(this.models.filter(model => model.toLowerCase().includes((input || '').toLowerCase()))))
-    ).subscribe(filtered => {
-      this.filteredModels = of(filtered);
-
-    });
+    this.modelControl.valueChanges
+      .pipe(
+        startWith(''),
+        tap((value) => this.thirdFormGroup.get('model')?.setValue(value)),
+        switchMap((input) =>
+          of(
+            this.models.filter((model) => model.toLowerCase().includes((input || '').toLowerCase()))
+          )
+        )
+      )
+      .subscribe((filtered) => {
+        this.filteredModels = of(filtered);
+      });
   }
 
   updateAndFilterModels(value: string): Observable<string[]> {
     const selectedMake = this.thirdFormGroup.get('brand')!.value;
     if (selectedMake) {
       return this.makesDataService.getModels(selectedMake).pipe(
-        map(models => {
+        map((models) => {
           this.models = models;
-          return models.filter(model => model.toLowerCase().includes(value.toLowerCase()));
+          return models.filter((model) => model.toLowerCase().includes(value.toLowerCase()));
         })
       );
     }
@@ -101,7 +102,7 @@ export class VehicleInfoComponent {
     console.log('Selected make:', make);
     this.thirdFormGroup.get('brand')!.setValue(make);
     this.modelControl.reset();
-    this.makesDataService.getModels(make).subscribe(models => {
+    this.makesDataService.getModels(make).subscribe((models) => {
       this.models = models;
       this.filteredModels = of(models);
     });

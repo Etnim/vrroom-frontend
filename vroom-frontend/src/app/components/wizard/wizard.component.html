@@ -6,7 +6,7 @@
       <div class="wizard-title" (click)="navigateToMain()">
         <h2>{{ wizardTitle }}</h2>
       </div>
-      <mat-stepper class="example-stepper" [orientation]="(stepperOrientation | async)!">
+      <mat-stepper class="example-stepper" [orientation]="(stepperOrientation | async)!" linear>
         <mat-step [stepControl]="stepOne.firstFormGroup" label="Leasing Information">
           <h1 class="title-mobile">Leasing Information</h1>
           <app-leasing-info-component #stepOne></app-leasing-info-component>
@@ -60,6 +60,11 @@
                   {<strong>Period:</strong> {{ stepOne.firstFormGroup.value.period }} years}
                 </p>
                 }
+
+                <p>
+                  <strong>Euribor Rate: </strong>
+                  {{ stepOne.firstFormGroup.value.selectedEuriborRate! }}
+                </p>
               </mat-card-content>
             </mat-card>
 
@@ -79,7 +84,8 @@
                 </p>
 
                 <p>
-                  <strong>Monthly Income:</strong> {{ stepTwo.secondFormGroup.value.monthlyIncome }}
+                  <strong>Monthly Income:</strong>
+                  {{ stepTwo.secondFormGroup.value.monthlyIncome }}€
                 </p>
 
                 <p>
@@ -111,8 +117,7 @@
                 <p><strong>Fuel Type:</strong> {{ stepThree.thirdFormGroup.value.fuel }}</p>
                 <p>
                   <strong>Emission Range:</strong>
-                  {{ stepThree.emissionRangeForm.value.emissionStart }} -
-                  {{ stepThree.emissionRangeForm.value.emissionEnd }}
+                  {{ stepThree.thirdFormGroup.value.emission }} g/km
                 </p>
 
                 }
@@ -129,7 +134,8 @@
                 <p><strong>Surname:</strong> {{ stepFour.fourthFormGroup.value.surname }}</p>
                 <p><strong>Email:</strong> {{ stepFour.fourthFormGroup.value.email }}</p>
                 <p>
-                  <strong>Date of Birth:</strong> {{ stepFour.fourthFormGroup.value.dateOfBirth }}
+                  <strong>Date of Birth:</strong>
+                  {{ stepFour.fourthFormGroup.value.dateOfBirth | date : 'yyyy-MM-dd' }}
                 </p>
                 <p>
                   <strong>Identification Number:</strong>
