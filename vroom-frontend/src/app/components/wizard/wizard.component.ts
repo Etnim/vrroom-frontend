@@ -128,5 +128,7 @@ export class WizardComponent {
       .pipe(map(({ matches }) => (matches ? 'horizontal' : 'vertical')));
   }
 
-  
+  navigateToMain(){
+    this.router.navigate(['']);
+  }
 }
