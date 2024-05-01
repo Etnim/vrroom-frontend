@@ -39,10 +39,20 @@
                 @if (stepOne.firstFormGroup.value) {
                 <p><strong>Amount:</strong> {{ stepOne.firstFormGroup.value.amount }}€</p>
                 <p>
-                  <strong>Down Payment:</strong> {{ stepOne.firstFormGroup.value.downPayment }}%
+                  <strong>Down Payment:</strong>
+                  {{
+                    (stepOne.firstFormGroup.value.downPayment! *
+                      stepOne.firstFormGroup.value.amount!) /
+                      100
+                  }}€
                 </p>
                 <p>
-                  <strong>Residual Value:</strong> {{ stepOne.firstFormGroup.value.residualValue }}%
+                  <strong>Residual Value:</strong>
+                  {{
+                    (stepOne.firstFormGroup.value.residualValue! *
+                      stepOne.firstFormGroup.value.amount!) /
+                      100
+                  }}€
                 </p>
                 <p>
                   @if (stepOne.firstFormGroup.value.period === 1) {
