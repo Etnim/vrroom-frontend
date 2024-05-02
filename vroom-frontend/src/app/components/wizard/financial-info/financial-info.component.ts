@@ -1,13 +1,19 @@
-import {Component} from '@angular/core';
-import type {FinancialInfoFormGroup} from '../types';
-import {FormBuilder, FormControl, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
-import {AsyncPipe} from '@angular/common';
-import {MatButtonModule} from '@angular/material/button';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatInputModule} from '@angular/material/input';
-import {MatSelectModule} from '@angular/material/select';
-import {MatStepperModule} from '@angular/material/stepper';
-import {MatRadioModule} from '@angular/material/radio';
+import { Component } from '@angular/core';
+import type { FinancialInfoFormGroup } from '../types';
+import {
+  FormBuilder,
+  FormControl,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators
+} from '@angular/forms';
+import { AsyncPipe } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatRadioModule } from '@angular/material/radio';
 
 @Component({
   selector: 'app-financial-info',
@@ -27,13 +33,12 @@ import {MatRadioModule} from '@angular/material/radio';
   styleUrl: './financial-info.component.scss'
 })
 export class FinancialInfoComponent {
-  constructor(private _formBuilder: FormBuilder) {
-  }
+  constructor(private _formBuilder: FormBuilder) {}
 
   secondFormGroup = this._formBuilder.group<FinancialInfoFormGroup>({
     employmentStatus: new FormControl<string | null>(null, Validators.required),
     employmentTerm: new FormControl<string | null>(null, Validators.required),
-    monthlyIncome: new FormControl<number | null>(null, Validators.required),
+    monthlyIncome: new FormControl<number | null>(null, [Validators.required, Validators.min(0)]),
     maritalStatus: new FormControl<string | null>(null, Validators.required),
     numberOfDependents: new FormControl<number | null>(null, [
       Validators.required,
