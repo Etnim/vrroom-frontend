@@ -85,6 +85,11 @@
     <mat-error> Monthly obligations must be between 1 and 100000. </mat-error>
     }
   </mat-form-field>
+  } @if (secondFormGroup.hasError('insufficientDisposableIncome')) {
+  <mat-error>
+    Warning: Your disposable income (monthly income - monthly obligations - 60 * dependents) is
+    insufficient. Please review your financial information.
+  </mat-error>
   }
 
   <div class="navigation-buttons">

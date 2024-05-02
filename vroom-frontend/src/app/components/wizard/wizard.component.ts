@@ -32,6 +32,7 @@ import { mapFormValueToLeasingInfoInsert } from '../../types/leasing-info';
 import { ApplicationService } from '../../services/application.service';
 import { Router } from '@angular/router';
 import { CalculatorComponent } from './calculator/calculator.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 /**
  * @title Stepper responsive
@@ -70,6 +71,16 @@ export class WizardComponent {
   @ViewChild('stepThree') stepThree!: VehicleInfoComponent;
   @ViewChild('stepFour') stepFour!: PersonalContactInfoComponent;
 
+  debouncedSubmit: () => void;
+
+  private debounce(func: () => void, delay: number): () => void {
+    let timeoutId: any;
+    return () => {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => func(), delay);
+    };
+  }
+
   submit() {
     const requestBody: CustomerData = {
       customer: mapFormValueToCustomerInsert(this.stepFour.fourthFormGroup.getRawValue()),
@@ -88,7 +99,13 @@ export class WizardComponent {
         this.router.navigate(['/submission-success']);
       },
       error: (error) => {
-        console.error('Error:', error);
+        if (error.error && typeof error.error === 'string') {
+          this.showErrorMessage(`Error: ${error.error}`);
+        } else if (error.error && error.error.message) {
+          this.showErrorMessage(`Error: ${error.error.message}`);
+        } else {
+          this.showErrorMessage('An unknown error occurred.');
+        }
       }
     });
   }
@@ -114,11 +131,23 @@ export class WizardComponent {
     private fb: FormBuilder,
     private _formBuilder: FormBuilder,
     private applicationService: ApplicationService,
-    private router: Router
+    private router: Router,
+    private snackBar: MatSnackBar
   ) {
     this.stepperOrientation = breakpointObserver
       .observe('(min-width: 300px)')
       .pipe(map(({ matches }) => (matches ? 'horizontal' : 'vertical')));
+
+    this.debouncedSubmit = this.debounce(() => {
+      this.submit();
+    }, 3000);
+  }
+
+  showErrorMessage(message: string) {
+    this.snackBar.open(message, 'Close', {
+      duration: 5000,
+      panelClass: ['error-snackbar']
+    });
   }
 
   navigateToMain() {
