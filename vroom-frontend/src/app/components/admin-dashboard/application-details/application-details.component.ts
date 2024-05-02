@@ -10,6 +10,7 @@ import { ApplicationControlPanelComponentComponent } from './application-control
 import moment from 'moment';
 import { MatSelectModule } from '@angular/material/select';
 
+
 @Component({
   selector: 'app-application-details',
   standalone: true,
@@ -20,14 +21,13 @@ import { MatSelectModule } from '@angular/material/select';
     MatCardModule,
     MatProgressSpinnerModule,
     ApplicationControlPanelComponentComponent,
-    MatSelectModule
+    MatSelectModule,
   ],
   templateUrl: './application-details.component.html',
   styleUrl: './application-details.component.scss'
 })
 export class ApplicationDetailsComponent {
   application: any = null;
-  managersStatuses: string[] = ['UNDER_REVIEW','WAITING_FOR_SIGNING', 'REJECTED'];
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -57,7 +57,7 @@ export class ApplicationDetailsComponent {
     if (this.application && this.application.applicationID) {
       this.appService.updateApplicationStatus(this.application.applicationID, status).subscribe({
         next: (data) => {
-          this.application.applicationStatus = status;
+          this.fetchApplicationDetails(this.application.applicationID);
           console.log('Status updated:', data);
         },
         error: (error) => {
@@ -76,4 +76,5 @@ export class ApplicationDetailsComponent {
   formatDateString(date: string) {
     return moment(Date.parse(date)).format('YYYY-MM-DD HH:mm:ss');
   }
+
 }

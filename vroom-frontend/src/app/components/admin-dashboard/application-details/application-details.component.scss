@@ -90,9 +90,15 @@ button.mat-raised-button {
   background-color: #106cc8;
 }
 
-// light green button
+mat-card-header {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
 #approve-button {
   background-color: #28a745;
+  margin-right: 8px;
 }
 
 #reject-button {
