@@ -14,7 +14,7 @@
             <mat-card-content>
               <h2>General Info</h2>
               <p>Status: {{ application?.applicationStatus }}</p>
-              <p>Date of Submission: {{ application?.dateOfSubmission.split('T')[0] }}</p>
+              <p>Date of Submission: {{ formatDateString(application?.dateOfSubmission) }}</p>
               <p>
                 Assigned Manager:
                 {{
@@ -79,11 +79,12 @@
               <h2>Leasing Info</h2>
               <p>Amount: {{ application?.price }}€</p>
               <p>Down Payment: {{ application?.downPayment }}€</p>
-              @if (application?.yearPeriod === 1) {
-                <p>Period: {{ application?.yearPeriod }} year</p>
-              } @else {
-                <p>Period: {{ application?.yearPeriod }} years</p>
-              }
+              <p>Period: {{ application?.yearPeriod }}
+                @if (application?.yearPeriod !== 1) {
+                  years
+                } @else {
+                  year
+                }</p>
               <p>Residual Value: {{ application?.residualValue }}</p>
               <p>Interest Rate: {{ application?.interestRate }}%</p>
               <p>Credit Rating: {{ application?.customer?.creditRating }}</p>
@@ -95,7 +96,8 @@
         <div class="split-container">
           <mat-card class="file-upload">
 
-            <app-application-control-panel-component [applicationId]="application?.applicationID"></app-application-control-panel-component>
+            <app-application-control-panel-component
+              [applicationId]="application?.applicationID"></app-application-control-panel-component>
 
           </mat-card>
         </div>

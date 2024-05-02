@@ -9,6 +9,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {
   ApplicationControlPanelComponentComponent
 } from "./application-control-panel-component/application-control-panel-component.component";
+import moment from 'moment';
 
 @Component({
   selector: 'app-application-details',
@@ -46,5 +47,9 @@ export class ApplicationDetailsComponent {
 
   viewAdminDashboard() {
     this.router.navigate(['/admin']);
+  }
+
+  formatDateString(date: string) {
+    return moment(Date.parse(date)).format("YYYY-MM-DD HH:mm:ss");
   }
 }
