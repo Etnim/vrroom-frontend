@@ -1,6 +1,6 @@
 export const environment = {
   production: false,
-  apiHost: 'https://vrroom-backend.onrender.com',
+  apiHost: 'http://localhost:8080',
   firebaseConfig: {
     apiKey: 'AIzaSyDkbJto1r6cuwJ3ajV2cJ3mMBcrbpbo1VE',
     authDomain: 'angular-app-fbe0d.firebaseapp.com',

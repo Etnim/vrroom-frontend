@@ -11,6 +11,7 @@ import {
 } from '@angular/fire/auth';
 import { Observable, from } from 'rxjs';
 import { UserInterface } from '../types/user-interface';
+import {Router} from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,7 @@ export class AuthService {
   user$ = user(this.fireBaseAuth);
   currentUserSig = signal<UserInterface | null | undefined>(undefined);
 
-  constructor() {}
+  constructor(private router: Router) {}
 
   register(email: string, username: string, password: string): Observable<void> {
     const promise = createUserWithEmailAndPassword(this.fireBaseAuth, email, password).then(
@@ -31,8 +32,9 @@ export class AuthService {
   }
 
   login(email: string, password: string): Observable<void> {
-    const promise = signInWithEmailAndPassword(this.fireBaseAuth, email, password).then(() => {});
+    const promise = signInWithEmailAndPassword(this.fireBaseAuth, email, password).then(() => {
 
+    });
     return from(promise);
   }
 
