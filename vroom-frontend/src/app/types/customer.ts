@@ -33,7 +33,7 @@ export function mapFormValueToCustomerInsert(formValue: {
     name: formValue.name!,
     surname: formValue.surname!,
     birthDate: birthDate,
-    email: 'vrroom.leasing@gmail.com',
+    email: formValue.email!,
     phone: formValue.phoneNumber!,
     address: formValue.address!
   };
