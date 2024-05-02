@@ -57,4 +57,17 @@ export class AuthService {
       return from(Promise.resolve(''));
     }
   }
+
+  isSuperAdmin(): Observable<boolean> {
+    const currentUser = this.fireBaseAuth.currentUser;
+    if (currentUser) {
+      const promise = currentUser.getIdTokenResult().then((idTokenResult) => {
+        const role = idTokenResult.claims['role'];
+        return role === 'superAdmin';
+      });
+      return from(promise);
+    } else {
+      return from(Promise.resolve(false));
+    }
+  }
 }
