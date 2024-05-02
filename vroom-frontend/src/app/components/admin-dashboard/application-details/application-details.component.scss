@@ -127,3 +127,15 @@ mat-card-title {
 .file-upload {
   padding: 7px;
 }
+
+//I want mat-spinner in the center
+mat-spinner {
+  width: 50%;
+  height: 50%;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  display: block;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
