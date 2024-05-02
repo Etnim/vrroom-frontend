@@ -7,7 +7,10 @@ export interface LeasingInfoFormGroup {
   residualValue: FormControl<number | null>;
   calculatedResidualValue: FormControl<number | null>;
   period: FormControl<number | null>;
+  euriborRate: FormControl<string | null>;
+  selectedEuriborRate: FormControl<number | null>;
 }
+
 export interface LeasingInfo {
   amount: number;
   downPayment: number;
@@ -36,6 +39,7 @@ export interface VehicleInfoFormGroup {
   model: FormControl<string | null>;
   year: FormControl<number | null>;
   fuel: FormControl<string | null>;
+  emission: FormControl<number | null>;
 }
 
 export interface EmissionRangeFormGroup {

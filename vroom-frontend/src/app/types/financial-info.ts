@@ -24,7 +24,7 @@ export const financialInfoSchema = z.object({
       message: 'Invalid marital status'
     }),
   employmentStatus: z.string(),
-  employmentTerm: z.number().int(),
+  employmentTerm: z.string(),
   dependants: z.number().int()
 });
 
@@ -48,8 +48,14 @@ export function mapFormValueToFinancialInfoInsert(formValue: {
     monthlyObligations = formValue.monthlyObligations ?? 0;
   }
 
-  const maritalStatusFormatted = formValue.maritalStatus ? formValue.maritalStatus.charAt(0).toUpperCase() + formValue.maritalStatus.slice(1).toLowerCase() : null;
-  if (!maritalStatusFormatted || !Object.values(MaritalStatus).includes(maritalStatusFormatted as MaritalStatus)) {
+  const maritalStatusFormatted = formValue.maritalStatus
+    ? formValue.maritalStatus.charAt(0).toUpperCase() +
+      formValue.maritalStatus.slice(1).toLowerCase()
+    : null;
+  if (
+    !maritalStatusFormatted ||
+    !Object.values(MaritalStatus).includes(maritalStatusFormatted as MaritalStatus)
+  ) {
     throw new Error(`Invalid marital status: ${formValue.maritalStatus}`);
   }
 
@@ -58,7 +64,7 @@ export function mapFormValueToFinancialInfoInsert(formValue: {
     monthlyObligations: monthlyObligations,
     maritalStatus: maritalStatusFormatted,
     employmentStatus: formValue.employmentStatus!,
-    employmentTerm: parseInt(formValue.employmentTerm!),
+    employmentTerm: formValue.employmentTerm!,
     dependants: formValue.numberOfDependents!
   };
 }

@@ -15,7 +15,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, DatePipe } from '@angular/common';
 import { LeasingInfoComponentComponent } from './leasing-info-component/leasing-info-component.component';
 import { type ReviewAndSubmitFormGroup } from './types';
 import { FinancialInfoComponent } from './financial-info/financial-info.component';
@@ -28,6 +28,7 @@ import type { CustomerData } from '../../types/requests';
 import { mapFormValueToCustomerInsert, type CustomerInsert } from '../../types/customer';
 import { mapFormValueToVehicleDetailsInsert } from '../../types/vehicle-details';
 import { mapFormValueToFinancialInfoInsert } from '../../types/financial-info';
+import { mapFormValueToLeasingInfoInsert } from '../../types/leasing-info';
 import { ApplicationService } from '../../services/application.service';
 import { Router } from '@angular/router';
 import { CalculatorComponent } from './calculator/calculator.component';
@@ -57,7 +58,8 @@ import { CalculatorComponent } from './calculator/calculator.component';
     CalculatorComponent,
     MatStepper,
     MatCardModule,
-    MatCheckbox
+    MatCheckbox,
+    DatePipe
   ]
 })
 export class WizardComponent {
@@ -71,18 +73,11 @@ export class WizardComponent {
   submit() {
     const requestBody: CustomerData = {
       customer: mapFormValueToCustomerInsert(this.stepFour.fourthFormGroup.getRawValue()),
-      vehicleDetails:
-        mapFormValueToVehicleDetailsInsert(
-          this.stepThree.thirdFormGroup.getRawValue(),
-          this.stepThree.emissionRangeForm.getRawValue()
-        )
-      ,
+      vehicleDetails: mapFormValueToVehicleDetailsInsert(
+        this.stepThree.thirdFormGroup.getRawValue()
+      ),
       financialInfo: mapFormValueToFinancialInfoInsert(this.stepTwo.secondFormGroup.getRawValue()),
-      price: this.stepOne.firstFormGroup.value.amount!,
-      downPayment: this.stepOne.firstFormGroup.value.downPayment!,
-      residualValue: this.stepOne.firstFormGroup.value.residualValue!,
-      yearPeriod: this.stepOne.firstFormGroup.value.period!,
-      
+      ...mapFormValueToLeasingInfoInsert(this.stepOne.firstFormGroup.getRawValue())
     };
 
     console.log(requestBody);
@@ -126,7 +121,7 @@ export class WizardComponent {
       .pipe(map(({ matches }) => (matches ? 'horizontal' : 'vertical')));
   }
 
-  navigateToMain(){
+  navigateToMain() {
     this.router.navigate(['']);
   }
 }
