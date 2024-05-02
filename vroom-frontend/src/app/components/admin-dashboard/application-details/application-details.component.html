@@ -92,7 +92,18 @@
               <p>Agreement Fee: {{ application?.agreementFee || 'None' }}€</p>
             </mat-card-content>
           </mat-card>
+
+          <!-- <div> 
+            <mat-select (selectionChange)="updateStatus($event.value)">
+              @for(status of managersStatuses; track status){
+              <mat-option [value]="status">
+                {{ status }}
+              </mat-option>
+            }
+            </mat-select>
+           </div> -->
         </div>
+       
         <div class="split-container">
           <mat-card class="file-upload">
 
@@ -106,7 +117,11 @@
       <mat-spinner></mat-spinner>
     }
     <div class="button-container">
-      <button mat-button id="assign-button">Assign To Me</button>
+      <button mat-button id="assign-button" (click)="updateStatus('UNDER_REVIEW')">Assign To Me</button>
+      @if (application?.assignedManager.name) {
+        <button mat-button id="approve-button" (click)="updateStatus('WAITING_FOR_SIGNING')">Approve Application</button>
+        <button mat-button id="reject-button" (click)="updateStatus('REJECTED')">Reject Application</button>
+      }
       <button mat-button id="back-button" (click)="viewAdminDashboard()">
         Back to Admin Dashboard
       </button>
