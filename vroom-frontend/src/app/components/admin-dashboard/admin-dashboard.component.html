@@ -106,7 +106,7 @@
         </mat-icon>
         }
       </mat-header-cell>
-      <mat-cell *matCellDef="let element">{{ element.applicationCreatedDate.split('T')[0] }}</mat-cell>
+      <mat-cell *matCellDef="let element">{{ formatDateString(element.applicationCreatedDate) }}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="applicationStatus">

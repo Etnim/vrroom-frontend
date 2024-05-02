@@ -1,14 +1,4 @@
-.wizard-container {
-  display: flex;
-  flex-direction: column;
-  background-image: url('../../../img/vrroomcar1.jpg') ;
-  background-color: #cccccc;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  position: relative;
-  background-attachment: fixed;
-}
+
 
 .example-stepper {
   margin-top: 8px;
@@ -85,24 +75,6 @@
 
 :host {
   ::ng-deep {
-    .mat-mdc-button {
-      width: 20%;
-      background-color: #071558;
-    }
-
-    .mat-mdc-button:disabled {
-      background-color: grey;
-    }
-
-    .mat-mdc-button:hover {
-      transition-duration: 0.4s;
-      box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
-      background-color: darkslategrey;
-    }
-    .mdc-button__label {
-      color: white;
-    }
-
     .mat-step-header {
       height: 50px;
     }

@@ -4,100 +4,110 @@
       <h1>Application details for application {{ application?.applicationID }}</h1>
     </div>
 
-    @if (application?.applicationID){
-    <mat-card-header>
-      <mat-card-title>Application Details - ID: {{ application?.applicationID }}</mat-card-title>
-    </mat-card-header>
+    @if (application?.applicationID) {
+      <mat-card-header>
+        <mat-card-title>Application Details - ID: {{ application?.applicationID }}</mat-card-title>
+      </mat-card-header>
+      <div class="main-details-container">
+        <div class="split-container">
+          <mat-card>
+            <mat-card-content>
+              <h2>General Info</h2>
+              <p>Status: {{ application?.applicationStatus }}</p>
+              <p>Date of Submission: {{ formatDateString(application?.dateOfSubmission) }}</p>
+              <p>
+                Assigned Manager:
+                {{
+                  application?.assignedManager
+                    ? application.assignedManager.name + ' ' + application.assignedManager.surname
+                    : 'None'
+                }}
+              </p>
+            </mat-card-content>
+          </mat-card>
 
-    <mat-card>
-      <mat-card-content>
-        <!-- General Application Info -->
-        <h2>General Info</h2>
-        <p>Status: {{ application?.applicationStatus }}</p>
-        <p>Date of Submission: {{ application?.dateOfSubmission.split('T')[0] }}</p>
-        <p>
-          Assigned Manager:
-          {{
-            application?.assignedManager
-              ? application.assignedManager.name + ' ' + application.assignedManager.surname
-              : 'None'
-          }}
-        </p>
-      </mat-card-content>
-    </mat-card>
+          <mat-card>
+            <mat-card-content>
+              <h2>Applicant's Info</h2>
+              <p>Full Name: {{ application?.customer?.fullName }}</p>
+              <p>Personal ID: {{ application?.customer?.personalId }}</p>
+              <p>Age {{ application?.customer?.age }}</p>
+              <p>Email: {{ application?.customer?.email }}</p>
+              <p>Phone: {{ application?.customer?.phone }}</p>
+            </mat-card-content>
+          </mat-card>
 
-    <mat-card>
-      <!-- Applicant Info -->
-      <mat-card-content>
-        <h2>Applicant's Info</h2>
-        <p>Full Name: {{ application?.customer?.fullName }}</p>
-        <p>Personal ID: {{ application?.customer?.personalId }}</p>
-        <p>Age {{ application?.customer?.age }}</p>
-        <p>Email: {{ application?.customer?.email }}</p>
-        <p>Phone: {{ application?.customer?.phone }}</p>
-      </mat-card-content>
-    </mat-card>
+          <mat-card>
+            <mat-card-content>
+              <!-- Financial Info -->
+              <h2>Financial Info</h2>
+              <p>Monthly Income: {{ application?.financialInfo?.monthlyIncome }}</p>
+              <p>Marital Status: {{ application?.financialInfo?.maritalStatus }}</p>
+              <p>Dependants: {{ application?.financialInfo?.dependants }}</p>
+              <p>
+                Obligations:
+                {{
+                  application?.financialInfo?.monthlyObligations
+                    ? application.financialInfo.monthlyObligations
+                    : 0
+                }}
+              </p>
+              <p>Disposable Income: {{ application?.financialInfo?.disposableIncome }}</p>
+            </mat-card-content>
+          </mat-card>
 
-    <mat-card>
-      <mat-card-content>
-        <!-- Financial Info -->
-        <h2>Financial Info</h2>
-        <p>Monthly Income: {{ application?.financialInfo?.monthlyIncome }}</p>
-        <p>Marital Status: {{ application?.financialInfo?.maritalStatus }}</p>
-        <p>Dependants: {{ application?.financialInfo?.dependants }}</p>
-        <p>
-          Obligations:
-          {{
-            application?.financialInfo?.monthlyObligations
-              ? application.financialInfo.monthlyObligations
-              : 0
-          }}
-        </p>
-        <p>Disposable Income: {{ application?.financialInfo?.disposableIncome }}</p>
-      </mat-card-content>
-    </mat-card>
+          <mat-card>
+            <mat-card-content>
+              <!-- Vehicle Info -->
+              <h2>Vehicle Info</h2>
+              <div>
+                <p>Make: {{ application?.vehicleDetails.make }}</p>
+                <p>Model: {{ application?.vehicleDetails.model }}</p>
+                <p>Year: {{ application?.vehicleDetails.year }}</p>
+                <p>Fuel Type: {{ application?.vehicleDetails.fuel }}</p>
+                <p>
+                  Emissions: {{ application?.vehicleDetails.emissionStart }} to
+                  {{ application?.vehicleDetails.emissionEnd }} g/km
+                </p>
+              </div>
+            </mat-card-content>
+          </mat-card>
 
-    <mat-card>
-      <mat-card-content>
-        <!-- Vehicle Info -->
-        <h2>Vehicle Info</h2>
-        <div>
-          <p>Make: {{ application?.vehicleDetails.make }}</p>
-          <p>Model: {{ application?.vehicleDetails.model }}</p>
-          <p>Year: {{ application?.vehicleDetails.year }}</p>
-          <p>Fuel Type: {{ application?.vehicleDetails.fuel }}</p>
-          <p>
-            Emissions: {{ application?.vehicleDetails.emissionStart }} to
-            {{ application?.vehicleDetails.emissionEnd }} g/km
-          </p>
+          <mat-card>
+            <mat-card-content>
+              <!-- Leasing Info -->
+              <h2>Leasing Info</h2>
+              <p>Amount: {{ application?.price }}€</p>
+              <p>Down Payment: {{ application?.downPayment }}€</p>
+              <p>Period: {{ application?.yearPeriod }}
+                @if (application?.yearPeriod !== 1) {
+                  years
+                } @else {
+                  year
+                }</p>
+              <p>Residual Value: {{ application?.residualValue }}</p>
+              <p>Interest Rate: {{ application?.interestRate }}%</p>
+              <p>Credit Rating: {{ application?.customer?.creditRating }}</p>
+              <p>Euribor: {{ application?.euribor }}%</p>
+              <p>Agreement Fee: {{ application?.agreementFee || 'None' }}€</p>
+            </mat-card-content>
+          </mat-card>
         </div>
-      </mat-card-content>
-    </mat-card>
+        <div class="split-container">
+          <mat-card class="file-upload">
 
-    <mat-card>
-      <mat-card-content>
-        <!-- Leasing Info -->
-        <h2>Leasing Info</h2>
-        <p>Amount: {{ application?.price }}€</p>
-        <p>Down Payment: {{ application?.downPayment }}€</p>
-        @if (application?.yearPeriod === 1) {
-        <p>Period: {{ application?.yearPeriod }} year</p>
-        } @else {
-        <p>Period: {{ application?.yearPeriod }} years</p>
-        }
-        <p>Residual Value: {{ application?.residualValue }}</p>
-        <p>Interest Rate: {{ application?.interestRate }}%</p>
-        <p>Credit Rating: {{ application?.customer?.creditRating }}</p>
-        <p>Euribor: {{ application?.euribor }}%</p>
-        <p>Agreement Fee: {{ application?.agreementFee || 'None' }}</p>
-      </mat-card-content>
-    </mat-card>
+            <app-application-control-panel-component
+              [applicationId]="application?.applicationID"></app-application-control-panel-component>
+
+          </mat-card>
+        </div>
+      </div>
     } @else {
-    <mat-spinner></mat-spinner>
+      <mat-spinner></mat-spinner>
     }
     <div class="button-container">
-      <button id="assign-button">Assign To Me</button>
-      <button id="back-button" matButton (click)="viewAdminDashboard()">
+      <button mat-button id="assign-button">Assign To Me</button>
+      <button mat-button id="back-button" (click)="viewAdminDashboard()">
         Back to Admin Dashboard
       </button>
     </div>

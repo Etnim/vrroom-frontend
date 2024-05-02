@@ -2,7 +2,6 @@ table {
   width: 100%;
 }
 
-/* application-details.component.scss */
 :host {
   display: flex;
   flex-direction: column;
@@ -13,7 +12,21 @@ table {
 }
 
 mat-card {
+  width: 100%;
   justify-content: center;
+  margin-bottom: 20px;
+}
+
+.split-container {
+  width: 50%;
+  justify-content: center;
+}
+
+.main-details-container {
+  display: flex;
+  flex-direction: row;
+  align-items: start;
+  gap: 20px;
 }
 
 .header {
@@ -38,14 +51,14 @@ h2 {
 }
 
 p {
-  margin-top: 10px;  // Space above each paragraph
-  margin-bottom: 15px; // Space below each paragraph
+  margin-top: 10px;
+  margin-bottom: 15px;
 }
 
 mat-tab-group {
   background-color: #fff;
   border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); // Soft shadow for depth
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 mat-header-cell {
@@ -59,33 +72,28 @@ mat-cell {
 
 table {
   width: 100%;
-  border-collapse: collapse; // Ensures cells are tightly packed
+  border-collapse: collapse;
 }
 
 th,
 td {
   padding: 12px;
-  border-bottom: 1px solid #ddd; // Subtle borders for rows
+  border-bottom: 1px solid #ddd;
 }
 
 button {
   margin-top: 20px;
 }
 
-/* Enhance the visibility of buttons */
 button.mat-raised-button {
   color: #fff;
-  background-color: #106cc8; // Blue is comfortable for most eyes
+  background-color: #106cc8;
 }
 
-/* Highlighting rows based on content for better readability */
 tr:hover {
-  background-color: #e8f4ff; // Light blue on hover for emphasis
+  background-color: #e8f4ff;
 }
 
-mat-card {
-  margin-bottom: 20px;
-}
 
 mat-card-title {
   font-size: 24px;
@@ -114,4 +122,20 @@ mat-card-title {
 
 #back-button, #assign-button {
   width: 20%;
+}
+
+.file-upload {
+  padding: 7px;
+}
+
+//I want mat-spinner in the center
+mat-spinner {
+  width: 50%;
+  height: 50%;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  display: block;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }

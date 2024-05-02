@@ -1,8 +1,9 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { environment } from '../../environment/environment';
-import type { CustomerData } from '../types/requests';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpParams} from '@angular/common/http';
+import {Observable} from 'rxjs';
+import {environment} from '../../environment/environment';
+import type {CustomerData} from '../types/requests';
+
 export interface ApiResponse {
   content: Application[];
   pageNumber: number;
@@ -30,7 +31,8 @@ export interface Application {
 export class ApplicationService {
   private apiUrl = environment.apiHost + '/applications';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+  }
 
   fetchApplications(
     page: number,
@@ -84,7 +86,7 @@ export class ApplicationService {
       params = params.set('endDate', endDate);
     }
 
-    return this.http.get<ApiResponse>(this.apiUrl, { params });
+    return this.http.get<ApiResponse>(this.apiUrl, {params});
   }
 
   getApplicationDetails(id: string): Observable<any> {
@@ -92,6 +94,10 @@ export class ApplicationService {
   }
 
   submitData(data: CustomerData): Observable<any> {
-    return this.http.post(`${this.apiUrl}/application`, data, { responseType: 'text' });
-}
+    return this.http.post(`${this.apiUrl}/application`, data, {responseType: 'text'});
+  }
+
+  uploadAgreement(id: string | null, file: FormData): Observable<any> {
+    return this.http.post(`${this.apiUrl}/${id}/agreement`, file, {responseType: 'text'});
+  }
 }

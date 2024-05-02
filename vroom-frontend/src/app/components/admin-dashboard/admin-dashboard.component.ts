@@ -14,6 +14,7 @@ import { MatInputModule } from '@angular/material/input';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
+import moment from 'moment/moment';
 
 export const MY_DATE_FORMATS = {
   parse: {
@@ -173,5 +174,9 @@ export class AdminDashboardComponent {
   viewDetails(applicationId: string) {
     console.log('Viewing details for:', applicationId);
     this.router.navigate(['/details', applicationId]);
+  }
+
+  formatDateString(date: string) {
+    return moment(Date.parse(date)).format("YYYY-MM-DD HH:mm:ss");
   }
 }

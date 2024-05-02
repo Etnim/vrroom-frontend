@@ -6,11 +6,15 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { ApplicationService } from '../../../services/application.service';
 import { MatCardModule } from '@angular/material/card';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {
+  ApplicationControlPanelComponentComponent
+} from "./application-control-panel-component/application-control-panel-component.component";
+import moment from 'moment';
 
 @Component({
   selector: 'app-application-details',
   standalone: true,
-  imports: [MatButton, MatTableModule, MatTabsModule, MatCardModule, MatProgressSpinnerModule],
+  imports: [MatButton, MatTableModule, MatTabsModule, MatCardModule, MatProgressSpinnerModule, ApplicationControlPanelComponentComponent],
   templateUrl: './application-details.component.html',
   styleUrl: './application-details.component.scss'
 })
@@ -43,5 +47,9 @@ export class ApplicationDetailsComponent {
 
   viewAdminDashboard() {
     this.router.navigate(['/admin']);
+  }
+
+  formatDateString(date: string) {
+    return moment(Date.parse(date)).format("YYYY-MM-DD HH:mm:ss");
   }
 }

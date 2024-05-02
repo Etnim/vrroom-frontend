@@ -1,0 +1,9 @@
+
+<div class="file-upload">
+  <input type="file" id="file" (change)="onFileSelected($event)" style="display: none;">
+  <label for="file" class="custom-file-upload">
+    Choose File
+  </label>
+  <span *ngIf="fileName">{{ fileName }}</span>
+  <button mat-button  (click)="onUpload()" [disabled]="!fileToUpload">Upload</button>
+</div>
