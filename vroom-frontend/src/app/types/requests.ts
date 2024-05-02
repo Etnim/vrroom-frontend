@@ -1,6 +1,6 @@
 export interface CustomerData {
   customer: {
-    pid: number;
+    personalId: number;
     name: string;
     surname: string;
     email: string;
@@ -21,11 +21,12 @@ export interface CustomerData {
     monthlyObligations: number;
     maritalStatus: string;
     employmentStatus: string;
-    employmentTerm: number;
+    employmentTerm: string;
     dependants: number;
   };
   price: number;
   downPayment: number;
   residualValue: number;
   yearPeriod: number;
+  euribor: string;
 }

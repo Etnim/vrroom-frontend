@@ -1,5 +1,5 @@
-import {Component, Injectable, Input, OnChanges} from '@angular/core';
-import {Calculator, LeasingInfo} from "../types";
+import { Component, Injectable, Input, OnChanges } from '@angular/core';
+import { Calculator, LeasingInfo } from '../types';
 
 @Component({
   selector: 'app-calculator',
@@ -7,17 +7,22 @@ import {Calculator, LeasingInfo} from "../types";
   templateUrl: './calculator.component.html',
   styleUrl: './calculator.component.scss'
 })
-
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
-
 export class CalculatorComponent implements OnChanges {
-  calculator: Calculator = {monthly: 0, fee: 0};
+  calculator: Calculator = { monthly: 0, fee: 0 };
   @Input() inputValues!: LeasingInfo;
 
   ngOnChanges(): void {
-    if (this.inputValues) {
+    if (
+      this.inputValues &&
+      this.inputValues.amount !== null &&
+      this.inputValues.downPayment !== null &&
+      this.inputValues.residualValue !== null &&
+      this.inputValues.period !== null &&
+      this.inputValues.interestRate !== null
+    ) {
       this.calculator.monthly = this.getMonthly();
       this.calculator.fee = this.getFee();
     }
@@ -27,11 +32,12 @@ export class CalculatorComponent implements OnChanges {
     let interestRate = this.inputValues.interestRate / 100;
     let months = this.inputValues.period * 12;
     let amount = this.inputValues.amount;
-    let calculatedDownPayment = (this.inputValues.amount * this.inputValues.downPayment) / 100
-    let calculatedResidualPayment = (this.inputValues.amount * this.inputValues.residualValue) / 100;
+    let calculatedDownPayment = (this.inputValues.amount * this.inputValues.downPayment) / 100;
+    let calculatedResidualPayment =
+      (this.inputValues.amount * this.inputValues.residualValue) / 100;
     let totalAmount = amount - calculatedDownPayment - calculatedResidualPayment;
-    const divisionUnit = (totalAmount * Math.pow((1 + interestRate), months) * interestRate);
-    const divider = Math.pow((1 + interestRate), months) - 1;
+    const divisionUnit = totalAmount * Math.pow(1 + interestRate, months) * interestRate;
+    const divider = Math.pow(1 + interestRate, months) - 1;
     let monthlyPayment = divisionUnit / divider;
     return Math.round(monthlyPayment);
   }

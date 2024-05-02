@@ -1,8 +1,9 @@
 import { z } from 'zod';
 import type { PersonalAndContactInfoFormGroup } from '../components/wizard/types';
+import moment from 'moment';
 
 export const customerSchema = z.object({
-  pid: z.number().int().positive(),
+  personalId: z.number().int().positive(),
   name: z.string(),
   surname: z.string(),
   birthDate: z.string(),
@@ -25,11 +26,13 @@ export function mapFormValueToCustomerInsert(formValue: {
   phoneNumber: string | null;
   address: string | null;
 }): CustomerInsert {
+  const birthDate = moment(formValue.dateOfBirth, 'YYYY-MM-DD').format('YYYY-MM-DD');
+
   return {
-    pid: parseInt(formValue.identificationNumber!),
+    personalId: parseInt(formValue.identificationNumber!),
     name: formValue.name!,
     surname: formValue.surname!,
-    birthDate: formValue.dateOfBirth!,
+    birthDate: birthDate,
     email: 'vrroom.leasing@gmail.com',
     phone: formValue.phoneNumber!,
     address: formValue.address!

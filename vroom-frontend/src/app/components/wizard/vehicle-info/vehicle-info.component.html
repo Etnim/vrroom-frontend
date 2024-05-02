@@ -22,12 +22,14 @@
 
   <mat-form-field appearance="fill">
     <mat-label>Model</mat-label>
-    <input type="text"
-    placeholder="Select model"
-    matInput
-    [formControl]="modelControl"
-    [matAutocomplete]="autoModel"
-    required>
+    <input
+      type="text"
+      placeholder="Select model"
+      matInput
+      [formControl]="modelControl"
+      [matAutocomplete]="autoModel"
+      required
+    />
     <mat-autocomplete #autoModel="matAutocomplete" [displayWith]="displayFn">
       @for (model of filteredModels | async; track model) {
       <mat-option [value]="model">{{ model }}</mat-option>
@@ -54,11 +56,10 @@
   </mat-form-field>
 
   <!-- CO2 Emissions in g/kg -->
-  <div class="slider-container" [formGroup]="emissionRangeForm">
+  <div class="slider-container" [formGroup]="thirdFormGroup">
     <mat-label>CO2 emissions, g/km</mat-label>
     <mat-slider [min]="0" [max]="130" [showTickMarks]="true" [step]="5" [discrete]="true">
-      <input matSliderStartThumb formControlName="emissionStart" />
-      <input matSliderEndThumb formControlName="emissionEnd" />
+      <input matSliderThumb formControlName="emission" />
     </mat-slider>
   </div>
   <div class="navigation-buttons">
