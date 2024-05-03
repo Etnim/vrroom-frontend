@@ -38,9 +38,9 @@
               </mat-card-header>
               <mat-card-content>
                 @if (stepOne.firstFormGroup.value) {
-                <p><strong>Amount:</strong> {{ stepOne.firstFormGroup.value.amount }}€</p>
+                <p><strong class="ras-title">Amount:</strong> {{ stepOne.firstFormGroup.value.amount }}€</p>
                 <p>
-                  <strong>Down Payment:</strong>
+                  <strong class="ras-title">Down Payment:</strong>
                   {{
                     (stepOne.firstFormGroup.value.downPayment! *
                       stepOne.firstFormGroup.value.amount!) /
@@ -48,7 +48,7 @@
                   }}€
                 </p>
                 <p>
-                  <strong>Residual Value:</strong>
+                  <strong class="ras-title">Residual Value:</strong>
                   {{
                     (stepOne.firstFormGroup.value.residualValue! *
                       stepOne.firstFormGroup.value.amount!) /
@@ -57,13 +57,13 @@
                 </p>
                 <p>
                   @if (stepOne.firstFormGroup.value.period === 1) {
-                  <strong>Period:</strong> {{ stepOne.firstFormGroup.value.period }} year }@else
-                  {<strong>Period:</strong> {{ stepOne.firstFormGroup.value.period }} years}
+                  <strong class="ras-title">Period:</strong> {{ stepOne.firstFormGroup.value.period }} year }@else
+                  {<strong class="ras-title">Period:</strong> {{ stepOne.firstFormGroup.value.period }} years}
                 </p>
                 }
 
                 <p>
-                  <strong>Euribor Rate: </strong>
+                  <strong class="ras-title">Euribor Rate: </strong>
                   {{ stepOne.firstFormGroup.value.selectedEuriborRate! }}% /
                   {{ stepOne.firstFormGroup.value.euriborRate === '3m' ? '3 Months' : '6 Months' }}
                 </p>
@@ -77,30 +77,30 @@
               <mat-card-content>
                 @if (stepTwo.secondFormGroup.value) {
                 <p>
-                  <strong>Employment Status:</strong>
+                  <strong class="ras-title">Employment Status:</strong>
                   {{ stepTwo.secondFormGroup.value.employmentStatus }}
                 </p>
                 <p>
-                  <strong>Employment Term:</strong>
+                  <strong class="ras-title">Employment Term:</strong>
                   {{ stepTwo.secondFormGroup.value.employmentTerm }}
                 </p>
 
                 <p>
-                  <strong>Monthly Income:</strong>
+                  <strong class="ras-title">Monthly Income:</strong>
                   {{ stepTwo.secondFormGroup.value.monthlyIncome }}€
                 </p>
 
                 <p>
-                  <strong>Marital Status:</strong>
+                  <strong class="ras-title">Marital Status:</strong>
                   {{ stepTwo.secondFormGroup.value.maritalStatus }}
                 </p>
                 <p>
-                  <strong>Number of dependents:</strong>
+                  <strong class="ras-title">Number of dependents:</strong>
                   {{ stepTwo.secondFormGroup.value.numberOfDependents }}
                 </p>
                 @if (stepTwo.secondFormGroup.value.monthlyObligations) {
                 <p>
-                  <strong>Monthly Obligations:</strong>
+                  <strong class="ras-title">Monthly Obligations:</strong>
                   {{ stepTwo.secondFormGroup.value.monthlyObligations }} €/month
                 </p>
                 } }
@@ -113,12 +113,12 @@
               </mat-card-header>
               <mat-card-content>
                 @if (stepThree.thirdFormGroup.value) {
-                <p><strong>Make:</strong> {{ stepThree.thirdFormGroup.value.brand }}</p>
-                <p><strong>Model:</strong> {{ stepThree.thirdFormGroup.value.model }}</p>
-                <p><strong>Year:</strong> {{ stepThree.thirdFormGroup.value.year }}</p>
-                <p><strong>Fuel Type:</strong> {{ stepThree.thirdFormGroup.value.fuel }}</p>
+                <p><strong class="ras-title">Make:</strong> {{ stepThree.thirdFormGroup.value.brand }}</p>
+                <p><strong class="ras-title">Model:</strong> {{ stepThree.thirdFormGroup.value.model }}</p>
+                <p><strong class="ras-title">Year:</strong> {{ stepThree.thirdFormGroup.value.year }}</p>
+                <p><strong class="ras-title">Fuel Type:</strong> {{ stepThree.thirdFormGroup.value.fuel }}</p>
                 <p>
-                  <strong>Emission Range:</strong>
+                  <strong class="ras-title">Emission Range:</strong>
                   {{ stepThree.thirdFormGroup.value.emission }} g/km
                 </p>
 
@@ -132,21 +132,21 @@
               </mat-card-header>
               <mat-card-content>
                 @if (stepFour.fourthFormGroup.value) {
-                <p><strong>Name:</strong> {{ stepFour.fourthFormGroup.value.name }}</p>
-                <p><strong>Surname:</strong> {{ stepFour.fourthFormGroup.value.surname }}</p>
-                <p><strong>Email:</strong> {{ stepFour.fourthFormGroup.value.email }}</p>
+                <p><strong class="ras-title">Name:</strong> {{ stepFour.fourthFormGroup.value.name }}</p>
+                <p><strong class="ras-title">Surname:</strong> {{ stepFour.fourthFormGroup.value.surname }}</p>
+                <p><strong class="ras-title">Email:</strong> {{ stepFour.fourthFormGroup.value.email }}</p>
                 <p>
-                  <strong>Date of Birth:</strong>
+                  <strong class="ras-title">Date of Birth:</strong>
                   {{ stepFour.fourthFormGroup.value.dateOfBirth | date : 'yyyy-MM-dd' }}
                 </p>
                 <p>
-                  <strong>Identification Number:</strong>
+                  <strong class="ras-title">Identification Number:</strong>
                   {{ stepFour.fourthFormGroup.value.identificationNumber }}
                 </p>
                 <p>
-                  <strong>Phone number:</strong> {{ stepFour.fourthFormGroup.value.phoneNumber }}
+                  <strong class="ras-title">Phone number:</strong> {{ stepFour.fourthFormGroup.value.phoneNumber }}
                 </p>
-                <p><strong>Address:</strong> {{ stepFour.fourthFormGroup.value.address }}</p>
+                <p><strong class="ras-title">Address:</strong> {{ stepFour.fourthFormGroup.value.address }}</p>
                 }
               </mat-card-content>
             </mat-card>

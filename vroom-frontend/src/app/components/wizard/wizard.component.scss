@@ -83,7 +83,26 @@
     form {
       margin-top: 10px;
     }
+
+    mat-card-title {
+      color: #555;
+      font-size: 16px;
+      font-weight: bold;
+      text-decoration: underline;
+    }
+
+    mat-card-content {
+      font-size: 14px;
+    }
   }
+}
+
+p {
+  margin-top: 10px;
+}
+
+.ras-title {
+  font-weight: bold;
 }
 
 .wizard-container {

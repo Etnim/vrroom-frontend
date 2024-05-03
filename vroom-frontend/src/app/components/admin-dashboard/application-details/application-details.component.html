@@ -26,10 +26,10 @@
         <mat-card>
           <mat-card-content>
             <h2>General Info</h2>
-            <p>Status: {{ application?.applicationStatus }}</p>
-            <p>Date of Submission: {{ formatDateString(application?.dateOfSubmission) }}</p>
+            <p><strong>Status:</strong> {{ application?.applicationStatus }}</p>
+            <p><strong>Date of Submission:</strong> {{ formatDateString(application?.dateOfSubmission) }}</p>
             <p>
-              Assigned Manager:
+              <strong>Assigned Manager:</strong>
               {{
                 application?.assignedManager
                   ? application.assignedManager.name + ' ' + application.assignedManager.surname
@@ -42,11 +42,11 @@
         <mat-card>
           <mat-card-content>
             <h2>Applicant's Info</h2>
-            <p>Full Name: {{ application?.customer?.fullName }}</p>
-            <p>Personal ID: {{ application?.customer?.personalId }}</p>
-            <p>Age {{ application?.customer?.age }}</p>
-            <p>Email: {{ application?.customer?.email }}</p>
-            <p>Phone: {{ application?.customer?.phone }}</p>
+            <p><strong>Full Name:</strong> {{ application?.customer?.fullName }}</p>
+            <p><strong>Personal ID:</strong> {{ application?.customer?.personalId }}</p>
+            <p><strong>Age:</strong> {{ application?.customer?.age }}</p>
+            <p><strong>Email:</strong> {{ application?.customer?.email }}</p>
+            <p><strong>Phone:</strong> {{ application?.customer?.phone }}</p>
           </mat-card-content>
         </mat-card>
 
@@ -54,18 +54,18 @@
           <mat-card-content>
             <!-- Financial Info -->
             <h2>Financial Info</h2>
-            <p>Monthly Income: {{ application?.financialInfo?.monthlyIncome }}</p>
-            <p>Marital Status: {{ application?.financialInfo?.maritalStatus }}</p>
-            <p>Dependants: {{ application?.financialInfo?.dependants }}</p>
+            <p><strong>Monthly Income:</strong> {{ application?.financialInfo?.monthlyIncome }}</p>
+            <p><strong>Marital Status:</strong> {{ application?.financialInfo?.maritalStatus }}</p>
+            <p><strong>Dependants:</strong> {{ application?.financialInfo?.dependants }}</p>
             <p>
-              Obligations:
+              <strong>Obligations:</strong>
               {{
                 application?.financialInfo?.monthlyObligations
                   ? application.financialInfo.monthlyObligations
                   : 0
               }}
             </p>
-            <p>Disposable Income: {{ application?.financialInfo?.disposableIncome }}</p>
+            <p><strong>Disposable Income:</strong> {{ application?.financialInfo?.disposableIncome }}</p>
           </mat-card-content>
         </mat-card>
 
@@ -74,12 +74,12 @@
             <!-- Vehicle Info -->
             <h2>Vehicle Info</h2>
             <div>
-              <p>Make: {{ application?.vehicleDetails.make }}</p>
-              <p>Model: {{ application?.vehicleDetails.model }}</p>
-              <p>Year: {{ application?.vehicleDetails.year }}</p>
-              <p>Fuel Type: {{ application?.vehicleDetails.fuel }}</p>
+              <p><strong>Make:</strong> {{ application?.vehicleDetails.make }}</p>
+              <p><strong>Model:</strong> {{ application?.vehicleDetails.model }}</p>
+              <p><strong>Year:</strong> {{ application?.vehicleDetails.year }}</p>
+              <p><strong>Fuel Type:</strong> {{ application?.vehicleDetails.fuel }}</p>
               <p>
-                Emissions: {{ application?.vehicleDetails.emissionStart }} to
+                <strong>Emissions:</strong> {{ application?.vehicleDetails.emissionStart }} to
                 {{ application?.vehicleDetails.emissionEnd }} g/km
               </p>
             </div>
@@ -90,17 +90,17 @@
           <mat-card-content>
             <!-- Leasing Info -->
             <h2>Leasing Info</h2>
-            <p>Amount: {{ application?.price }}€</p>
-            <p>Down Payment: {{ application?.downPayment }}€</p>
+            <p><strong>Amount:</strong> {{ application?.price }}€</p>
+            <p><strong>Down Payment:</strong> {{ application?.downPayment }}€</p>
             <p>
-              Period: {{ application?.yearPeriod }} @if (application?.yearPeriod !== 1) { years }
+              <strong>Period:</strong> {{ application?.yearPeriod }} @if (application?.yearPeriod !== 1) { years }
               @else { year }
             </p>
-            <p>Residual Value: {{ application?.residualValue }}</p>
-            <p>Interest Rate: {{ application?.interestRate }}%</p>
-            <p>Credit Rating: {{ application?.customer?.creditRating }}</p>
-            <p>Euribor: {{ application?.euribor }}%</p>
-            <p>Agreement Fee: {{ application?.agreementFee || 'None' }}€</p>
+            <p><strong>Residual Value:</strong> {{ application?.residualValue }}</p>
+            <p><strong>Interest Rate:</strong> {{ application?.interestRate }}%</p>
+            <p><strong>Credit Rating:</strong> {{ application?.customer?.creditRating }}</p>
+            <p><strong>Euribor:</strong> {{ application?.euribor }}%</p>
+            <p><strong>Agreement Fee:</strong> {{ application?.agreementFee || 'None' }}€</p>
           </mat-card-content>
         </mat-card>
       </div>
