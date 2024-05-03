@@ -52,7 +52,7 @@ export class NavigationComponent {
 
   logoutFromAdmin() {
     this.authService.logout();
-    this.navigateToLogin();
+    this.navigateToMain();
   }
 
   checkIfLoggedIn() {
