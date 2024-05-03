@@ -6,7 +6,7 @@ table {
   display: flex;
   flex-direction: column;
   font-size: 14px;
-  font-family: "Roboto Light", sans-serif;
+  font-family: 'Roboto Light', sans-serif;
   width: 100%;
   justify-content: center;
 }
@@ -109,7 +109,6 @@ tr:hover {
   background-color: #e8f4ff;
 }
 
-
 mat-card-title {
   font-size: 24px;
   margin-bottom: 10px;
@@ -135,7 +134,8 @@ mat-card-title {
   justify-content: space-between;
 }
 
-#back-button, #assign-button {
+#back-button,
+#assign-button {
   width: 20%;
 }
 
@@ -154,9 +154,14 @@ mat-spinner {
   margin-bottom: 20px;
 }
 
+
+strong {
+  font-weight: bold;
+}
+
 .filter-containers {
   display: flex;
-  // flex-direction: row;
-  // flex-wrap: nowrap;
   gap: 5px;
+
 }
+

@@ -98,10 +98,6 @@ export class AdminDashboardComponent {
     }
   };
   public barChartType: ChartType = 'bar';
-  public numberOfApplicationsChartData: ChartData<'bar'> = {
-    labels: ['Number of Applications'],
-    datasets: [{ data: [], label: 'Number of Applications' }]
-  };
   
   public averageTimesChartData: ChartData<'bar'> = {
     labels: ['Avg Time to Sign or Cancel', 'Avg Time from Submit to Assigned'],
@@ -163,7 +159,6 @@ export class AdminDashboardComponent {
       )
       .subscribe({
         next: (data) => {
-          console.log('Fetched data:', data);
           this.dataSource = data.content;
           this.totalElements = data.totalElements;
           this.currentPage = data.pageNumber;
@@ -221,7 +216,6 @@ export class AdminDashboardComponent {
   }
 
   viewDetails(applicationId: string) {
-    console.log('Viewing details for:', applicationId);
     this.router.navigate(['/details', applicationId]);
   }
 
@@ -303,12 +297,6 @@ export class AdminDashboardComponent {
   }
 
   updateChartData() {
-    
-  this.numberOfApplicationsChartData.datasets[0].data = [
-    this.getNumberOfApplications(this.superAdminData)
-  ];
-  this.numberOfApplicationsChartData = { ...this.numberOfApplicationsChartData };
-
   
   this.averageTimesChartData.datasets[0].data = [
     this.getDurationInHours(this.superAdminData.averageTimeToSignOrCancel),

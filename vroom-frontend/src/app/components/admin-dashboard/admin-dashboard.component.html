@@ -67,64 +67,69 @@
 
     <!-- Statistics Calculator Panel, visible only for super admins -->
     @if(isSuperAdmin){
-  
+
     <mat-expansion-panel>
       <mat-expansion-panel-header>
         <mat-panel-title> Statistics Calculator and Additional Filters</mat-panel-title>
       </mat-expansion-panel-header>
-      <mat-card-content>
-        <p>
-          Average Time to Sign or Cancel: {{ getAverageTimeToSignOrCancel(superAdminData) }}
-        </p>
-        <p>Number of Applications: {{ getNumberOfApplications(superAdminData) }}</p>
-        <p>
-          Average Time from Submit to Assigned:
-          {{ getAverageTimeFromSubmitToAssigned(superAdminData) }}
-        </p>
-        <div class="filters" [formGroup]="form" class="filter-containers">
-          <mat-form-field appearance="fill">
-            <mat-label>Manager ID</mat-label>
-            <input matInput formControlName="managerId" type="number" />
-          </mat-form-field>
-
-          <mat-form-field appearance="fill">
-            <mat-label>Start Date</mat-label>
-            <input
-              matInput
-              [matDatepicker]="pickerStart"
-              formControlName="startDate"
-              (dateInput)="fetchApplications()"
-              (dateChange)="fetchApplications()"
-            />
-            <mat-datepicker-toggle matSuffix [for]="pickerStart"></mat-datepicker-toggle>
-            <mat-datepicker #pickerStart></mat-datepicker>
-          </mat-form-field>
-
-          <mat-form-field appearance="fill">
-            <mat-label>End Date</mat-label>
-            <input
-              matInput
-              [matDatepicker]="pickerEnd"
-              formControlName="endDate"
-              (dateInput)="fetchApplications()"
-              (dateChange)="fetchApplications()"
-            />
-            <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
-            <mat-datepicker #pickerEnd></mat-datepicker>
-          </mat-form-field>
-
-          <div class="chart-container">
-            <h2>Average Processing Times</h2>
-            <canvas baseChart
-                    [options]="barChartOptions"
-                    [type]="barChartType"
-                    [data]="averageTimesChartData">
-            </canvas>
+      <div class="stat-container">
+        <mat-card-content class="stat-left">
+          <div class="text-container">
+            <p>
+              Average Time to Sign or Cancel: {{ getAverageTimeToSignOrCancel(superAdminData) }}
+            </p>
+            <p>Number of Applications: {{ getNumberOfApplications(superAdminData) }}</p>
+            <p>
+              Average Time from Submit to Assigned:
+              {{ getAverageTimeFromSubmitToAssigned(superAdminData) }}
+            </p>
           </div>
 
+          <div class="filters" [formGroup]="form" class="left-side">
+            <mat-form-field appearance="fill">
+              <mat-label>Manager ID</mat-label>
+              <input matInput formControlName="managerId" type="number" />
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+              <mat-label>Start Date</mat-label>
+              <input
+                matInput
+                [matDatepicker]="pickerStart"
+                formControlName="startDate"
+                (dateInput)="fetchApplications()"
+                (dateChange)="fetchApplications()"
+              />
+              <mat-datepicker-toggle matSuffix [for]="pickerStart"></mat-datepicker-toggle>
+              <mat-datepicker #pickerStart></mat-datepicker>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+              <mat-label>End Date</mat-label>
+              <input
+                matInput
+                [matDatepicker]="pickerEnd"
+                formControlName="endDate"
+                (dateInput)="fetchApplications()"
+                (dateChange)="fetchApplications()"
+              />
+              <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
+              <mat-datepicker #pickerEnd></mat-datepicker>
+            </mat-form-field>
+          </div>
+        </mat-card-content>
+
+        <div class="chart-container">
+          <canvas
+            baseChart
+            [options]="barChartOptions"
+            [type]="barChartType"
+            [data]="averageTimesChartData"
+            style="height: 10px"
+          >
+          </canvas>
         </div>
-        
-      </mat-card-content>
+      </div>
     </mat-expansion-panel>
     }
   </mat-accordion>

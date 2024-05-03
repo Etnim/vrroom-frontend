@@ -52,10 +52,8 @@ button:hover {
   background-color: #3700b3;
 }
 
-
-
 mat-header-cell {
-  justify-content: center;
+  justify-content: start;
 }
 
 mat-row:hover {
@@ -114,4 +112,48 @@ mat-panel-title {
 
 .mat-expansion-panel-body {
   overflow: auto; /* Ensures the content is scrollable if it overflows */
+
 }
+
+.stat-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 10px;
+}
+
+.filter-containers {
+  display: flex;
+
+  gap: 10px;
+}
+
+.chart-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.left-side {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  mat-form-field {
+    height: min-content;
+    width: max-content;
+  }
+}
+
+.stat-left {
+  display: flex;
+  flex-direction: column;
+}
+
+.text-container {
+  padding-top: 3em;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 3px;
+}
+
