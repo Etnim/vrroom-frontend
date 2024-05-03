@@ -102,3 +102,58 @@ mat-panel-title {
   font-weight: bold;
   font-size: 20px;
 }
+
+.chart-container {
+  display: block;
+  margin: 20px 0;
+  width: 20%; /* Full width of the container */
+  height: 400px; /* Fixed height or you can make it responsive */
+}
+
+.mat-expansion-panel-body {
+  overflow: auto; /* Ensures the content is scrollable if it overflows */
+
+}
+
+.stat-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 10px;
+}
+
+.filter-containers {
+  display: flex;
+
+  gap: 10px;
+}
+
+.chart-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.left-side {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  mat-form-field {
+    height: min-content;
+    width: max-content;
+  }
+}
+
+.stat-left {
+  display: flex;
+  flex-direction: column;
+}
+
+.text-container {
+  padding-top: 3em;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 3px;
+}
+

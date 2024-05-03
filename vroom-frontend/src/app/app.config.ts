@@ -12,6 +12,7 @@ import { getAuth, provideAuth } from '@angular/fire/auth';
 import { environment } from '../environment/environment';
 import { jWTtokenInterceptor } from './interceptors/jwttoken.interceptor';
 
+
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
