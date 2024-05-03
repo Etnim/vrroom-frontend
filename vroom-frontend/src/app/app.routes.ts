@@ -1,21 +1,21 @@
-import {Routes} from '@angular/router';
-import {WizardComponent} from './components/wizard/wizard.component';
-import {AdminDashboardComponent} from './components/admin-dashboard/admin-dashboard.component';
-import {
-  ApplicationDetailsComponent
-} from './components/admin-dashboard/application-details/application-details.component';
-import {SubmissionSuccessComponent} from './components/wizard/submission-success/submission-success.component';
-import {LoginComponent} from './components/login/login.component';
-import {RegisterComponent} from './components/register/register.component';
-import {AuthGuard, redirectLoggedInTo, redirectUnauthorizedTo} from '@angular/fire/auth-guard';
-import {MainPageComponent} from './components/main-page/main-page.component';
-import {LogoutComponent} from "./logout/logout.component";
+import { Routes } from '@angular/router';
+import { WizardComponent } from './components/wizard/wizard.component';
+import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
+import { ApplicationDetailsComponent } from './components/admin-dashboard/application-details/application-details.component';
+import { SubmissionSuccessComponent } from './components/wizard/submission-success/submission-success.component';
+import { LoginComponent } from './components/login/login.component';
+import { RegisterComponent } from './components/register/register.component';
+import { AuthGuard, redirectLoggedInTo, redirectUnauthorizedTo } from '@angular/fire/auth-guard';
+import { MainPageComponent } from './components/main-page/main-page.component';
+import { AboutUsComponent } from './components/about-us/about-us.component';
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['login']);
 const redirectAuthorizedToHome = () => redirectLoggedInTo(['admin']);
 
 export const routes: Routes = [
   {path: '', component: MainPageComponent},
+  { path: '', component: MainPageComponent },
+  { path: 'home', component: MainPageComponent },
   {
     path: 'admin',
     component: AdminDashboardComponent,
@@ -26,6 +26,11 @@ export const routes: Routes = [
   {
     path: 'car-lease',
     component: WizardComponent
+  },
+
+  {
+    path: 'about-us',
+    component: AboutUsComponent
   },
 
   {
@@ -47,12 +52,6 @@ export const routes: Routes = [
   {
     path: 'register',
     component: RegisterComponent
-  },
-  {
-    path: 'logout',
-    component: LogoutComponent,
-    canActivate: [AuthGuard],
-    data: {authGuardPipe: redirectUnauthorizedToLogin}
   },
   {path: '**', redirectTo: ''}
 ];

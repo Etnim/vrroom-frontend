@@ -39,11 +39,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  color: white;
-  font-weight: bold;
-  font-size: xx-large;
   background-color: transparentize(#071558, 0.3);
-  padding: 1em 2em;
+  padding: 4px 2em;
   border-radius: 0.5em;
 }
 
@@ -114,15 +111,21 @@ p {
   width: auto;
 }
 
+#logoVrroom {
+  height: 120px;
+  width: auto;
+  opacity: 0.8;
+}
+
+.error-snackbar {
+  background-color: #f44336;
+  color: white;
+}
+
 @media screen and (min-width: 300px) and (max-width: 800px) {
   .wizard-content {
     width: 90%;
     margin: 10px;
-  }
-
-  .wizard-title {
-    font-size: x-large;
-    padding: 0.8em 1.5em;
   }
 
   .title-mobile {
@@ -141,6 +144,10 @@ p {
         display: none;
       }
     }
+  }
+
+  #logoVrroom {
+    height: 88px;
   }
 }
 
@@ -168,9 +175,8 @@ p {
       }
     }
   }
-}
 
-.error-snackbar {
-  background-color: #f44336;
-  color: white;
+  #logoVrroom {
+    height: 56px;
+  }
 }

@@ -5,11 +5,12 @@ import { WizardComponent } from './components/wizard/wizard.component';
 import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
 import { ApplicationDetailsComponent } from './components/admin-dashboard/application-details/application-details.component';
 import { AuthService } from './services/auth.service';
+import { NavigationComponent } from './components/navigation/navigation.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, WizardComponent, AdminDashboardComponent, ApplicationDetailsComponent],
+  imports: [RouterOutlet, WizardComponent, AdminDashboardComponent, ApplicationDetailsComponent, NavigationComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

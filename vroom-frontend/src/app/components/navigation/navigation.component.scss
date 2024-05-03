@@ -1,0 +1,46 @@
+#menu-button {
+  display: none;
+  position: absolute;
+  z-index: 1;
+}
+
+.navbar-container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+#menu-button {
+  color: white;
+}
+
+:host {
+  ::ng-deep {
+    .mat-mdc-menu-item-text {
+      color: white;
+      width: 120px;
+      text-align: center;
+      align-items: center;
+      font-family: "Roboto Light", sans-serif;
+      font-size: 12px;
+    }
+  }
+}
+
+.active {
+  background-color: #6200ea;
+}
+.nav-button:hover {
+  background-color: #1e364d !important;
+}
+
+@media screen and (max-width: 600px) {
+
+  .navbar-container {
+    display: none;
+  }
+
+  #menu-button {
+    display: initial;
+  }
+}
