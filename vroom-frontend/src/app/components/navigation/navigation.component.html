@@ -1,0 +1,28 @@
+<nav class="navbar">
+  <div class="navbar-container">
+    <a class="nav-button" mat-menu-item routerLinkActive="active" [routerLink]="['/home']">Main Page</a>
+    <a class="nav-button" mat-menu-item routerLinkActive="active" [routerLink]="['/car-lease']">Apply For Lease</a>
+    <a class="nav-button" mat-menu-item routerLinkActive="active" [routerLink]="['/admin']">Admin Panel</a>
+    <a class="nav-button" mat-menu-item routerLinkActive="active" [routerLink]="['/about-us']">About Us</a>
+    @if (!checkIfLoggedIn()) {
+      <a class="nav-button" mat-menu-item (click)="loginToAdmin()" routerLinkActive="active" [routerLink]="['/login']">Login</a>
+    } @else {
+      <a class="nav-button" mat-menu-item (click)="logoutFromAdmin()">Logout</a>
+    }
+  </div>
+</nav>
+
+<button id="menu-button" mat-icon-button [matMenuTriggerFor]="menu">
+  <mat-icon>menu</mat-icon>
+</button>
+<mat-menu #menu="matMenu">
+  <button mat-menu-item (click)="navigateToMain()">Main Page</button>
+  <button mat-menu-item (click)="navigateToApplication()">Apply For Lease</button>
+  <button mat-menu-item (click)="navigateToAdmin()">Admin Panel</button>
+  <button mat-menu-item (click)="navigateToAboutUs()">About Us</button>
+  @if (!checkIfLoggedIn()) {
+    <button mat-menu-item (click)="loginToAdmin()" routerLinkActive="active" [routerLink]="['/login']">Login</button>
+  } @else {
+    <button mat-menu-item (click)="logoutFromAdmin()">Logout</button>
+  }
+</mat-menu>

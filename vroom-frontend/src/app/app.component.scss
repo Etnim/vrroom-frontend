@@ -1,1 +1,29 @@
 
+.app-navigation-mobile {
+  display: none;
+}
+
+.app-navigation-desktop {
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  align-items: center;
+  background-color: #071558;
+}
+
+@media screen and (max-width: 600px) {
+
+  navigation-menu {
+    z-index: 1;
+  }
+
+  .app-navigation-desktop {
+    display: none;
+  }
+
+  .app-navigation-mobile {
+    display: initial;
+    position: absolute;
+    z-index: 1;
+  }
+}
