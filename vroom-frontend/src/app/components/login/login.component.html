@@ -1,15 +1,13 @@
 @if (errorMessage) {
-<div>{{ errorMessage }}</div>
-
-} @if (authService.currentUserSig() == null) {
-
+  <div>{{ errorMessage }}</div>
+}
 <div class="container">
   <div class="screen">
     <div class="screen__content">
       <form class="login" [formGroup]="form" (ngSubmit)="onSubmit()">
         <div class="login__field">
           <i class="login__icon fas fa-user"></i>
-          <input type="text" class="login__input" placeholder="Email" formControlName="email" />
+          <input type="text" class="login__input" placeholder="Email" formControlName="email"/>
         </div>
         <div class="login__field">
           <i class="login__icon fas fa-lock"></i>
@@ -36,7 +34,7 @@
             height="100"
             viewBox="0 0 48 48"
             class="social-login__icon"
-            (click)="authService.loginWithGoogle()"
+            (click)="loginGoogle()"
           >
             <path
               fill="#FFC107"
@@ -66,9 +64,4 @@
     </div>
   </div>
 </div>
-} @else {
-<div>
-  {{ authService.currentUserSig()?.username }}
-  <span (click)="authService.logout()">logout</span>
-</div>
-}
+
