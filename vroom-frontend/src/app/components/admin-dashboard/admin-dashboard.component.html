@@ -3,64 +3,117 @@
     <h1>vRroom Admin Dashboard</h1>
   </div>
 
-  <mat-card>
-    <mat-card-title>Filter Options</mat-card-title>
-    <mat-card-content>
-      <div class="filters" [formGroup]="form">
+  <mat-accordion multi="true">
+    <!-- Filter Options Panel -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title> Filter Options </mat-panel-title>
+      </mat-expansion-panel-header>
+      <mat-card-content>
+        <div class="filters" [formGroup]="form">
+          <mat-form-field appearance="fill">
+            <mat-label>Manager Full Name</mat-label>
+            <input matInput formControlName="managerFullName" />
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Customer ID</mat-label>
+            <input matInput formControlName="customerId" />
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Status</mat-label>
+            <mat-select formControlName="status">
+              <mat-option value="">Default</mat-option>
+              <mat-option value="SUBMITTED">Submitted</mat-option>
+              <mat-option value="UNDER_REVIEW">Under review</mat-option>
+              <mat-option value="PENDING_CHANGES">Pending changes</mat-option>
+              <mat-option value="PENDING_REVIEW">Pending review</mat-option>
+              <mat-option value="WAITING_FOR_SIGNING">Waiting for signing</mat-option>
+              <mat-option value="SIGNED">Signed</mat-option>
+              <mat-option value="REJECTED">Rejected</mat-option>
+              <mat-option value="CANCELLED">Cancelled</mat-option>
+            </mat-select>
+          </mat-form-field>
+          @if(!isSuperAdmin) {
+          <ng-container>
+            <mat-form-field appearance="fill">
+              <mat-label>Start Date</mat-label>
+              <input
+                matInput
+                [matDatepicker]="pickerStart"
+                formControlName="startDate"
+                (dateInput)="fetchApplications()"
+                (dateChange)="fetchApplications()"
+              />
+              <mat-datepicker-toggle matSuffix [for]="pickerStart"></mat-datepicker-toggle>
+              <mat-datepicker #pickerStart></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+              <mat-label>End Date</mat-label>
+              <input
+                matInput
+                [matDatepicker]="pickerEnd"
+                formControlName="endDate"
+                (dateInput)="fetchApplications()"
+                (dateChange)="fetchApplications()"
+              />
+              <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
+              <mat-datepicker #pickerEnd></mat-datepicker>
+            </mat-form-field>
+          </ng-container>
+          }
+        </div>
+      </mat-card-content>
+    </mat-expansion-panel>
 
-        <mat-form-field appearance="fill">
-          <mat-label>Manager Full Name</mat-label>
-          <input matInput formControlName="managerFullName" />
-        </mat-form-field>
-
-        <mat-form-field appearance="fill">
-          <mat-label>Customer ID</mat-label>
-          <input matInput formControlName="customerId" />
-        </mat-form-field>
-
-        <mat-form-field appearance="fill">
-          <mat-label>Status</mat-label>
-          <mat-select formControlName="status">
-            <mat-option value="">Default</mat-option>
-            <mat-option value="SUBMITTED">Submitted</mat-option>
-            <mat-option value="UNDER_REVIEW">Under review</mat-option>
-            <mat-option value="PENDING_CHANGES">Pending changes</mat-option>
-            <mat-option value="PENDING_REVIEW">Pending review</mat-option>
-            <mat-option value="WAITING_FOR_SIGNING">Waiting for signing</mat-option>
-            <mat-option value="SIGNED">Signed</mat-option>
-            <mat-option value="REJECTED">Rejected</mat-option>
-            <mat-option value="CANCELLED">Cancelled</mat-option>
-          </mat-select>
-        </mat-form-field>
-
-        <mat-form-field appearance="fill">
-          <mat-label>Start Date</mat-label>
-          <input
-            matInput
-            [matDatepicker]="pickerStart"
-            formControlName="startDate"
-            (dateInput)="fetchApplications()"
-            (dateChange)="fetchApplications()"
-          />
-          <mat-datepicker-toggle matSuffix [for]="pickerStart"></mat-datepicker-toggle>
-          <mat-datepicker #pickerStart></mat-datepicker>
-        </mat-form-field>
-
-        <mat-form-field appearance="fill">
-          <mat-label>End Date</mat-label>
-          <input
-            matInput
-            [matDatepicker]="pickerEnd"
-            formControlName="endDate"
-            (dateInput)="fetchApplications()"
-            (dateChange)="fetchApplications()"
-          />
-          <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
-          <mat-datepicker #pickerEnd></mat-datepicker>
-        </mat-form-field>
-      </div>
-    </mat-card-content>
-  </mat-card>
+    <!-- Statistics Calculator Panel, visible only for super admins -->
+    @if(isSuperAdmin){
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title> Statistics Calculator and Additional Filters</mat-panel-title>
+      </mat-expansion-panel-header>
+      <mat-card-content>
+        <p>
+          Average Time to Sign or Cancel: {{ getAverageTimeToSignOrCancel(superAdminData) }}
+        </p>
+        <p>Number of Applications: {{ getNumberOfApplications(superAdminData) }}</p>
+        <p>
+          Average Time from Submit to Assigned:
+          {{ getAverageTimeFromSubmitToAssigned(superAdminData) }}
+        </p>
+        <div class="filters" [formGroup]="form">
+          <mat-form-field appearance="fill">
+            <mat-label>Manager ID</mat-label>
+            <input matInput formControlName="managerId" type="number" />
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Start Date</mat-label>
+            <input
+              matInput
+              [matDatepicker]="pickerStart"
+              formControlName="startDate"
+              (dateInput)="fetchApplications()"
+              (dateChange)="fetchApplications()"
+            />
+            <mat-datepicker-toggle matSuffix [for]="pickerStart"></mat-datepicker-toggle>
+            <mat-datepicker #pickerStart></mat-datepicker>
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>End Date</mat-label>
+            <input
+              matInput
+              [matDatepicker]="pickerEnd"
+              formControlName="endDate"
+              (dateInput)="fetchApplications()"
+              (dateChange)="fetchApplications()"
+            />
+            <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
+            <mat-datepicker #pickerEnd></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </mat-card-content>
+    </mat-expansion-panel>
+    }
+  </mat-accordion>
 
   <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
     <ng-container matColumnDef="applicationId">
@@ -106,7 +159,9 @@
         </mat-icon>
         }
       </mat-header-cell>
-      <mat-cell *matCellDef="let element">{{ formatDateString(element.applicationCreatedDate) }}</mat-cell>
+      <mat-cell *matCellDef="let element">{{
+        formatDateString(element.applicationCreatedDate)
+      }}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="applicationStatus">
