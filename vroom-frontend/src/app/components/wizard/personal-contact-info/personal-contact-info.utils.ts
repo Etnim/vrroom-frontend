@@ -38,4 +38,4 @@ export const PERSONAL_CODE_REGX = new RegExp(
   '^[3-6][0-9]{2}(0[1-9]|1[0-2])(0[1-9]|[12][0-9]|3[01])\\d{4}$'
 );
 
-export const ENGLISH_CHARACTER_REGX = new RegExp('^[a-zA-Z\\s]+$');
+export const LITHUANIAN_LETTERS_REGEX = new RegExp("^[A-Za-zĄąČčĘęĖėĮįŠšŲųŪūŽž\\-'\\s]+$");

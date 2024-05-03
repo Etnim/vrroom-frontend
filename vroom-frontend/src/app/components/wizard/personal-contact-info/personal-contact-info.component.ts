@@ -25,7 +25,7 @@ import {
   extractBirthDate,
   PHONE_REGX,
   PERSONAL_CODE_REGX,
-  ENGLISH_CHARACTER_REGX
+  LITHUANIAN_LETTERS_REGEX
 } from './personal-contact-info.utils';
 
 export const MY_FORMATS = {
@@ -67,12 +67,12 @@ export class PersonalContactInfoComponent {
     name: new FormControl<string | null>(null, [
       Validators.required,
       Validators.minLength(2),
-      Validators.pattern(ENGLISH_CHARACTER_REGX)
+      Validators.pattern(LITHUANIAN_LETTERS_REGEX)
     ]),
     surname: new FormControl<string | null>(null, [
       Validators.required,
       Validators.minLength(2),
-      Validators.pattern(ENGLISH_CHARACTER_REGX)
+      Validators.pattern(LITHUANIAN_LETTERS_REGEX)
     ]),
     dateOfBirth: new FormControl<string | null>(null, [Validators.required]),
     identificationNumber: new FormControl<string | null>(null, [
