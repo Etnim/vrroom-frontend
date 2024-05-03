@@ -9,7 +9,7 @@
     @if (!checkIfLoggedIn()) {
       <a class="nav-button" mat-menu-item (click)="loginToAdmin()" routerLinkActive="active" [routerLink]="['/login']">Login</a>
     } @else {
-      <a class="nav-button" mat-menu-item (click)="logoutFromAdmin()" [routerLink]="['']">Logout</a>
+      <a class="nav-button" mat-menu-item (click)="logoutFromAdmin()">Logout</a>
     }
   </div>
 </nav>
@@ -20,7 +20,9 @@
 <mat-menu #menu="matMenu">
   <button mat-menu-item (click)="navigateToMain()">Main Page</button>
   <button mat-menu-item (click)="navigateToApplication()">Apply For Lease</button>
+  @if (checkIfLoggedIn()) {
   <button mat-menu-item (click)="navigateToAdmin()">Admin Panel</button>
+  }
   <button mat-menu-item (click)="navigateToAboutUs()">About Us</button>
   @if (!checkIfLoggedIn()) {
     <button mat-menu-item (click)="loginToAdmin()" routerLinkActive="active" [routerLink]="['/login']">Login</button>

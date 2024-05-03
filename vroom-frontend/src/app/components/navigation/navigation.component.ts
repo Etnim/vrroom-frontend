@@ -51,8 +51,11 @@ export class NavigationComponent {
   }
 
   logoutFromAdmin() {
-    this.authService.logout();
-    this.navigateToMain();
+    let confirmation = confirm('Are you logging out?');
+    if (confirmation) {
+      this.authService.logout();
+      this.navigateToMain();
+    }
   }
 
   checkIfLoggedIn() {
