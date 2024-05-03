@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import type { PersonalAndContactInfoFormGroup } from '../types';
+import {Component} from '@angular/core';
+import type {PersonalAndContactInfoFormGroup} from '../types';
 import {
   FormBuilder,
   FormControl,
@@ -7,25 +7,25 @@ import {
   ReactiveFormsModule,
   Validators
 } from '@angular/forms';
-import { AsyncPipe } from '@angular/common';
-import { MatStepperModule } from '@angular/material/stepper';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatDatepickerModule } from '@angular/material/datepicker';
+import {AsyncPipe} from '@angular/common';
+import {MatStepperModule} from '@angular/material/stepper';
+import {MatInputModule} from '@angular/material/input';
+import {MatButtonModule} from '@angular/material/button';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatDatepickerModule} from '@angular/material/datepicker';
 import {
   DateAdapter,
   MAT_DATE_FORMATS,
   MAT_DATE_LOCALE,
   provideNativeDateAdapter
 } from '@angular/material/core';
-import { MatSelectModule } from '@angular/material/select';
-import { MomentDateAdapter } from '@angular/material-moment-adapter';
+import {MatSelectModule} from '@angular/material/select';
+import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {
   extractBirthDate,
   PHONE_REGX,
   PERSONAL_CODE_REGX,
-  LITHUANIAN_LETTERS_REGEX
+  LITHUANIAN_LETTERS_REGEX, ADRESSS_REGEX
 } from './personal-contact-info.utils';
 
 export const MY_FORMATS = {
@@ -56,8 +56,8 @@ export const MY_FORMATS = {
   ],
   providers: [
     provideNativeDateAdapter(),
-    { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
-    { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS }
+    {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+    {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS}
   ],
   templateUrl: './personal-contact-info.component.html',
   styleUrls: ['./personal-contact-info.component.scss']
@@ -84,7 +84,9 @@ export class PersonalContactInfoComponent {
       Validators.required,
       Validators.pattern(PHONE_REGX)
     ]),
-    address: new FormControl<string | null>(null, Validators.required)
+    address: new FormControl<string | null>(null,
+      [Validators.required,
+        Validators.pattern(ADRESSS_REGEX)])
   });
 
   minDate: Date;
@@ -105,12 +107,12 @@ export class PersonalContactInfoComponent {
     this.fourthFormGroup
       .get('identificationNumber')
       ?.valueChanges.subscribe((value: string | null) => {
-        if (value && PERSONAL_CODE_REGX.test(value)) {
-          const birthDate = extractBirthDate(value);
-          this.fourthFormGroup.get('dateOfBirth')?.setValue(birthDate);
-        } else {
-          this.fourthFormGroup.get('dateOfBirth')?.reset();
-        }
-      });
+      if (value && PERSONAL_CODE_REGX.test(value)) {
+        const birthDate = extractBirthDate(value);
+        this.fourthFormGroup.get('dateOfBirth')?.setValue(birthDate);
+      } else {
+        this.fourthFormGroup.get('dateOfBirth')?.reset();
+      }
+    });
   }
 }
