@@ -15,6 +15,8 @@ import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/materia
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import {MatExpansionModule} from '@angular/material/expansion';
+import { NgChartsModule } from 'ng2-charts';
+import { ChartConfiguration, ChartData, ChartOptions, ChartType } from 'chart.js';
 import moment from 'moment/moment';
 
 export const MY_DATE_FORMATS = {
@@ -46,7 +48,8 @@ export const MY_DATE_FORMATS = {
     MatFormFieldModule,
     MatIconModule,
     MatCardModule,
-    MatExpansionModule
+    MatExpansionModule,
+    NgChartsModule
   ],
   templateUrl: './admin-dashboard.component.html',
   styleUrls: ['./admin-dashboard.component.scss'],
@@ -72,6 +75,38 @@ export class AdminDashboardComponent {
   pageSizeOptions = [5, 10, 20];
   isSuperAdmin = false;
   superAdminData: any;
+
+  public barChartOptions: ChartOptions = {
+    responsive: true,
+    maintainAspectRatio: false, 
+    scales: {
+      x: {
+        ticks: {
+          autoSkip: false,
+          maxRotation: 90,
+          minRotation: 0
+        }
+      },
+      y: {
+        beginAtZero: true
+      }
+    },
+    plugins: {
+      legend: {
+        position: 'top',
+      }
+    }
+  };
+  public barChartType: ChartType = 'bar';
+  public numberOfApplicationsChartData: ChartData<'bar'> = {
+    labels: ['Number of Applications'],
+    datasets: [{ data: [], label: 'Number of Applications' }]
+  };
+  
+  public averageTimesChartData: ChartData<'bar'> = {
+    labels: ['Avg Time to Sign or Cancel', 'Avg Time from Submit to Assigned'],
+    datasets: [{ data: [], label: 'Average Times (hours)' }]
+  };
 
   constructor(
     private fb: FormBuilder,
@@ -128,12 +163,14 @@ export class AdminDashboardComponent {
       )
       .subscribe({
         next: (data) => {
+          console.log('Fetched data:', data);
           this.dataSource = data.content;
           this.totalElements = data.totalElements;
           this.currentPage = data.pageNumber;
           this.pageSize = data.pageSize;
           this.superAdminData = data;
           this.isSuperAdmin = this.isSuperAdminDataAvailable(data);
+          this.updateChartData();
         },
         error: (error) => console.error('Failed to fetch applications', error)
       });
@@ -174,7 +211,6 @@ export class AdminDashboardComponent {
   getRowColor(application: any): string {
     const today = new Date();
     const submissionDate = new Date(application.applicationCreatedDate);
-    console.log(today, submissionDate);
     const diffDays = Math.floor((today.getTime() - submissionDate.getTime()) / (1000 * 3600 * 24));
     if (diffDays >= 5 && application.applicationStatus === 'SUBMITTED') {
       return 'red';
@@ -251,11 +287,11 @@ export class AdminDashboardComponent {
     return '';
   }
 
-  getNumberOfApplications(application: any): string {
+  getNumberOfApplications(application: any): number {
     if (this.isSuperAdminDataAvailable(application)) {
       return application.numberOfApplications;
     }
-    return '';
+    return 0;
   }
 
   getAverageTimeFromSubmitToAssigned(application: any): string {
@@ -264,5 +300,25 @@ export class AdminDashboardComponent {
       return this.formatDuration(duration);
     }
     return '';
+  }
+
+  updateChartData() {
+    
+  this.numberOfApplicationsChartData.datasets[0].data = [
+    this.getNumberOfApplications(this.superAdminData)
+  ];
+  this.numberOfApplicationsChartData = { ...this.numberOfApplicationsChartData };
+
+  
+  this.averageTimesChartData.datasets[0].data = [
+    this.getDurationInHours(this.superAdminData.averageTimeToSignOrCancel),
+    this.getDurationInHours(this.superAdminData.averageTimeFromSubmitToAssigned)
+  ];
+  this.averageTimesChartData = { ...this.averageTimesChartData };
+  }
+
+  getDurationInHours(duration: string): number {
+    const parsedDuration = this.parseDurationString(duration);
+    return parsedDuration.days * 24 + parsedDuration.hours + parsedDuration.minutes / 60;
   }
 }

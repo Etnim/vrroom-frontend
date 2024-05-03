@@ -67,6 +67,7 @@
 
     <!-- Statistics Calculator Panel, visible only for super admins -->
     @if(isSuperAdmin){
+  
     <mat-expansion-panel>
       <mat-expansion-panel-header>
         <mat-panel-title> Statistics Calculator and Additional Filters</mat-panel-title>
@@ -80,11 +81,12 @@
           Average Time from Submit to Assigned:
           {{ getAverageTimeFromSubmitToAssigned(superAdminData) }}
         </p>
-        <div class="filters" [formGroup]="form">
+        <div class="filters" [formGroup]="form" class="filter-containers">
           <mat-form-field appearance="fill">
             <mat-label>Manager ID</mat-label>
             <input matInput formControlName="managerId" type="number" />
           </mat-form-field>
+
           <mat-form-field appearance="fill">
             <mat-label>Start Date</mat-label>
             <input
@@ -97,6 +99,7 @@
             <mat-datepicker-toggle matSuffix [for]="pickerStart"></mat-datepicker-toggle>
             <mat-datepicker #pickerStart></mat-datepicker>
           </mat-form-field>
+
           <mat-form-field appearance="fill">
             <mat-label>End Date</mat-label>
             <input
@@ -109,7 +112,18 @@
             <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
             <mat-datepicker #pickerEnd></mat-datepicker>
           </mat-form-field>
+
+          <div class="chart-container">
+            <h2>Average Processing Times</h2>
+            <canvas baseChart
+                    [options]="barChartOptions"
+                    [type]="barChartType"
+                    [data]="averageTimesChartData">
+            </canvas>
+          </div>
+
         </div>
+        
       </mat-card-content>
     </mat-expansion-panel>
     }
@@ -204,4 +218,5 @@
     (page)="onPageChange($event)"
   >
   </mat-paginator>
+
 </div>
