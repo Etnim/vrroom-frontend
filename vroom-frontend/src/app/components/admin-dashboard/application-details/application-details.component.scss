@@ -90,6 +90,21 @@ button.mat-raised-button {
   background-color: #106cc8;
 }
 
+mat-card-header {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+#approve-button {
+  background-color: #28a745;
+  margin-right: 8px;
+}
+
+#reject-button {
+  background-color: #dc3545;
+}
+
 tr:hover {
   background-color: #e8f4ff;
 }
@@ -128,7 +143,6 @@ mat-card-title {
   padding: 7px;
 }
 
-//I want mat-spinner in the center
 mat-spinner {
   width: 50%;
   height: 50%;

@@ -64,7 +64,8 @@
 
                 <p>
                   <strong>Euribor Rate: </strong>
-                  {{ stepOne.firstFormGroup.value.selectedEuriborRate! }}%
+                  {{ stepOne.firstFormGroup.value.selectedEuriborRate! }}% /
+                  {{ stepOne.firstFormGroup.value.euriborRate === '3m' ? '3 Months' : '6 Months' }}
                 </p>
               </mat-card-content>
             </mat-card>
@@ -161,7 +162,7 @@
               <button
                 mat-button
                 [disabled]="!fifthFormGroup.get('reviewConfirm')?.value"
-                (click)="submit()"
+                (click)="debouncedSubmit()"
               >
                 Submit
               </button>

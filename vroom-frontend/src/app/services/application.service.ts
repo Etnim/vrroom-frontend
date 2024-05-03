@@ -100,4 +100,9 @@ export class ApplicationService {
   uploadAgreement(id: string | null, file: FormData): Observable<any> {
     return this.http.post(`${this.apiUrl}/${id}/agreement`, file, {responseType: 'text'});
   }
+
+  updateApplicationStatus(id: string, status: string): Observable<any> {
+    const params = new HttpParams().set('status', status);
+    return this.http.put(`${this.apiUrl}/${id}/updateStatus`, null, { params: params, responseType: 'text' });
+  }
 }
