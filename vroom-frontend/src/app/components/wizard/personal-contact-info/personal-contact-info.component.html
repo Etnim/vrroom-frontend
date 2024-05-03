@@ -3,7 +3,7 @@
     <mat-label>Name</mat-label>
     <input matInput formControlName="name" placeholder="Enter your name" required />
     @if (fourthFormGroup.get('name')?.invalid){
-    <mat-error>Name is required.</mat-error>
+    <mat-error>Name can only contain letters and spaces.</mat-error>
     }
   </mat-form-field>
 
@@ -11,25 +11,7 @@
     <mat-label>Surname</mat-label>
     <input matInput formControlName="surname" placeholder="Enter your surname" required />
     @if (fourthFormGroup.get('surname')?.invalid){
-    <mat-error>Surname is required.</mat-error>
-    }
-  </mat-form-field>
-
-  <mat-form-field>
-    <mat-label>Date of Birth</mat-label>
-    <input
-      matInput
-      [matDatepicker]="dateOfBirthPicker"
-      formControlName="dateOfBirth"
-      placeholder="YYYY-MM-DD"
-      [min]="minDate"
-      [max]="maxDate"
-      required
-    />
-    <mat-datepicker-toggle matSuffix [for]="dateOfBirthPicker"></mat-datepicker-toggle>
-    <mat-datepicker #dateOfBirthPicker></mat-datepicker>
-    @if ( fourthFormGroup.get('dob')?.invalid){
-    <mat-error>Date of birth is required.</mat-error>
+    <mat-error>Surname can only contain letters and spaces.</mat-error>
     }
   </mat-form-field>
 
@@ -47,6 +29,24 @@
   </mat-form-field>
 
   <mat-form-field>
+    <mat-label>Date of Birth</mat-label>
+    <input
+      matInput
+      [matDatepicker]="dateOfBirthPicker"
+      formControlName="dateOfBirth"
+      placeholder="YYYY-MM-DD"
+      [min]="minDate"
+      [max]="maxDate"
+      required
+    />
+    <mat-datepicker-toggle matSuffix [for]="dateOfBirthPicker"></mat-datepicker-toggle>
+    <mat-datepicker #dateOfBirthPicker></mat-datepicker>
+    @if ( fourthFormGroup.get('dateOfBirth')?.invalid){
+    <mat-error>Date of birth is required.</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field>
     <mat-label>Email</mat-label>
     <input matInput formControlName="email" placeholder="Enter your email" required />
     @if ( fourthFormGroup.get('email')?.invalid){
@@ -58,7 +58,7 @@
     <mat-label>Phone Number</mat-label>
     <input matInput formControlName="phoneNumber" placeholder="Enter your phone number" required />
     @if ( fourthFormGroup.get('phoneNumber')?.invalid){
-    <mat-error>Please enter a valid phone number in the format "+37062408658".</mat-error>
+    <mat-error>Please enter a valid phone number in the format "+370XXXXXXXX".</mat-error>
     }
   </mat-form-field>
 

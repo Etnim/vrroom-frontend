@@ -82,7 +82,7 @@ export interface VehicleDetails {
 export interface FinancialInfo {
   monthlyIncome: number;
   monthlyObligations: number;
-  maritalStatus: 'SINGLE' | 'MARRIED' | 'WIDOWED' | 'DIVORCED';
+  maritalStatus: 'SINGLE' | 'MARRIED' | 'Cohabitee' | 'DIVORCED';
   dependants: number;
 }
 
