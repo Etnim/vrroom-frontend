@@ -14,6 +14,7 @@ import { MatInputModule } from '@angular/material/input';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
+import {MatExpansionModule} from '@angular/material/expansion';
 import moment from 'moment/moment';
 
 export const MY_DATE_FORMATS = {
@@ -44,7 +45,8 @@ export const MY_DATE_FORMATS = {
     AsyncPipe,
     MatFormFieldModule,
     MatIconModule,
-    MatCardModule
+    MatCardModule,
+    MatExpansionModule
   ],
   templateUrl: './admin-dashboard.component.html',
   styleUrls: ['./admin-dashboard.component.scss'],
@@ -68,6 +70,8 @@ export class AdminDashboardComponent {
   pageSize = 10;
   currentPage = 0;
   pageSizeOptions = [5, 10, 20];
+  isSuperAdmin = false;
+  superAdminData: any;
 
   constructor(
     private fb: FormBuilder,
@@ -104,7 +108,8 @@ export class AdminDashboardComponent {
   }
 
   fetchApplications(pageNumber: number = this.currentPage, pageSize: number = this.pageSize) {
-    const { customerId, managerFullName, status, sortField, sortDir, startDate, endDate } = this.form.value;
+    const { customerId, managerFullName, managerId, status, sortField, sortDir, startDate, endDate } =
+      this.form.value;
     const formattedStartDate = startDate ? this.formatDate(startDate) : '';
     const formattedEndDate = endDate ? this.formatDate(endDate) : '';
 
@@ -114,6 +119,7 @@ export class AdminDashboardComponent {
         pageSize,
         sortField,
         customerId,
+        managerId,
         managerFullName,
         sortDir,
         status,
@@ -126,6 +132,8 @@ export class AdminDashboardComponent {
           this.totalElements = data.totalElements;
           this.currentPage = data.pageNumber;
           this.pageSize = data.pageSize;
+          this.superAdminData = data;
+          this.isSuperAdmin = this.isSuperAdminDataAvailable(data);
         },
         error: (error) => console.error('Failed to fetch applications', error)
       });
@@ -135,7 +143,11 @@ export class AdminDashboardComponent {
     if (!date) return '';
     let newDate = new Date(date);
     return newDate instanceof Date && !isNaN(newDate.getTime())
-      ? `${newDate.getFullYear()}-${('0' + (newDate.getMonth() + 1)).slice(-2)}-${('0' + newDate.getDate()).slice(-2)}T${('0' + newDate.getHours()).slice(-2)}:${('0' + newDate.getMinutes()).slice(-2)}:${('0' + newDate.getSeconds()).slice(-2)}`
+      ? `${newDate.getFullYear()}-${('0' + (newDate.getMonth() + 1)).slice(-2)}-${(
+          '0' + newDate.getDate()
+        ).slice(-2)}T${('0' + newDate.getHours()).slice(-2)}:${('0' + newDate.getMinutes()).slice(
+          -2
+        )}:${('0' + newDate.getSeconds()).slice(-2)}`
       : '';
   }
 
@@ -161,7 +173,8 @@ export class AdminDashboardComponent {
 
   getRowColor(application: any): string {
     const today = new Date();
-    const submissionDate = new Date(application.dateOfSubmission);
+    const submissionDate = new Date(application.applicationCreatedDate);
+    console.log(today, submissionDate);
     const diffDays = Math.floor((today.getTime() - submissionDate.getTime()) / (1000 * 3600 * 24));
     if (diffDays >= 5 && application.applicationStatus === 'SUBMITTED') {
       return 'red';
@@ -177,6 +190,79 @@ export class AdminDashboardComponent {
   }
 
   formatDateString(date: string) {
-    return moment(Date.parse(date)).format("YYYY-MM-DD HH:mm:ss");
+    return moment(Date.parse(date)).format('YYYY-MM-DD HH:mm:ss');
+  }
+
+  parseDurationString(durationString: string): {
+    days: number;
+    hours: number;
+    minutes: number;
+    seconds: number;
+  } {
+    const matches = durationString.match(/PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/);
+    if (!matches) {
+      return { days: 0, hours: 0, minutes: 0, seconds: 0 };
+    }
+
+    const [, hoursString, minutesString, secondsString] = matches;
+    const hours = hoursString ? parseInt(hoursString, 10) : 0;
+    const minutes = minutesString ? parseInt(minutesString, 10) : 0;
+    const seconds = secondsString ? parseInt(secondsString, 10) : 0;
+
+    const days = Math.floor(hours / 24);
+    const remainingHours = hours % 24;
+
+    return { days, hours: remainingHours, minutes, seconds };
+  }
+
+  formatDuration(duration: {
+    days: number;
+    hours: number;
+    minutes: number;
+    seconds: number;
+  }): string {
+    const parts: string[] = [];
+    if (duration.days > 0) {
+      parts.push(`${duration.days}d`);
+    }
+    if (duration.hours > 0 || parts.length > 0) {
+      parts.push(`${duration.hours}h`);
+    }
+    if (duration.minutes > 0 || parts.length > 0) {
+      parts.push(`${duration.minutes}m`);
+    }
+    parts.push(`${duration.seconds}s`);
+    return parts.join(' ');
+  }
+
+  isSuperAdminDataAvailable(application: any): boolean {
+    return (
+      application.hasOwnProperty('averageTimeToSignOrCancel') &&
+      application.hasOwnProperty('numberOfApplications') &&
+      application.hasOwnProperty('averageTimeFromSubmitToAssigned')
+    );
+  }
+
+  getAverageTimeToSignOrCancel(application: any): string {
+    if (this.isSuperAdminDataAvailable(application)) {
+      const duration = this.parseDurationString(application.averageTimeToSignOrCancel);
+      return this.formatDuration(duration);
+    }
+    return '';
+  }
+
+  getNumberOfApplications(application: any): string {
+    if (this.isSuperAdminDataAvailable(application)) {
+      return application.numberOfApplications;
+    }
+    return '';
+  }
+
+  getAverageTimeFromSubmitToAssigned(application: any): string {
+    if (this.isSuperAdminDataAvailable(application)) {
+      const duration = this.parseDurationString(application.averageTimeFromSubmitToAssigned);
+      return this.formatDuration(duration);
+    }
+    return '';
   }
 }

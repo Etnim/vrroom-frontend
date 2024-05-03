@@ -4,9 +4,10 @@
     <div class="progress-indicator"></div>
     <div class="wizard-content">
       <div class="wizard-title" (click)="navigateToMain()">
-        <h2>{{ wizardTitle }}</h2>
+        <img id="logoVrroom" src='../../../assets/img/logoVrroom.png' alt="">
       </div>
-      <mat-stepper class="example-stepper" [orientation]="(stepperOrientation | async)!" linear>
+
+      <mat-stepper class="example-stepper" [orientation]="(stepperOrientation | async)!">
         <mat-step [stepControl]="stepOne.firstFormGroup" label="Leasing Information">
           <h1 class="title-mobile">Leasing Information</h1>
           <app-leasing-info-component #stepOne></app-leasing-info-component>
