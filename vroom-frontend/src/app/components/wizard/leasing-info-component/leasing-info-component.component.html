@@ -65,7 +65,7 @@
   </mat-form-field>
 
   <mat-form-field appearance="fill">
-    <mat-label>Euribor Rate</mat-label>
+    <mat-label>Euribor Term</mat-label>
     <mat-select formControlName="euriborRate" required>
       @for (rate of euriborRates; track rate) {
       <mat-option [value]="rate.value">
