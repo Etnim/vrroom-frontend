@@ -153,3 +153,10 @@ mat-spinner {
   margin-top: 20px;
   margin-bottom: 20px;
 }
+
+.filter-containers {
+  display: flex;
+  // flex-direction: row;
+  // flex-wrap: nowrap;
+  gap: 5px;
+}
