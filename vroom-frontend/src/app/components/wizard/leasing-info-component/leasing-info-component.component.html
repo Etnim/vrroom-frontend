@@ -1,0 +1,95 @@
+<form [formGroup]="firstFormGroup" id="leasingInfo-form">
+  <mat-form-field>
+    <mat-label>Amount</mat-label>
+    <input
+      matInput
+      type="number"
+      formControlName="amount"
+      placeholder="Enter amount"
+      required
+      (input)="onAmountChange()"
+    />
+
+    @if (!firstFormGroup.get('amount')?.dirty|| firstFormGroup.get('amount')?.invalid) {
+      <mat-error> Amount must be between 8,000 and 120,000.</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Down Payment</mat-label>
+    <mat-select formControlName="downPayment" required (selectionChange)="calculateDownPayment()">
+      @for (option of downPaymentOptions; track option) {
+        <mat-option [value]="option">{{ option }}%</mat-option>
+      }
+    </mat-select>
+    @if (calculatedDownPayment) {
+      <p>{{ calculatedDownPayment }}€</p>
+    }
+    @if (firstFormGroup.get('downPayment')?.pristine || firstFormGroup.get('downPayment')?.invalid) {
+      <mat-error> Please select a down payment option.</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Residual Value</mat-label>
+    <mat-select
+      formControlName="residualValue"
+      required
+      (selectionChange)="calculateResidualValue()"
+    >
+      @for (option of residualValueOptions; track option) {
+        <mat-option [value]="option">{{ option }}%</mat-option>
+      }
+    </mat-select>
+
+    @if (calculatedResidualValue) {
+      <p>{{ calculatedResidualValue }}€</p>
+    }
+
+    @if (!firstFormGroup.get('residualValue')?.pristine || firstFormGroup.get('residualValue')?.invalid) {
+      <mat-error> Please select a residual value option.</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Period</mat-label>
+    <mat-select formControlName="period" required>
+      @for (year of periodOptions; track year) {
+        @if (year === 1) {
+          <mat-option [value]="year">{{ year }} year</mat-option>
+        } @else {
+          <mat-option [value]="year">{{ year }} years</mat-option>
+        }
+      }
+    </mat-select>
+
+    @if (firstFormGroup.get('period')?.pristine && firstFormGroup.get('period')?.invalid) {
+      <mat-error> Please select a period option.</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Euribor Term</mat-label>
+    <mat-select formControlName="euriborRate" required>
+      @for (rate of euriborRates; track rate) {
+        <mat-option [value]="rate.value">
+          {{ rate.label }}
+        </mat-option>
+      }
+    </mat-select>
+    @if (selectedEuriborRate) {
+      <p>Current Euribor rate is {{ selectedEuriborRate }}%</p>
+    }
+    @if (firstFormGroup.get('euriborRate')?.pristine && firstFormGroup.get('euriborRate')?.invalid) {
+      <mat-error>Select Euribor rate</mat-error>
+    }
+  </mat-form-field>
+  <div class="calculator">
+    <app-calculator [inputValues]="leasingInfo"></app-calculator>
+  </div>
+  <div class="navigation-buttons">
+    <button mat-button matStepperNext [disabled]="firstFormGroup.invalid">
+      Next
+    </button>
+  </div>
+</form>

@@ -1,0 +1,176 @@
+table {
+  width: 100%;
+}
+
+:host {
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+  font-family: 'Roboto Light', sans-serif;
+  width: 100%;
+  justify-content: center;
+}
+
+mat-card {
+  width: 100%;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.split-container {
+  width: 50%;
+  justify-content: center;
+}
+
+.main-details-container {
+  display: flex;
+  flex-direction: row;
+  align-items: start;
+  gap: 20px;
+}
+
+.header {
+  background-color: #333;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  font-size: 24px;
+  border-radius: 5px; /* Rounded corners for the header */
+}
+
+h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+h2 {
+  color: #555;
+  margin-bottom: 20px;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+p {
+  margin-top: 10px;
+  margin-bottom: 15px;
+}
+
+mat-tab-group {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+mat-header-cell {
+  color: #666;
+  font-weight: bold;
+}
+
+mat-cell {
+  color: #444;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 12px;
+  border-bottom: 1px solid #ddd;
+}
+
+button {
+  margin-top: 10px;
+  border-radius: 5px;
+  margin-bottom: 5px;
+}
+
+button.mat-raised-button {
+  color: #fff;
+  background-color: #106cc8;
+}
+
+mat-card-header {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+#approve-button {
+  background-color: #28a745;
+  margin-right: 8px;
+  align-items: center;
+}
+
+#reject-button {
+  background-color: #dc3545;
+}
+
+tr:hover {
+  background-color: #e8f4ff;
+}
+
+mat-card-title {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.main {
+  display: flex;
+  justify-content: center;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 70%;
+  padding: 20px;
+  height: 100%;
+  background-color: #f4f4f4;
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+#back-button,
+#assign-button {
+  width: 20%;
+}
+
+.file-upload {
+  padding: 7px;
+}
+
+mat-spinner {
+  width: 50%;
+  height: 50%;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  display: block;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+
+strong {
+  font-weight: bold;
+}
+
+.filter-containers {
+  display: flex;
+  gap: 5px;
+
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}

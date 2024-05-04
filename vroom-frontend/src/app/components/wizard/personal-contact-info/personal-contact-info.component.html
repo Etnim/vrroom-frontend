@@ -1,0 +1,77 @@
+<form [formGroup]="fourthFormGroup" id="personalContactInfo-form">
+  <mat-form-field>
+    <mat-label>Name</mat-label>
+    <input matInput formControlName="name" placeholder="Enter your name" required/>
+    @if (fourthFormGroup.get('name')?.dirty || fourthFormGroup.get('name')?.invalid) {
+      <mat-error>Name can only contain letters and spaces.</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Surname</mat-label>
+    <input matInput formControlName="surname" placeholder="Enter your surname" required/>
+    @if (fourthFormGroup.get('surname')?.dirty || fourthFormGroup.get('surname')?.invalid) {
+      <mat-error>Surname can only contain letters and spaces.</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Identification Number</mat-label>
+    <input
+      matInput
+      formControlName="identificationNumber"
+      placeholder="Enter your ID number"
+      required
+    />
+    @if (fourthFormGroup.get('identificationNumber')?.dirty || fourthFormGroup.get('identificationNumber')?.invalid) {
+      <mat-error>Identification number is required.</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Date of Birth</mat-label>
+    <input
+      matInput
+      [matDatepicker]="dateOfBirthPicker"
+      formControlName="dateOfBirth"
+      placeholder="YYYY-MM-DD"
+      [min]="minDate"
+      [max]="maxDate"
+      required
+    />
+    <mat-datepicker-toggle matSuffix [for]="dateOfBirthPicker"></mat-datepicker-toggle>
+    <mat-datepicker #dateOfBirthPicker></mat-datepicker>
+    @if (!fourthFormGroup.get('dateOfBirth')?.pristine || fourthFormGroup.get('dateOfBirth')?.invalid) {
+      <mat-error>Date of birth is required.</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Email</mat-label>
+    <input matInput formControlName="email" placeholder="Enter your email" required/>
+    @if (fourthFormGroup.get('email')?.dirty || fourthFormGroup.get('email')?.invalid) {
+      <mat-error>Please enter a valid email.</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Phone Number</mat-label>
+    <input matInput formControlName="phoneNumber" placeholder="Enter your phone number" required/>
+    @if (fourthFormGroup.get('phoneNumber')?.dirty || fourthFormGroup.get('phoneNumber')?.invalid) {
+      <mat-error>Please enter a valid phone number in the format "+370XXXXXXXX".</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Address</mat-label>
+    <input matInput formControlName="address" placeholder="Enter your address" required/>
+    @if (fourthFormGroup.get('address')?.dirty || fourthFormGroup.get('address')?.invalid) {
+      <mat-error>Please enter a valid address.</mat-error>
+    }
+  </mat-form-field>
+
+  <div class="navigation-buttons">
+    <button mat-button matStepperPrevious>Back</button>
+    <button mat-button matStepperNext [disabled]="fourthFormGroup.invalid">Next</button>
+  </div>
+</form>

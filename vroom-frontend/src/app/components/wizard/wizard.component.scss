@@ -1,0 +1,182 @@
+.example-stepper {
+  margin-top: 8px;
+}
+
+.mat-mdc-form-field {
+  margin-top: 16px;
+}
+
+.calculator {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: baseline;
+  justify-content: space-around;
+}
+
+#review-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  gap: 2em;
+}
+
+.wizard-content {
+  width: 66%;
+  margin: 2em auto 0;
+}
+
+.wizard-content form {
+  display: flex;
+  justify-content: space-around;
+  gap: 2em;
+  flex-wrap: wrap;
+}
+
+.wizard-title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparentize(#071558, 0.3);
+  padding: 4px 2em;
+  border-radius: 0.5em;
+}
+
+.wizard-title:hover {
+  cursor: pointer;
+}
+
+.title-form {
+  display: flex;
+  padding-bottom: 20px;
+  margin-top: 10px;
+}
+
+.title-mobile {
+  display: none;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.navigation-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+:host {
+  ::ng-deep {
+    .mat-step-header {
+      height: 50px;
+    }
+
+    .example-stepper {
+      margin-bottom: 2em;
+      border-radius: 10px;
+      background-color: transparentize(white, 0.3);
+    }
+
+    form {
+      margin-top: 10px;
+    }
+
+    mat-card-title {
+      color: #555;
+      font-size: 16px;
+      font-weight: bold;
+      text-decoration: underline;
+    }
+
+    mat-card-content {
+      font-size: 14px;
+    }
+  }
+}
+
+p {
+  margin-top: 10px;
+}
+
+.ras-title {
+  font-weight: bold;
+}
+
+.wizard-container {
+  overflow-y: auto;
+  height: 100%;
+  width: auto;
+}
+
+#logoVrroom {
+  height: 120px;
+  width: auto;
+  opacity: 0.8;
+}
+
+.error-snackbar {
+  background-color: #f44336;
+  color: white;
+}
+
+@media screen and (min-width: 300px) and (max-width: 800px) {
+  .wizard-content {
+    width: 90%;
+    margin: 10px;
+  }
+
+  .title-mobile {
+    display: flex;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  .title-form {
+    display: none;
+  }
+
+  :host {
+    ::ng-deep {
+      .mat-step-label {
+        display: none;
+      }
+    }
+  }
+
+  #logoVrroom {
+    height: 88px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .title-mobile {
+    display: flex;
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
+
+  :host {
+    ::ng-deep {
+      .mat-horizontal-content-container {
+        padding: 0 5px 5px 5px;
+      }
+      .mat-mdc-form-field-subscript-wrapper {
+        gap: 12px;
+      }
+      .mat-mdc-form-field-infix {
+        padding-top: 20px;
+        padding-bottom: 0;
+      }
+      .mat-step-header {
+        height: 30px;
+      }
+    }
+  }
+
+  #logoVrroom {
+    height: 56px;
+  }
+}

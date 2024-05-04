@@ -1,0 +1,29 @@
+#financial-info-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.navigation-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+
+@media (max-width: 600px) {
+  .actions {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  #financial-info-form {
+    gap: 10px;
+  }
+}

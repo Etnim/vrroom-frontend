@@ -1,0 +1,159 @@
+.container {
+  margin: 20px auto;
+  max-width: 960px;
+  padding: 0 15px;
+}
+:host {
+  display: block;
+  padding: 20px;
+  background-color: #f4f4f4;
+
+  ::ng-deep {
+    .mat-mdc-form-field-infix {
+      text-align: center;
+    }
+  }
+}
+
+.header {
+  background-color: #333;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  font-size: 24px;
+  border-radius: 5px; /* Rounded corners for the header */
+}
+
+.mat-table {
+  width: 100%;
+  overflow-x: auto; /* Allows table to scroll on small screens */
+}
+
+.mat-row,
+.mat-header-row {
+  min-height: 48px; /* Ensures row heights are consistent */
+}
+
+.mat-cell,
+.mat-header-cell {
+  padding: 8px 24px; /* Adequate padding for table cells */
+}
+
+button {
+  background-color: #6200ea;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #3700b3;
+}
+
+mat-header-cell {
+  justify-content: start;
+}
+
+mat-row:hover {
+  cursor: pointer;
+  background-color: lightcyan;
+  filter: invert(10%);
+}
+
+mat-header-cell:hover {
+  cursor: pointer;
+  background-color: lightcyan;
+  filter: invert(10%);
+}
+
+@media (max-width: 600px) {
+  .container {
+    max-width: 100%;
+    margin: 10px; /* Smaller margin on smaller screens */
+  }
+  .header {
+    font-size: 20px; /* Smaller font size on smaller screens */
+  }
+}
+
+.mat-form-field {
+  width: 100%;
+  margin-right: 8px;
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px; /* Provide spacing between fields */
+}
+
+.mat-card {
+  padding: 15px; /* Adds padding inside the card */
+  margin-bottom: 20px;
+  border-radius: 5px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border: 1px solid #ccc;
+}
+
+mat-panel-title {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.chart-container {
+  display: block;
+  margin: 20px 0;
+  width: 20%; /* Full width of the container */
+  height: 400px; /* Fixed height or you can make it responsive */
+}
+
+.mat-expansion-panel-body {
+  overflow: auto; /* Ensures the content is scrollable if it overflows */
+
+}
+
+.stat-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 10px;
+}
+
+.filter-containers {
+  display: flex;
+
+  gap: 10px;
+}
+
+.chart-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.left-side {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  mat-form-field {
+    height: min-content;
+    width: max-content;
+  }
+}
+
+.stat-left {
+  display: flex;
+  flex-direction: column;
+}
+
+.text-container {
+  padding-top: 3em;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 3px;
+}
+

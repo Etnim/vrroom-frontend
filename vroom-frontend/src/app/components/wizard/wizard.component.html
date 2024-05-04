@@ -1,0 +1,176 @@
+<div class="wizard-container">
+  <header></header>
+  <div class="main">
+    <div class="progress-indicator"></div>
+    <div class="wizard-content">
+      <div class="wizard-title" (click)="navigateToMain()">
+        <img id="logoVrroom" src='../../../assets/img/logoVrroom.png' alt="">
+      </div>
+
+      <mat-stepper class="example-stepper" [orientation]="(stepperOrientation | async)!" linear>
+        <mat-step [stepControl]="stepOne.firstFormGroup" label="Leasing Information"  >
+
+          <h1 class="title-mobile">Leasing Information</h1>
+          <app-leasing-info-component #stepOne></app-leasing-info-component>
+        </mat-step>
+
+        <mat-step [stepControl]="stepTwo.secondFormGroup" label="Financial Information">
+          <h1 class="title-mobile">Financial Information</h1>
+          <app-financial-info #stepTwo></app-financial-info>
+        </mat-step>
+
+        <mat-step [stepControl]="stepThree.thirdFormGroup" label="Vehicle information">
+          <h1 class="title-mobile">Vehicle information</h1>
+          <app-vehicle-info #stepThree></app-vehicle-info>
+        </mat-step>
+
+        <mat-step [stepControl]="stepFour.fourthFormGroup" label="Personal and contact information">
+          <h1 class="title-mobile">Personal and contact information</h1>
+          <app-personal-contact-info #stepFour></app-personal-contact-info>
+        </mat-step>
+
+        <mat-step [stepControl]="fifthFormGroup" label="Review and Submit">
+          <h1 class="title-form">Review and Submit</h1>
+          <form [formGroup]="fifthFormGroup" id="review-form">
+            <h2 class="title-mobile">Review and Submit</h2>
+            <mat-card>
+              <mat-card-header>
+                <mat-card-title>Leasing Information</mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+                @if (stepOne.firstFormGroup.value) {
+                <p><strong class="ras-title">Amount:</strong> {{ stepOne.firstFormGroup.value.amount }}€</p>
+                <p>
+                  <strong class="ras-title">Down Payment:</strong>
+                  {{
+                    (stepOne.firstFormGroup.value.downPayment! *
+                      stepOne.firstFormGroup.value.amount!) /
+                      100
+                  }}€
+                </p>
+                <p>
+                  <strong class="ras-title">Residual Value:</strong>
+                  {{
+                    (stepOne.firstFormGroup.value.residualValue! *
+                      stepOne.firstFormGroup.value.amount!) /
+                      100
+                  }}€
+                </p>
+                <p>
+                  @if (stepOne.firstFormGroup.value.period === 1) {
+                  <strong class="ras-title">Period:</strong> {{ stepOne.firstFormGroup.value.period }} year }@else
+                  {<strong class="ras-title">Period:</strong> {{ stepOne.firstFormGroup.value.period }} years}
+                </p>
+                }
+
+                <p>
+                  <strong class="ras-title">Euribor Rate: </strong>
+                  {{ stepOne.firstFormGroup.value.selectedEuriborRate! }}% /
+                  {{ stepOne.firstFormGroup.value.euriborRate === '3m' ? '3 Months' : '6 Months' }}
+                </p>
+              </mat-card-content>
+            </mat-card>
+
+            <mat-card>
+              <mat-card-header>
+                <mat-card-title>Financial Information</mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+                @if (stepTwo.secondFormGroup.value) {
+                <p>
+                  <strong class="ras-title">Employment Status:</strong>
+                  {{ stepTwo.secondFormGroup.value.employmentStatus }}
+                </p>
+                <p>
+                  <strong class="ras-title">Employment Term:</strong>
+                  {{ stepTwo.secondFormGroup.value.employmentTerm }}
+                </p>
+
+                <p>
+                  <strong class="ras-title">Monthly Income:</strong>
+                  {{ stepTwo.secondFormGroup.value.monthlyIncome }}€
+                </p>
+
+                <p>
+                  <strong class="ras-title">Marital Status:</strong>
+                  {{ stepTwo.secondFormGroup.value.maritalStatus }}
+                </p>
+                <p>
+                  <strong class="ras-title">Number of dependents:</strong>
+                  {{ stepTwo.secondFormGroup.value.numberOfDependents }}
+                </p>
+                @if (stepTwo.secondFormGroup.value.monthlyObligations) {
+                <p>
+                  <strong class="ras-title">Monthly Obligations:</strong>
+                  {{ stepTwo.secondFormGroup.value.monthlyObligations }} €/month
+                </p>
+                } }
+              </mat-card-content>
+            </mat-card>
+
+            <mat-card>
+              <mat-card-header>
+                <mat-card-title>Vehicle Information</mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+                @if (stepThree.thirdFormGroup.value) {
+                <p><strong class="ras-title">Make:</strong> {{ stepThree.thirdFormGroup.value.brand }}</p>
+                <p><strong class="ras-title">Model:</strong> {{ stepThree.thirdFormGroup.value.model }}</p>
+                <p><strong class="ras-title">Year:</strong> {{ stepThree.thirdFormGroup.value.year }}</p>
+                <p><strong class="ras-title">Fuel Type:</strong> {{ stepThree.thirdFormGroup.value.fuel }}</p>
+                <p>
+                  <strong class="ras-title">Emission Range:</strong>
+                  {{ stepThree.thirdFormGroup.value.emission }} g/km
+                </p>
+
+                }
+              </mat-card-content>
+            </mat-card>
+
+            <mat-card>
+              <mat-card-header>
+                <mat-card-title>Personal and Contact Information</mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+                @if (stepFour.fourthFormGroup.value) {
+                <p><strong class="ras-title">Name:</strong> {{ stepFour.fourthFormGroup.value.name }}</p>
+                <p><strong class="ras-title">Surname:</strong> {{ stepFour.fourthFormGroup.value.surname }}</p>
+                <p><strong class="ras-title">Email:</strong> {{ stepFour.fourthFormGroup.value.email }}</p>
+                <p>
+                  <strong class="ras-title">Date of Birth:</strong>
+                  {{ stepFour.fourthFormGroup.value.dateOfBirth | date : 'yyyy-MM-dd' }}
+                </p>
+                <p>
+                  <strong class="ras-title">Identification Number:</strong>
+                  {{ stepFour.fourthFormGroup.value.identificationNumber }}
+                </p>
+                <p>
+                  <strong class="ras-title">Phone number:</strong> {{ stepFour.fourthFormGroup.value.phoneNumber }}
+                </p>
+                <p><strong class="ras-title">Address:</strong> {{ stepFour.fourthFormGroup.value.address }}</p>
+                }
+              </mat-card-content>
+            </mat-card>
+
+            <section>
+              <mat-checkbox formControlName="reviewConfirm">
+                I attest that all information is correct
+              </mat-checkbox>
+            </section>
+
+            <div class="actions navigation-buttons">
+              <button mat-button matStepperPrevious>Back</button>
+              <button
+                mat-button
+                [disabled]="!fifthFormGroup.get('reviewConfirm')?.value"
+                (click)="debouncedSubmit()"
+              >
+                Submit
+              </button>
+            </div>
+          </form>
+        </mat-step>
+      </mat-stepper>
+    </div>
+  </div>
+</div>

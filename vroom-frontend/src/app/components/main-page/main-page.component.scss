@@ -1,0 +1,106 @@
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.logo-container {
+  display: flex;
+  justify-content: center;
+  padding-top: 10px;
+}
+
+.title-container {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  justify-content: space-between;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 72px;
+  font-family: "Roboto Light", sans-serif;
+  font-weight: bold;
+}
+
+.button-container {
+  width: 40%;
+  height: 50px;
+  text-align: center;
+  display: flex;
+  position: absolute;
+  justify-content: space-between;
+  top: 70%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.mat-mdc-button {
+  width: 45%;
+  height: 100%;
+  background-color: transparent;
+  border: 4px solid lightgrey;
+  font-size: 22px;
+  border-radius: 10px;
+}
+
+.mdc-button__label {
+  color: lightgrey;
+}
+
+.mat-mdc-button:hover {
+  cursor: pointer;
+  background-color: transparentize(lightgrey, 0.9);
+}
+
+.mat-mdc-button:active {
+  cursor: pointer;
+  background-color: transparentize(lightgrey, 0.5);
+}
+
+#logoVrroom {
+  height: 196px;
+  width: auto;
+  opacity: 0.8;
+}
+
+@media screen and (min-width: 300px) and (max-width: 800px) {
+  .title-container {
+    font-size: 36px;
+  }
+
+  .button-container {
+    width: 50%;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .mat-mdc-button {
+    width: 60%;
+    height: 60%;
+    background-color: transparent;
+    border: 4px solid black;
+    font-size: 20px;
+    border-radius: 10px;
+    font-weight: bold;
+  }
+
+  :host ::ng-deep .mdc-button__label {
+    color: black;
+  }
+
+  #logoVrroom {
+    height: 160px;
+  }
+
+  .logo-container {
+    padding-top: 30px;
+  }
+}
+
+

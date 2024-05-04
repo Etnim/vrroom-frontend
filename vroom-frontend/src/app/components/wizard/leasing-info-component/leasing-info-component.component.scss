@@ -1,0 +1,35 @@
+#leasingInfo-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.calculator {
+  display: flex;
+  justify-content: space-evenly;
+  padding: 10px;
+}
+
+.navigation-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+}
+
+@media (max-width: 600px) {
+  .actions {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  #leasingInfo-form {
+    gap: 10px;
+  }
+
+}

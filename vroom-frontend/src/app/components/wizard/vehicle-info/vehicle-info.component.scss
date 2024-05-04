@@ -1,0 +1,42 @@
+#vehicleInfo-form {
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.slider-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+mat-slider {
+  display: flex;
+  width: 60%;
+}
+
+.navigation-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+
+@media (max-width: 600px) {
+  .actions {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  #vehicleInfo-form {
+    gap: 10px;
+  }
+}
