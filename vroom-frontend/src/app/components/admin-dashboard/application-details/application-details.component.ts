@@ -9,6 +9,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ApplicationControlPanelComponentComponent } from './application-control-panel-component/application-control-panel-component.component';
 import moment from 'moment';
 import { MatSelectModule } from '@angular/material/select';
+import { AuthService } from '../../../services/auth.service';
 
 
 @Component({
@@ -32,7 +33,8 @@ export class ApplicationDetailsComponent {
   constructor(
     private activatedRoute: ActivatedRoute,
     private appService: ApplicationService,
-    private router: Router
+    private router: Router,
+    public authService: AuthService
   ) {
     this.activatedRoute.paramMap.subscribe((params) => {
       const applicationId = params.get('applicationId');
@@ -69,6 +71,20 @@ export class ApplicationDetailsComponent {
     }
   }
 
+  assignToAdmin() {
+    if (this.application && this.application.applicationID) {
+      this.appService.updateAssignToYourself(this.application.applicationID).subscribe({
+        next: (data) => {
+          this.fetchApplicationDetails(this.application.applicationID);
+          console.log('Admin assigned:', data);
+        },
+        error: (error) => {
+          console.error('Failed to assign yourself', error);
+        }
+      });
+    }
+  }
+
   viewAdminDashboard() {
     this.router.navigate(['/admin']);
   }
@@ -76,5 +92,6 @@ export class ApplicationDetailsComponent {
   formatDateString(date: string) {
     return moment(Date.parse(date)).format('YYYY-MM-DD HH:mm:ss');
   }
+
 
 }

@@ -7,7 +7,7 @@
     @if (application?.applicationID) {
     <mat-card-header>
       <ng-container>
-        @if (application?.assignedManager) {
+        @if (application?.assignedManager && authService.currentUserSig()?.username === application?.assignedManager.name + ' ' + application?.assignedManager.surname) {
         <button mat-button id="approve-button" (click)="updateStatus('WAITING_FOR_SIGNING')">
           Approve
         </button>
@@ -15,7 +15,7 @@
           Reject
         </button>
         } @else {
-        <button mat-button id="assign-button" (click)="updateStatus('UNDER_REVIEW')">
+        <button mat-button id="assign-button" (click)="assignToAdmin()">
           Assign To Me
         </button>
         }
@@ -54,7 +54,7 @@
           <mat-card-content>
             <!-- Financial Info -->
             <h2>Financial Info</h2>
-            <p><strong>Monthly Income:</strong> {{ application?.financialInfo?.monthlyIncome }}</p>
+            <p><strong>Monthly Income:</strong> {{ application?.financialInfo?.monthlyIncome }}€</p>
             <p><strong>Marital Status:</strong> {{ application?.financialInfo?.maritalStatus }}</p>
             <p><strong>Dependants:</strong> {{ application?.financialInfo?.dependants }}</p>
             <p>
@@ -65,7 +65,7 @@
                   : 0
               }}
             </p>
-            <p><strong>Disposable Income:</strong> {{ application?.financialInfo?.disposableIncome }}</p>
+            <p><strong>Disposable Income:</strong> {{ application?.financialInfo?.disposableIncome }}€</p>
           </mat-card-content>
         </mat-card>
 
@@ -96,7 +96,7 @@
               <strong>Period:</strong> {{ application?.yearPeriod }} @if (application?.yearPeriod !== 1) { years }
               @else { year }
             </p>
-            <p><strong>Residual Value:</strong> {{ application?.residualValue }}</p>
+            <p><strong>Residual Value:</strong> {{ application?.residualValue }}€</p>
             <p><strong>Interest Rate:</strong> {{ application?.interestRate }}%</p>
             <p><strong>Credit Rating:</strong> {{ application?.customer?.creditRating }}</p>
             <p><strong>Euribor:</strong> {{ application?.euribor }}%</p>
