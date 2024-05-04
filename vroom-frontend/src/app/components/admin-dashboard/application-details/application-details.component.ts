@@ -69,6 +69,20 @@ export class ApplicationDetailsComponent {
     }
   }
 
+  assignToAdmin() {
+    if (this.application && this.application.applicationID) {
+      this.appService.updateAssignToYourself(this.application.applicationID).subscribe({
+        next: (data) => {
+          this.fetchApplicationDetails(this.application.applicationID);
+          console.log('Admin assigned:', data);
+        },
+        error: (error) => {
+          console.error('Failed to assign yourself', error);
+        }
+      });
+    }
+  }
+
   viewAdminDashboard() {
     this.router.navigate(['/admin']);
   }
@@ -76,5 +90,6 @@ export class ApplicationDetailsComponent {
   formatDateString(date: string) {
     return moment(Date.parse(date)).format('YYYY-MM-DD HH:mm:ss');
   }
+
 
 }

@@ -117,4 +117,8 @@ export class ApplicationService {
     const params = new HttpParams().set('status', status);
     return this.http.put(`${this.apiUrl}/${id}/updateStatus`, null, { params: params, responseType: 'text' });
   }
+
+  updateAssignToYourself(id: string): Observable<any> {
+    return this.http.put(`${this.apiUrl}/${id}/assignAdmin`, null, { responseType: 'text' });
+  }
 }

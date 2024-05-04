@@ -174,7 +174,6 @@ export class AdminDashboardComponent {
   getRowColor(application: any): string {
     const today = new Date();
     const submissionDate = new Date(application.applicationCreatedDate);
-    console.log(today, submissionDate);
     const diffDays = Math.floor((today.getTime() - submissionDate.getTime()) / (1000 * 3600 * 24));
     if (diffDays >= 5 && application.applicationStatus === 'SUBMITTED') {
       return 'red';
