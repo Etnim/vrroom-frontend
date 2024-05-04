@@ -89,6 +89,7 @@
             <p><strong>Residual Value:</strong> {{ application?.residualValue }}€</p>
             <p><strong>Interest Rate:</strong> {{ application?.interestRate }}%</p>
             <p><strong>Credit Rating:</strong> {{ application?.customer?.creditRating }}</p>
+            <p><strong>Euribor term</strong> {{ application?.euriborTerm }}</p>
             <p><strong>Euribor:</strong> {{ application?.euribor }}%</p>
             <p><strong>Agreement Fee:</strong> {{ application?.agreementFee || 'None' }}€</p>
           </mat-card-content>
@@ -126,7 +127,7 @@
             [applicationId]="application?.applicationID"
           ></app-application-control-panel-component>
 
-          } @else if (!application.assignedManager) {
+          } @else if (!application.assignedManager || application?.applicationStatus === 'SUBMITTED') {
           <button mat-button id="assign-button" (click)="assignToAdmin()">Assign To Me</button>
           }
         </mat-card>

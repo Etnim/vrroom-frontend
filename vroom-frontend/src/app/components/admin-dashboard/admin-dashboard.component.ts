@@ -307,6 +307,6 @@ export class AdminDashboardComponent {
 
   getDurationInHours(duration: string): number {
     const parsedDuration = this.parseDurationString(duration);
-    return Math.round(parsedDuration.days * 24 + parsedDuration.hours + parsedDuration.minutes / 60); ;
+    return parsedDuration.days * 24 + parsedDuration.hours + parsedDuration.minutes / 60; ;
   }
 }
