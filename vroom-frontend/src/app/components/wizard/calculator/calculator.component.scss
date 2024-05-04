@@ -28,6 +28,11 @@
   justify-content: end;
 }
 
+#disclaimer {
+  text-align: center;
+  font-size: 12px;
+}
+
 @media screen and (max-width: 600px) {
 
   .grid-title, .grid-value, .grid-currency {
@@ -37,7 +42,12 @@
   .grid-container {
     grid-template-columns: 175px 50px 50px;
   }
+
+  #disclaimer {
+    font-size: 10px;
+  }
 }
+
 
 @media screen and (max-width: 400px) {
   .actions {
@@ -51,5 +61,9 @@
 
   .grid-container {
     grid-template-columns: 150px 30px 30px;
+  }
+
+  #disclaimer {
+    font-size: 10px;
   }
 }
