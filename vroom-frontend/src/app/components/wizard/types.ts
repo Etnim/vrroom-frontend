@@ -65,7 +65,7 @@ export interface Customer {
   name: string;
   surname: string;
   email: string;
-  birthDate: string; // ISO date string
+  birthDate: string;
   phone: string;
   address: string;
 }

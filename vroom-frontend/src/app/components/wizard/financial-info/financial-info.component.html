@@ -3,29 +3,29 @@
     <mat-label>Employment Status</mat-label>
     <mat-select formControlName="employmentStatus" required>
       @for (option of employmentStatusOptions; track option) {
-      <mat-option [value]="option">{{ option }}</mat-option>
+        <mat-option [value]="option">{{ option }}</mat-option>
       }
     </mat-select>
 
-    @if (secondFormGroup.get('employmentStatus')?.invalid) {
-    <mat-error> Please select an employment status. </mat-error>
+    @if (!secondFormGroup.get('employmentStatus')?.pristine || secondFormGroup.get('employmentStatus')?.invalid) {
+      <mat-error> Please select an employment status.</mat-error>
     }
   </mat-form-field>
   <mat-form-field>
     <mat-label>Employment Term</mat-label>
     <mat-select formControlName="employmentTerm" required>
       @for (option of employmentTermOptions; track option) {
-      <mat-option [value]="option">{{ option }}</mat-option>
+        <mat-option [value]="option">{{ option }}</mat-option>
       }
     </mat-select>
 
-    @if (secondFormGroup.get('employmentTerm')?.invalid) {
-    <mat-error> Please select an employment term. </mat-error>
+    @if (!secondFormGroup.get('employmentTerm')?.pristine || secondFormGroup.get('employmentTerm')?.invalid) {
+      <mat-error> Please select an employment term.</mat-error>
     }
   </mat-form-field>
 
   <mat-form-field>
-    <mat-label>Monthly Income</mat-label>
+    <mat-label>Monthly Income (€)</mat-label>
     <input
       matInput
       type="number"
@@ -33,8 +33,8 @@
       placeholder="Enter monthly income"
       required
     />
-    @if (secondFormGroup.get('monthlyIncome')?.invalid) {
-    <mat-error> Monthly income must be greater than 0. </mat-error>
+    @if (secondFormGroup.get('monthlyIncome')?.dirty || secondFormGroup.get('monthlyIncome')?.invalid) {
+      <mat-error> Monthly income must be greater than 0.</mat-error>
     }
   </mat-form-field>
 
@@ -42,11 +42,11 @@
     <mat-label>Marital Status</mat-label>
     <mat-select formControlName="maritalStatus" required>
       @for (option of maritalStatusOptions; track option) {
-      <mat-option [value]="option">{{ option }} </mat-option>
+        <mat-option [value]="option">{{ option }}</mat-option>
       }
     </mat-select>
-    @if (secondFormGroup.get('maritalStatus')?.invalid) {
-    <mat-error> Please select a marital status. </mat-error>
+    @if (!secondFormGroup.get('maritalStatus')?.pristine || secondFormGroup.get('maritalStatus')?.invalid) {
+      <mat-error> Please select a marital status.</mat-error>
     }
   </mat-form-field>
 
@@ -59,8 +59,8 @@
       placeholder="Enter number of dependents"
       required
     />
-    @if (secondFormGroup.get('numberOfDependents')?.invalid) {
-    <mat-error> Number of dependents must be between 0 and 10. </mat-error>
+    @if (secondFormGroup.get('numberOfDependents')?.dirty || secondFormGroup.get('numberOfDependents')?.invalid) {
+      <mat-error> Number of dependents must be between 0 and 10.</mat-error>
     }
   </mat-form-field>
 
@@ -72,28 +72,26 @@
 
   @if (secondFormGroup.get('hasMonthlyObligations')?.value !== null &&
   secondFormGroup.get('hasMonthlyObligations')?.value!.toString() === "true") {
-  <mat-form-field>
-    <mat-label>Monthly Obligations €/month </mat-label>
-    <input
-      matInput
-      type="number"
-      formControlName="monthlyObligations"
-      placeholder="Enter monthly obligations"
-      required
-    />
-    @if (secondFormGroup.get('monthlyObligations')?.invalid ) {
-    <mat-error> Monthly obligations must be between 1 and 100000. </mat-error>
-    }
-  </mat-form-field>
-  } @if (secondFormGroup.hasError('insufficientDisposableIncome')) {
-  <mat-error>
-    Warning: Your disposable income (monthly income - monthly obligations - 60 * dependents) is
-    insufficient. Please review your financial information.
-  </mat-error>
+    <mat-form-field>
+      <mat-label>Monthly Obligations €/month</mat-label>
+      <input
+        matInput
+        type="number"
+        formControlName="monthlyObligations"
+        placeholder="Enter monthly obligations"
+        required
+      />
+    </mat-form-field>
+  }
+  @if (secondFormGroup.hasError('insufficientDisposableIncome')) {
+    <mat-error>
+      Warning: Your disposable income is
+      insufficient. Please review your financial information.
+    </mat-error>
   }
 
   <div class="navigation-buttons">
     <button mat-button matStepperPrevious>Back</button>
-    <button mat-button matStepperNext>Next</button>
+    <button mat-button matStepperNext [disabled]="secondFormGroup.invalid">Next</button>
   </div>
 </form>

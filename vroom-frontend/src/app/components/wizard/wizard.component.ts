@@ -1,8 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
 import {
   FormBuilder,
-  FormControl,
-  FormsModule,
+  FormControl, FormGroup, FormGroupDirective,
+  FormsModule, NgForm,
   ReactiveFormsModule,
   Validators
 } from '@angular/forms';
