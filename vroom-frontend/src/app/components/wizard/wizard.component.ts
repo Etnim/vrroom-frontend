@@ -35,6 +35,8 @@ import { CalculatorComponent } from './calculator/calculator.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatMenu, MatMenuTrigger } from '@angular/material/menu';
 import { NavigationComponent } from '../navigation/navigation.component';
+import { MatDialog } from '@angular/material/dialog';
+import { SubmissionSuccessComponent } from './submission-success/submission-success.component';
 
 /**
  * @title Stepper responsive
@@ -101,7 +103,11 @@ export class WizardComponent {
     this.applicationService.submitData(requestBody).subscribe({
       next: (response) => {
         console.log(response);
+        this.dialog.open(SubmissionSuccessComponent, {
+          width: '500px',
+        }).afterClosed().subscribe(() => {
         this.router.navigate(['/submission-success']);
+        });
       },
       error: (error) => {
         if (error.error && typeof error.error === 'string') {
@@ -137,7 +143,9 @@ export class WizardComponent {
     private _formBuilder: FormBuilder,
     private applicationService: ApplicationService,
     private router: Router,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private dialog: MatDialog,
+
   ) {
     this.stepperOrientation = breakpointObserver
       .observe('(min-width: 300px)')

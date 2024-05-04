@@ -1,5 +1,17 @@
-<div>
-  <h2>Submission Successful</h2>
-  <p>Thank you for submitting your application. We will review it and get back to you soon.</p>
-  <button mat-raised-button color="primary" routerLink="/">Go to Home</button>
+<div class="success-page-container">
+  <mat-card class="success-card">
+    <div class="card-header-content">
+      <mat-card-title>Application Sent Successfully!</mat-card-title>
+      <div class="center-success">
+        <mat-icon class="success-icon">check_circle_outline</mat-icon>
+
+      </div>
+    </div>
+    <mat-card-content>
+      <p>Your application has been sent successfully and is now being processed. We will contact you with more information soon.</p>
+    </mat-card-content>
+    <mat-card-actions class="success-card-actions">
+      <button mat-raised-button color="primary" routerLink="/">Go to Home</button>
+    </mat-card-actions>
+  </mat-card>
 </div>
