@@ -1,0 +1,81 @@
+.main {
+  overflow-y: auto;
+  height: 100%;
+  width: auto;
+}
+.main-container {
+  width: 66%;
+  margin: 2em auto 0;
+}
+
+.wizard-title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparentize(#071558, 0.3);
+  padding: 4px 2em;
+  border-radius: 0.5em;
+  width: auto;
+}
+
+.wizard-title:hover {
+  cursor: pointer;
+}
+
+.about-us-container {
+  height: 100%;
+  width: 90%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2em;
+  border-radius: 10px;
+  background-color: transparentize(white, 0.3);
+}
+
+#logoVrroom {
+  height: 120px;
+  width: auto;
+  opacity: 0.8;
+}
+
+.images-container {
+  display: flex;
+  width: 90%;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+  gap: 10px;
+  padding: 10px;
+}
+
+.images {
+  width: 50%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.about-us-container {
+  display: flex;
+  width: auto;
+  flex-direction: column;
+  justify-content: center;
+}
+
+p {
+  margin: 10px;
+  font-family: "Roboto Light", sans-serif;
+  font-weight: bold;
+}
+
+@media screen and (min-width: 300px) and (max-width: 800px) {
+  .main-container {
+    width: 90%;
+    margin: 10px auto auto;
+  }
+  #logoVrroom {
+    height: 88px;
+  }
+
+}
