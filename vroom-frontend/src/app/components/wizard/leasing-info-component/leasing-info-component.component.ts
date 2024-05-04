@@ -15,6 +15,7 @@ import { AsyncPipe } from '@angular/common';
 import { LeasingInfo, LeasingInfoFormGroup } from '../types';
 import { CalculatorComponent } from '../calculator/calculator.component';
 import { LeasingInfoService } from '../../../services/leasing-info.service';
+import {MatCard} from "@angular/material/card";
 
 @Component({
   selector: 'app-leasing-info-component',
@@ -28,7 +29,8 @@ import { LeasingInfoService } from '../../../services/leasing-info.service';
     MatInputModule,
     MatButtonModule,
     AsyncPipe,
-    CalculatorComponent
+    CalculatorComponent,
+    MatCard
   ],
   templateUrl: './leasing-info-component.component.html',
   styleUrl: './leasing-info-component.component.scss'
@@ -56,6 +58,8 @@ export class LeasingInfoComponentComponent {
     { label: '6 Months', value: '6m' }
   ];
   selectedEuriborRate?: number;
+  calculatedDownPayment?: number;
+  calculatedResidualValue?: number;
 
   constructor(private _formBuilder: FormBuilder, private leasingService: LeasingInfoService) {
     this.firstFormGroup.valueChanges.subscribe(
@@ -96,6 +100,7 @@ export class LeasingInfoComponentComponent {
 
       if (amount !== null && downPayment !== null) {
         const calculatedDownPayment = (amount * downPayment) / 100;
+        this.calculatedDownPayment = calculatedDownPayment;
         this.firstFormGroup.patchValue({ calculatedDownPayment });
       }
     }
@@ -111,6 +116,7 @@ export class LeasingInfoComponentComponent {
 
       if (amount !== null && residualValue !== null) {
         const calculatedResidualValue = (amount * residualValue) / 100;
+        this.calculatedResidualValue = calculatedResidualValue;
         this.firstFormGroup.patchValue({ calculatedResidualValue });
       }
     }

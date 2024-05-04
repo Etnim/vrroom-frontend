@@ -10,21 +10,22 @@
       (input)="onAmountChange()"
     />
 
-    @if (firstFormGroup.get('amount')?.invalid) {
+    @if (!firstFormGroup.get('amount')?.dirty|| firstFormGroup.get('amount')?.invalid) {
       <mat-error> Amount must be between 8,000 and 120,000.</mat-error>
     }
   </mat-form-field>
 
-  <mat-form-field>
+  <mat-form-field appearance="fill">
     <mat-label>Down Payment</mat-label>
     <mat-select formControlName="downPayment" required (selectionChange)="calculateDownPayment()">
       @for (option of downPaymentOptions; track option) {
         <mat-option [value]="option">{{ option }}%</mat-option>
       }
     </mat-select>
-    <input matInput type="number" formControlName="calculatedDownPayment" readonly />
-
-    @if (firstFormGroup.get('downPayment')?.invalid) {
+    @if (calculatedDownPayment) {
+      <p>{{ calculatedDownPayment }}€</p>
+    }
+    @if (firstFormGroup.get('downPayment')?.pristine || firstFormGroup.get('downPayment')?.invalid) {
       <mat-error> Please select a down payment option.</mat-error>
     }
   </mat-form-field>
@@ -40,9 +41,12 @@
         <mat-option [value]="option">{{ option }}%</mat-option>
       }
     </mat-select>
-    <input matInput type="number" formControlName="calculatedResidualValue" readonly />
 
-    @if (firstFormGroup.get('residualValue')?.invalid) {
+    @if (calculatedResidualValue) {
+      <p>{{ calculatedResidualValue }}€</p>
+    }
+
+    @if (!firstFormGroup.get('residualValue')?.pristine || firstFormGroup.get('residualValue')?.invalid) {
       <mat-error> Please select a residual value option.</mat-error>
     }
   </mat-form-field>
@@ -59,7 +63,7 @@
       }
     </mat-select>
 
-    @if (firstFormGroup.get('period')?.invalid) {
+    @if (firstFormGroup.get('period')?.pristine && firstFormGroup.get('period')?.invalid) {
       <mat-error> Please select a period option.</mat-error>
     }
   </mat-form-field>
@@ -68,20 +72,24 @@
     <mat-label>Euribor Term</mat-label>
     <mat-select formControlName="euriborRate" required>
       @for (rate of euriborRates; track rate) {
-      <mat-option [value]="rate.value">
-       {{ rate.label }}
-      </mat-option>
-    }
+        <mat-option [value]="rate.value">
+          {{ rate.label }}
+        </mat-option>
+      }
     </mat-select>
     @if (selectedEuriborRate) {
-      <p>Current Euribor rate is {{ selectedEuriborRate }}</p>
+      <p>Current Euribor rate is {{ selectedEuriborRate }}%</p>
+    }
+    @if (firstFormGroup.get('euriborRate')?.pristine && firstFormGroup.get('euriborRate')?.invalid) {
+      <mat-error>Select Euribor rate</mat-error>
     }
   </mat-form-field>
-
   <div class="calculator">
     <app-calculator [inputValues]="leasingInfo"></app-calculator>
   </div>
   <div class="navigation-buttons">
-    <button mat-button matStepperNext>Next</button>
+    <button mat-button matStepperNext [disabled]="firstFormGroup.invalid">
+      Next
+    </button>
   </div>
 </form>
