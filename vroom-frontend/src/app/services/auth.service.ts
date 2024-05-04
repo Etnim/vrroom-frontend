@@ -11,7 +11,7 @@ import {
 } from '@angular/fire/auth';
 import { Observable, from } from 'rxjs';
 import { UserInterface } from '../types/user-interface';
-import {Router} from "@angular/router";
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -32,20 +32,12 @@ export class AuthService {
   }
 
   login(email: string, password: string): Observable<void> {
-    const promise = signInWithEmailAndPassword(this.fireBaseAuth, email, password).then(() => {
-
-    });
+    const promise = signInWithEmailAndPassword(this.fireBaseAuth, email, password).then(() => {});
     return from(promise);
   }
 
   logout(): Observable<void> {
     const promise = signOut(this.fireBaseAuth);
-
-    return from(promise);
-  }
-
-  loginWithGoogle(): Observable<void> {
-    const promise = signInWithPopup(this.fireBaseAuth, new GoogleAuthProvider()).then(() => {});
 
     return from(promise);
   }
