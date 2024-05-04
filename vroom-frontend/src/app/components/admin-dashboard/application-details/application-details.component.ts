@@ -9,6 +9,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ApplicationControlPanelComponentComponent } from './application-control-panel-component/application-control-panel-component.component';
 import moment from 'moment';
 import { MatSelectModule } from '@angular/material/select';
+import { AuthService } from '../../../services/auth.service';
 
 
 @Component({
@@ -32,7 +33,8 @@ export class ApplicationDetailsComponent {
   constructor(
     private activatedRoute: ActivatedRoute,
     private appService: ApplicationService,
-    private router: Router
+    private router: Router,
+    public authService: AuthService
   ) {
     this.activatedRoute.paramMap.subscribe((params) => {
       const applicationId = params.get('applicationId');

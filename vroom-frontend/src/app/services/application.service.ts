@@ -121,4 +121,5 @@ export class ApplicationService {
   updateAssignToYourself(id: string): Observable<any> {
     return this.http.put(`${this.apiUrl}/${id}/assignAdmin`, null, { responseType: 'text' });
   }
+
 }

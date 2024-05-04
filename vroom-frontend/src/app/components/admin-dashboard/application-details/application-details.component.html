@@ -7,7 +7,7 @@
     @if (application?.applicationID) {
     <mat-card-header>
       <ng-container>
-        @if (application?.assignedManager) {
+        @if (application?.assignedManager && authService.currentUserSig()?.username === application?.assignedManager.name + ' ' + application?.assignedManager.surname) {
         <button mat-button id="approve-button" (click)="updateStatus('WAITING_FOR_SIGNING')">
           Approve
         </button>
