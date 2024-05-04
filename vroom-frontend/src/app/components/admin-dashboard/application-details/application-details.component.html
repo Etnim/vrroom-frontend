@@ -5,29 +5,16 @@
     </div>
 
     @if (application?.applicationID) {
-    <mat-card-header>
-      <ng-container>
-        @if (application?.assignedManager && authService.currentUserSig()?.username === application?.assignedManager.name + ' ' + application?.assignedManager.surname) {
-        <button mat-button id="approve-button" (click)="updateStatus('WAITING_FOR_SIGNING')">
-          Approve
-        </button>
-        <button mat-button id="reject-button" (click)="updateStatus('REJECTED')">
-          Reject
-        </button>
-        } @else {
-        <button mat-button id="assign-button" (click)="assignToAdmin()">
-          Assign To Me
-        </button>
-        }
-      </ng-container>
-    </mat-card-header>
     <div class="main-details-container">
       <div class="split-container">
         <mat-card>
           <mat-card-content>
             <h2>General Info</h2>
             <p><strong>Status:</strong> {{ application?.applicationStatus }}</p>
-            <p><strong>Date of Submission:</strong> {{ formatDateString(application?.dateOfSubmission) }}</p>
+            <p>
+              <strong>Date of Submission:</strong>
+              {{ formatDateString(application?.dateOfSubmission) }}
+            </p>
             <p>
               <strong>Assigned Manager:</strong>
               {{
@@ -65,7 +52,10 @@
                   : 0
               }}
             </p>
-            <p><strong>Disposable Income:</strong> {{ application?.financialInfo?.disposableIncome }}€</p>
+            <p>
+              <strong>Disposable Income:</strong>
+              {{ application?.financialInfo?.disposableIncome }}€
+            </p>
           </mat-card-content>
         </mat-card>
 
@@ -93,8 +83,8 @@
             <p><strong>Amount:</strong> {{ application?.price }}€</p>
             <p><strong>Down Payment:</strong> {{ application?.downPayment }}€</p>
             <p>
-              <strong>Period:</strong> {{ application?.yearPeriod }} @if (application?.yearPeriod !== 1) { years }
-              @else { year }
+              <strong>Period:</strong> {{ application?.yearPeriod }} @if (application?.yearPeriod
+              !== 1) { years } @else { year }
             </p>
             <p><strong>Residual Value:</strong> {{ application?.residualValue }}€</p>
             <p><strong>Interest Rate:</strong> {{ application?.interestRate }}%</p>
@@ -107,9 +97,38 @@
 
       <div class="split-container">
         <mat-card class="file-upload">
+          <h2>Admin Actions</h2>
+
+          @if (application?.assignedManager && authService.currentUserSig()?.username ===
+          application?.assignedManager.name + ' ' + application?.assignedManager.surname) {
+          <div class="action-buttons" >
+            <button mat-button id="approve-button" (click)="updateStatus('WAITING_FOR_SIGNING')">
+              Approve
+            </button>
+            <button mat-button id="reject-button" (click)="updateStatus('REJECTED')">Reject</button>
+          </div>
+          <div class="manager-selection" style="display: flex; justify-content: center;">
+          <mat-form-field appearance="fill">
+            <mat-label>Assign Other Manager</mat-label>
+            <mat-select (valueChange)="selectManager($event)">
+              @for (manager of managers; track manager.uid) {
+              <mat-option [value]="manager.uid">{{
+                manager.name + ' ' + manager.surname
+              }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+          <button mat-button (click)="applyManagerAssignment()" style="margin-left: 20px;">
+            Apply
+          </button>
+          </div>
           <app-application-control-panel-component
             [applicationId]="application?.applicationID"
           ></app-application-control-panel-component>
+
+          } @else if (!application.assignedManager) {
+          <button mat-button id="assign-button" (click)="assignToAdmin()">Assign To Me</button>
+          }
         </mat-card>
       </div>
     </div>

@@ -10,6 +10,7 @@ import { ApplicationControlPanelComponentComponent } from './application-control
 import moment from 'moment';
 import { MatSelectModule } from '@angular/material/select';
 import { AuthService } from '../../../services/auth.service';
+import { Admin, AdminService } from '../../../services/admin.service';
 
 
 @Component({
@@ -29,10 +30,13 @@ import { AuthService } from '../../../services/auth.service';
 })
 export class ApplicationDetailsComponent {
   application: any = null;
+  managers: Admin[] = [];
+  public selectedManagerUid: string | null = null;
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private appService: ApplicationService,
+    private adminService: AdminService,
     private router: Router,
     public authService: AuthService
   ) {
@@ -42,6 +46,8 @@ export class ApplicationDetailsComponent {
         this.fetchApplicationDetails(applicationId);
       }
     });
+
+    this.fetchManagers();
   }
 
   fetchApplicationDetails(id: string) {
@@ -85,6 +91,20 @@ export class ApplicationDetailsComponent {
     }
   }
 
+  assignToManager(managerID: string) {
+    if (this.application && this.application.applicationID) {
+      this.appService.updateAssignToManager(this.application.applicationID, managerID).subscribe({
+        next: (data) => {
+          this.fetchApplicationDetails(this.application.applicationID);
+          console.log('Manager assigned:', data);
+        },
+        error: (error) => {
+          console.error('Failed to assign manager', error);
+        }
+      });
+    }
+  }
+
   viewAdminDashboard() {
     this.router.navigate(['/admin']);
   }
@@ -93,5 +113,26 @@ export class ApplicationDetailsComponent {
     return moment(Date.parse(date)).format('YYYY-MM-DD HH:mm:ss');
   }
 
+  fetchManagers() {
+    this.adminService.getAdmins().subscribe({
+      next: (data) => {
+        this.managers = data;
+      },
+      error: (error) => {
+        console.error('Failed to fetch managers', error);
+      }
+    });
+    
+  }
 
+  selectManager(uid: string): void {
+    this.selectedManagerUid = uid;
+  }
+
+  applyManagerAssignment(): void {
+    if (this.selectedManagerUid && this.application?.applicationID) {
+      this.assignToManager(this.selectedManagerUid);
+      this.selectedManagerUid = null; 
+    }
+  }
 }

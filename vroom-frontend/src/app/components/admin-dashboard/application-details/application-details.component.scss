@@ -82,7 +82,9 @@ td {
 }
 
 button {
-  margin-top: 20px;
+  margin-top: 10px;
+  border-radius: 5px;
+  margin-bottom: 5px;
 }
 
 button.mat-raised-button {
@@ -99,6 +101,7 @@ mat-card-header {
 #approve-button {
   background-color: #28a745;
   margin-right: 8px;
+  align-items: center;
 }
 
 #reject-button {
@@ -165,3 +168,9 @@ strong {
 
 }
 
+.action-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
