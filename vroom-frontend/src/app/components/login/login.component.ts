@@ -25,25 +25,11 @@ export class LoginComponent {
     public authService: AuthService
   ) {}
 
-
-
-  loginGoogle(): void {
-    this.authService.loginWithGoogle().subscribe({
-      next: () => {
-        this.router.navigateByUrl('/admin');
-      },
-      error: (err) => {
-        this.errorMessage = err.code;
-      }
-    })
-  }
-
   onSubmit(): void {
     console.log('register');
     const rawForm = this.form.getRawValue();
     this.authService.login(rawForm.email, rawForm.password).subscribe({
       next: () => {
-
         this.router.navigateByUrl('/admin');
       },
       error: (err) => {
