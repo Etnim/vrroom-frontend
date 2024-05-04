@@ -122,4 +122,7 @@ export class ApplicationService {
     return this.http.put(`${this.apiUrl}/${id}/assignAdmin`, null, { responseType: 'text' });
   }
 
+  updateAssignToManager(id: string, managerId: string): Observable<any> {
+    return this.http.put(`${this.apiUrl}/${id}/assignAdmin/${managerId}`, null, { responseType: 'text' });
+  }
 }
