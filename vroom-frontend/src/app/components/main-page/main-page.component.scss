@@ -1,7 +1,12 @@
-
 body {
   margin: 0;
   font-family: Arial, Helvetica, sans-serif;
+}
+
+.logo-container {
+  display: flex;
+  justify-content: center;
+  padding-top: 10px;
 }
 
 .title-container {
@@ -54,6 +59,12 @@ body {
   background-color: transparentize(lightgrey, 0.5);
 }
 
+#logoVrroom {
+  height: 196px;
+  width: auto;
+  opacity: 0.8;
+}
+
 @media screen and (min-width: 300px) and (max-width: 800px) {
   .title-container {
     font-size: 36px;
@@ -81,6 +92,14 @@ body {
 
   :host ::ng-deep .mdc-button__label {
     color: black;
+  }
+
+  #logoVrroom {
+    height: 160px;
+  }
+
+  .logo-container {
+    padding-top: 30px;
   }
 }
 

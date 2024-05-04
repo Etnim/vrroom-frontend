@@ -1,8 +1,9 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
-import {Observable} from 'rxjs';
+import {Observable, switchMap} from 'rxjs';
 import {environment} from '../../environment/environment';
 import type {CustomerData} from '../types/requests';
+import { AuthService } from './auth.service';
 
 export interface ApiResponse {
   content: Application[];
@@ -31,24 +32,28 @@ export interface Application {
 export class ApplicationService {
   private apiUrl = environment.apiHost + '/applications';
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private auth: AuthService) {
   }
-
+  
   fetchApplications(
     page: number,
     size: number,
     sortField: string,
     customerId?: string,
+    managerId?: number,
     managerFullName?: string,
     sortDir?: string,
     status?: string,
     startDate?: string,
-    endDate?: string
+    endDate?: string,
   ): Observable<ApiResponse> {
-    let params = new HttpParams()
-      .set('page', page.toString())
-      .set('size', size.toString())
-      .set('sort', sortField);
+    return this.auth.isSuperAdmin().pipe(
+      switchMap((isAdmin) => {
+        let params = new HttpParams()
+          .set('page', page.toString())
+          .set('size', size.toString())
+          .set('sort', sortField)
+          .set('isSuperAdmin', isAdmin.toString());
 
     if (page) {
       params = params.set('page', page);
@@ -70,6 +75,10 @@ export class ApplicationService {
       params = params.set('customerId', customerId);
     }
 
+    if (managerId) {
+      params = params.set('managerId', managerId.toString());
+    }
+
     if (managerFullName) {
       params = params.set('managerFullName', managerFullName);
     }
@@ -87,6 +96,9 @@ export class ApplicationService {
     }
 
     return this.http.get<ApiResponse>(this.apiUrl, {params});
+
+  })
+);
   }
 
   getApplicationDetails(id: string): Observable<any> {
@@ -105,4 +117,9 @@ export class ApplicationService {
     const params = new HttpParams().set('status', status);
     return this.http.put(`${this.apiUrl}/${id}/updateStatus`, null, { params: params, responseType: 'text' });
   }
+
+  updateAssignToYourself(id: string): Observable<any> {
+    return this.http.put(`${this.apiUrl}/${id}/assignAdmin`, null, { responseType: 'text' });
+  }
+
 }

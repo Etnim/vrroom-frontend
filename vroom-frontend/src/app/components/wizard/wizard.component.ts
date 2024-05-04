@@ -33,6 +33,8 @@ import { ApplicationService } from '../../services/application.service';
 import { Router } from '@angular/router';
 import { CalculatorComponent } from './calculator/calculator.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatMenu, MatMenuTrigger } from '@angular/material/menu';
+import { NavigationComponent } from '../navigation/navigation.component';
 
 /**
  * @title Stepper responsive
@@ -60,7 +62,10 @@ import { MatSnackBar } from '@angular/material/snack-bar';
     MatStepper,
     MatCardModule,
     MatCheckbox,
-    DatePipe
+    DatePipe,
+    MatMenu,
+    MatMenuTrigger,
+    NavigationComponent
   ]
 })
 export class WizardComponent {
