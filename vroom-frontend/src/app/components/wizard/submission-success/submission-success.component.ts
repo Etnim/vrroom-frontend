@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-submission-success',
@@ -12,5 +13,13 @@ import { MatButtonModule } from '@angular/material/button';
   styleUrl: './submission-success.component.scss'
 })
 export class SubmissionSuccessComponent {
+  constructor(
+    private dialogRef: MatDialogRef<SubmissionSuccessComponent>,
+    private router: Router
+  ) {}
 
+  closeAndNavigate() {
+    this.dialogRef.close();
+    this.router.navigate(['/']);
+  }
 }

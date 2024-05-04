@@ -8,10 +8,11 @@
       </div>
     </div>
     <mat-card-content>
-      <p>Your application has been sent successfully and is now being processed. We will contact you with more information soon.</p>
+      <p>Your application has been sent successfully and is now being processed.</p>
+      <p> We will contact you with more information soon.</p>
     </mat-card-content>
     <mat-card-actions class="success-card-actions">
-      <button mat-raised-button color="primary" routerLink="/">Go to Home</button>
+      <button mat-raised-button color="primary" (click)="closeAndNavigate()">Go to Home</button>
     </mat-card-actions>
   </mat-card>
 </div>

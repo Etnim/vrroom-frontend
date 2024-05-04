@@ -106,7 +106,7 @@ export class WizardComponent {
         this.dialog.open(SubmissionSuccessComponent, {
           width: '500px',
         }).afterClosed().subscribe(() => {
-        this.router.navigate(['/submission-success']);
+        this.router.navigate(['/home']);
         });
       },
       error: (error) => {
