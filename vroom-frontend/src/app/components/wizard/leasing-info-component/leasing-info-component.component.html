@@ -1,6 +1,6 @@
 <form [formGroup]="firstFormGroup" id="leasingInfo-form">
   <mat-form-field>
-    <mat-label>Amount</mat-label>
+    <mat-label>Amount (€)</mat-label>
     <input
       matInput
       type="number"
@@ -9,7 +9,6 @@
       required
       (input)="onAmountChange()"
     />
-
     @if (!firstFormGroup.get('amount')?.dirty|| firstFormGroup.get('amount')?.invalid) {
       <mat-error> Amount must be between 8,000 and 120,000.</mat-error>
     }

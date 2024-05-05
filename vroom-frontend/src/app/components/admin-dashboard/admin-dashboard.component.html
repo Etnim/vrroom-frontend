@@ -196,7 +196,7 @@
 
     <ng-container matColumnDef="assignedManager">
       <mat-header-cell *matHeaderCellDef (click)="onSort('managerName')">
-        Assigned Manager @if (form.get('sortField')?.value === 'managerName') {
+        Assigned Manager @if (form.get('sortField')?.value == 'managerName') {
         <mat-icon>
           {{ form.get('sortDir')?.value === 'asc' ? 'expand_more' : 'expand_less' }}
         </mat-icon>

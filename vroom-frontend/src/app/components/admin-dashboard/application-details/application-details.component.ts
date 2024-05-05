@@ -11,7 +11,8 @@ import moment from 'moment';
 import { MatSelectModule } from '@angular/material/select';
 import { AuthService } from '../../../services/auth.service';
 import { Admin, AdminService } from '../../../services/admin.service';
-
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDialogComponent } from '../../confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-application-details',
@@ -23,7 +24,7 @@ import { Admin, AdminService } from '../../../services/admin.service';
     MatCardModule,
     MatProgressSpinnerModule,
     ApplicationControlPanelComponentComponent,
-    MatSelectModule,
+    MatSelectModule
   ],
   templateUrl: './application-details.component.html',
   styleUrl: './application-details.component.scss'
@@ -38,7 +39,8 @@ export class ApplicationDetailsComponent {
     private appService: ApplicationService,
     private adminService: AdminService,
     private router: Router,
-    public authService: AuthService
+    public authService: AuthService,
+    private dialog: MatDialog
   ) {
     this.activatedRoute.paramMap.subscribe((params) => {
       const applicationId = params.get('applicationId');
@@ -122,7 +124,6 @@ export class ApplicationDetailsComponent {
         console.error('Failed to fetch managers', error);
       }
     });
-    
   }
 
   selectManager(uid: string): void {
@@ -132,7 +133,23 @@ export class ApplicationDetailsComponent {
   applyManagerAssignment(): void {
     if (this.selectedManagerUid && this.application?.applicationID) {
       this.assignToManager(this.selectedManagerUid);
-      this.selectedManagerUid = null; 
+      this.selectedManagerUid = null;
     }
+  }
+
+  confirmAssignment(): void {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '500px',
+      data: {
+        message:
+          'Are you sure you want to apply this manager? You are assigned to this application.'
+      }
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.applyManagerAssignment();
+      }
+    });
   }
 }
