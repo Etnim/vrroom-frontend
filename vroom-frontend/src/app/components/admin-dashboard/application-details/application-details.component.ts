@@ -11,6 +11,8 @@ import moment from 'moment';
 import { MatSelectModule } from '@angular/material/select';
 import { AuthService } from '../../../services/auth.service';
 import { Admin, AdminService } from '../../../services/admin.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDialogComponent } from '../../confirm-dialog/confirm-dialog.component';
 
 
 @Component({
@@ -38,7 +40,8 @@ export class ApplicationDetailsComponent {
     private appService: ApplicationService,
     private adminService: AdminService,
     private router: Router,
-    public authService: AuthService
+    public authService: AuthService,
+    private dialog : MatDialog
   ) {
     this.activatedRoute.paramMap.subscribe((params) => {
       const applicationId = params.get('applicationId');
@@ -135,4 +138,19 @@ export class ApplicationDetailsComponent {
       this.selectedManagerUid = null; 
     }
   }
-}
+
+  confirmAssignment(): void {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '500px',
+      data: { message: "Are you sure you want to apply this manager? You are assigned to this application." }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result) {
+        this.applyManagerAssignment();
+      }
+    });
+  }
+    
+
+  }
