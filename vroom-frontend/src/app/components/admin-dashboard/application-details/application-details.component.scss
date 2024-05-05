@@ -143,7 +143,7 @@ mat-card-title {
 }
 
 .file-upload {
-  padding: 7px;
+  padding: 10px 20px;
 }
 
 mat-spinner {
@@ -157,7 +157,6 @@ mat-spinner {
   margin-bottom: 20px;
 }
 
-
 strong {
   font-weight: bold;
 }
@@ -165,12 +164,24 @@ strong {
 .filter-containers {
   display: flex;
   gap: 5px;
-
 }
 
-.action-buttons {
+.button-for-admin {
   display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin-bottom: 10px;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px;
+  text-align: center;
+  background-color: #f1f1f1;
+  padding: 10px 14px;
+  border-radius: 6px;
+  margin-top: 15px;
+}
+.button-for-admin button {
+  padding: 2px 8px;
+  width: 80px;
+}
+
+.button-for-admin .third-one {
+  height: 200px;
 }
