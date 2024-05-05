@@ -101,7 +101,7 @@
           <h2>Admin Actions</h2>
 
           @if (application?.assignedManager && authService.currentUserSig()?.username ===
-          application?.assignedManager.name + ' ' + application?.assignedManager.surname) {
+          application?.assignedManager.name + ' ' + application?.assignedManager.surname && application?.applicationStatus === "REJECTED") {
           <div class="action-buttons" >
             <button mat-button id="approve-button" (click)="updateStatus('WAITING_FOR_SIGNING')">
               Approve
