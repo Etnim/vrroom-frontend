@@ -34,6 +34,7 @@ export class LoginComponent {
       },
       error: (err) => {
         this.errorMessage = err.code;
+        alert(this.errorMessage);
       }
     });
   }
