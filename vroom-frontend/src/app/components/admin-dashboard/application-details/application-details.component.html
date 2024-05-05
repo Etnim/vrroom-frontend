@@ -1,6 +1,6 @@
 <div class="main">
   <div class="container">
-    <div class="header">
+    <div class="header" style="margin-bottom: 20px; background: #071458">
       <h1>Application details for application {{ application?.applicationID }}</h1>
     </div>
 
@@ -101,33 +101,43 @@
           <h2>Admin Actions</h2>
 
           @if (application?.assignedManager && authService.currentUserSig()?.username ===
-          application?.assignedManager.name + ' ' + application?.assignedManager.surname && application?.applicationStatus !== "Rejected") {
-          <div class="action-buttons" >
+          application?.assignedManager.name + ' ' + application?.assignedManager.surname &&
+          application?.applicationStatus !== "Rejected") {
+
+          <div class="button-for-admin first-one">
+            <p>Approve the application</p>
             <button mat-button id="approve-button" (click)="updateStatus('WAITING_FOR_SIGNING')">
               Approve
             </button>
+          </div>
+          <div class="button-for-admin first-one">
+            <p>Reject the application</p>
             <button mat-button id="reject-button" (click)="updateStatus('REJECTED')">Reject</button>
           </div>
-          <div class="manager-selection" style="display: flex; justify-content: center;">
-          <mat-form-field appearance="fill">
-            <mat-label>Assign Other Manager</mat-label>
-            <mat-select (valueChange)="selectManager($event)">
-              @for (manager of managers; track manager.uid) {
-              <mat-option [value]="manager.uid">{{
-                manager.name + ' ' + manager.surname
-              }}</mat-option>
-              }
-            </mat-select>
-          </mat-form-field>
-          <button mat-button (click)="confirmAssignment()" style="margin-left: 20px;">
-            Apply
-          </button>
+
+          <h2 style="margin-top: 3em">Reassign application to</h2>
+          <div class="button-for-admin third-one">
+            <mat-form-field appearance="fill" style="margin-top: 10px">
+              <mat-label>Assign Other Manager</mat-label>
+              <mat-select (valueChange)="selectManager($event)">
+                @for (manager of managers; track manager.uid) {
+                <mat-option [value]="manager.uid">{{
+                  manager.name + ' ' + manager.surname
+                }}</mat-option>
+                }
+              </mat-select>
+            </mat-form-field>
+            <button mat-button (click)="confirmAssignment()" style="margin-left: 20px">
+              Asign
+            </button>
           </div>
+
           <app-application-control-panel-component
             [applicationId]="application?.applicationID"
           ></app-application-control-panel-component>
 
-          } @else if (!application.assignedManager || application?.applicationStatus === 'SUBMITTED') {
+          } @else if (!application.assignedManager || application?.applicationStatus ===
+          'SUBMITTED') {
           <button mat-button id="assign-button" (click)="assignToAdmin()">Assign To Me</button>
           }
         </mat-card>

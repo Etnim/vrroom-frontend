@@ -1,9 +1,14 @@
-
 <div class="file-upload">
-  <input type="file" id="file" (change)="onFileSelected($event)" style="display: none;">
-  <label for="file" class="custom-file-upload">
-    Choose File
-  </label>
-  <span *ngIf="fileName">{{ fileName }}</span>
-  <button mat-button  (click)="onUpload()" [disabled]="!fileToUpload">Upload</button>
+  <h2 style="margin-top: 3em">Upload application agreement</h2>
+  <div class="button-for-admin first-one">
+    <div class="file-name">
+      <span *ngIf="fileName">{{ fileName }}</span>
+
+      <div style="margin-left: 9px">
+        <input type="file" id="file" (change)="onFileSelected($event)" style="display: none" />
+        <label for="file" class="custom-file-upload" style="padding: 10px"> Choose File </label>
+      </div>
+    </div>
+    <button mat-button (click)="onUpload()" [disabled]="!fileToUpload">Upload</button>
+  </div>
 </div>
