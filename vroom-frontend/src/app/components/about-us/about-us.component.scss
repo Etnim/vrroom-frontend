@@ -29,7 +29,6 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-bottom: 2em;
   border-radius: 10px;
   background-color: transparentize(white, 0.3);
 }
@@ -58,16 +57,13 @@
   justify-content: center;
   gap: 10px;
   padding: 30px;
-
-  
 }
 
 .images {
   width: 70%;
   max-width: 600px;
-  margin: 0 auto;
   border-radius: 50%;
-  margin-bottom: 10px;
+  margin: 0 auto 10px;
 }
 
 .about-us-container {
@@ -97,11 +93,11 @@ p {
   margin-top: 2em;
 }
 
-.about-container .top{
+.top{
   display: flex;
   justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
+  align-items: flex-start;
+
 }
 
 .team-member {
@@ -122,11 +118,14 @@ p {
 }
 
 .about-us-end {
+  display: flex;
+  width: 90%;
+  flex-direction: column;
   justify-content: center;
   text-align: center;
   font-family: "helvetica", sans-serif;
   font-size: 1em;
-  margin: 1em 0;
+  margin: auto;
   font-weight: bold;
 }
 
@@ -136,17 +135,20 @@ p {
   align-items: center;
   background-color: transparentize(#071558, 0.3);
   border-radius: 0.5em;
-  width: 90%;
-  margin: 0 auto;
-  padding: 3em 3em;
-  margin-top: 0;
+  width: 66%;
+  margin: auto auto 2em;
 }
 
 .footer-text {
+  display: flex;
+  width: 90%;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
   font-family: "helvetica", sans-serif;
   color: azure;
   font-size: 1.2em;
-  margin: 0.5em 0;
+  margin: auto;
 }
 
 @media screen and (min-width: 300px) and (max-width: 800px) {
@@ -154,6 +156,30 @@ p {
     width: 90%;
     margin: 10px auto auto;
   }
+
+  h1 {
+    font-size: 16px;
+  }
+
+  p {
+    font-size: 12px;
+  }
+
+  .about-us-end-footer {
+    width: 90%;
+  }
+
+  .top {
+    flex-direction: column;
+  }
+
+  .member-image {
+    height: 120px;
+    width: auto;
+    margin-top: 10px;
+    margin-bottom: 0;
+  }
+
   #logoVrroom {
     height: 88px;
   }
