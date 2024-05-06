@@ -102,7 +102,7 @@
 
           @if (application?.assignedManager && authService.currentUserSig()?.username ===
           application?.assignedManager.name + ' ' + application?.assignedManager.surname &&
-          application?.applicationStatus !== "Rejected") {
+          !["Rejected", "Signed"].includes(application.applicationStatus)) {
 
           <div class="button-for-admin first-one">
             <p>Approve the application</p>
